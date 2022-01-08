@@ -21,13 +21,17 @@ namespace ProjectOneTwo
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            
+            graphics = new GraphicsDeviceManager(this);          
         }
 
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.ToggleFullScreen();
+            graphics.ApplyChanges();
             ImagePos.Equals(new Vector2(0, 0));
 
 
@@ -71,6 +75,7 @@ namespace ProjectOneTwo
 
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
