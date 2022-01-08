@@ -1,42 +1,55 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectOneTwo
 {
-    public class Game1 : Game
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
+        Texture2D image;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteFont = Content.Load<SpriteFont>("font");
+            image = Content.Load<Texture2D>("test");
+        }
 
-            // TODO: use this.Content to load your game content here
+        protected override void UnloadContent()
+        {
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            // ukoncí hru
+            /* if (KeyState.Down(Keys.Escape))
+                 this.Exit();  - nefunguje*/
 
-            // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -44,8 +57,11 @@ namespace ProjectOneTwo
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            spriteBatch.DrawString(spriteFont, "Hra", new Vector2(350, 200), Color.Black);
+            spriteBatch.Draw(image, new Vector2(0, 0), Color.Black); //barva
+            spriteBatch.End();
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
