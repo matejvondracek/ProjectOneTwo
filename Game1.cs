@@ -54,8 +54,12 @@ namespace ProjectOneTwo
                 Exit();
          if (state.IsKeyDown(Keys.Right))
                     ImagePos.X += 10;
-            if (state.IsKeyDown(Keys.Left))
+         if (state.IsKeyDown(Keys.Left))
                 ImagePos.X -= 10;
+         if (state.IsKeyDown(Keys.Down))
+                ImagePos.Y -= 10;
+            if (state.IsKeyDown(Keys.Up))
+                ImagePos.Y += 10;
 
 
 
