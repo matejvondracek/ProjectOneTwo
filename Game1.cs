@@ -44,7 +44,7 @@ namespace ProjectOneTwo
 
         protected override void Update(GameTime gameTime)
         {
-            // ukoncí hru
+            // ukončí hru
             /* if (KeyState.Down(Keys.Escape))
                  this.Exit();  - nefunguje*/
 
@@ -58,7 +58,7 @@ namespace ProjectOneTwo
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.DrawString(spriteFont, "Hra", new Vector2(350, 200), Color.Black);
-            spriteBatch.Draw(image, new Vector2(0, 0), Color.Black); //barva
+            spriteBatch.Draw(image, new Vector2(0, 0), Color.White); 
             spriteBatch.End();
 
 
