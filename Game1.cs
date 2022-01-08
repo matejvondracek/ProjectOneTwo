@@ -17,6 +17,7 @@ namespace ProjectOneTwo
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Texture2D image;
+        Vector2 ImagePos;
 
         public Game1()
         {
@@ -27,6 +28,7 @@ namespace ProjectOneTwo
 
         protected override void Initialize()
         {
+            ImagePos.Equals(new Vector2(0, 0));
 
 
             base.Initialize();
@@ -46,8 +48,17 @@ namespace ProjectOneTwo
         protected override void Update(GameTime gameTime)
         {
             // ukoncí hru
-            /* if (KeyState.Down(Keys.Escape))
-                 this.Exit();  - nefunguje*/
+            KeyboardState state = Keyboard.GetState();
+         
+         if (state.IsKeyDown(Keys.Escape))
+                Exit();
+         if (state.IsKeyDown(Keys.Right))
+                    ImagePos.X += 10;
+            if (state.IsKeyDown(Keys.Left))
+                ImagePos.X -= 10;
+
+
+
 
 
 
@@ -58,8 +69,8 @@ namespace ProjectOneTwo
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.DrawString(spriteFont, "Hra", new Vector2(350, 200), Color.Black);
-            spriteBatch.Draw(image, new Vector2(0, 0), Color.Black); //barva
+            spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
+            spriteBatch.Draw(image,ImagePos, Color.White); //barva
             spriteBatch.End();
 
 
