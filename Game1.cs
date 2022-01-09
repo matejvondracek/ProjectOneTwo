@@ -16,14 +16,14 @@ namespace ProjectOneTwo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
-        Texture2D image;
+        Texture2D character1, background;
         Vector2 ImagePos;
 
         public Game1()
         {
             Content.RootDirectory = "Content";
-            
-            graphics = new GraphicsDeviceManager(this);          
+
+            graphics = new GraphicsDeviceManager(this);
         }
 
         protected override void Initialize()
@@ -42,7 +42,8 @@ namespace ProjectOneTwo
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("font");
-            image = Content.Load<Texture2D>("test");
+            character1 = Content.Load<Texture2D>("character1");
+            background = Content.Load<Texture2D>("background");
         }
 
         protected override void UnloadContent()
@@ -51,37 +52,40 @@ namespace ProjectOneTwo
 
         protected override void Update(GameTime gameTime)
         {
-            // ukoncí hru
             KeyboardState state = Keyboard.GetState();
-         
-         if (state.IsKeyDown(Keys.Escape))
+
+            //exits game
+            if (state.IsKeyDown(Keys.Escape))
                 Exit();
-         if (state.IsKeyDown(Keys.Right))
-                    ImagePos.X += 10;
-         if (state.IsKeyDown(Keys.Left))
+
+            //character movement
+            if (state.IsKeyDown(Keys.Right))
+                ImagePos.X += 10;
+            if (state.IsKeyDown(Keys.Left))
                 ImagePos.X -= 10;
-         if (state.IsKeyDown(Keys.Down))
-                ImagePos.Y -= 10;
-            if (state.IsKeyDown(Keys.Up))
+            if (state.IsKeyDown(Keys.Down))
                 ImagePos.Y += 10;
-
-
-
-
-
+            if (state.IsKeyDown(Keys.Up))
+                ImagePos.Y -= 10;
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
-            spriteBatch.Draw(image,ImagePos, Color.White); //barva
-            spriteBatch.End();
 
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///against blur
+
+            //render all to FullHD for precision movement  
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///streches the picture in the rectangle
+            spriteBatch.Draw(character1, new Rectangle(Convert.ToInt32(ImagePos.X), Convert.ToInt32(ImagePos.Y), 16 * 6, 16 * 6), Color.White);
+            ///spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
+
+            //scale to users monitor resolution
+            int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            int screenWidth = screenHeight * 16 / 9;
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
