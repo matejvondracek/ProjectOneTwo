@@ -18,18 +18,23 @@ namespace ProjectOneTwo
         SpriteFont spriteFont;
         Texture2D character1, background;
         Vector2 ImagePos;
-
+        RenderTarget2D _renderTarget;
+        int screenWidth, screenHeight;
         public Game1()
         {
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
+            
+            screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            screenWidth = screenHeight * 16 /9;
         }
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
             ImagePos.Equals(new Vector2(0, 0));
@@ -44,6 +49,8 @@ namespace ProjectOneTwo
             spriteFont = Content.Load<SpriteFont>("font");
             character1 = Content.Load<Texture2D>("character1");
             background = Content.Load<Texture2D>("background");
+
+            _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
         }
 
         protected override void UnloadContent()
@@ -74,17 +81,21 @@ namespace ProjectOneTwo
         protected override void Draw(GameTime gameTime)
         {
 
+            GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///against blur
+           
 
-            //render all to FullHD for precision movement  
+            //render all to FullHD for precision movement
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
             spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///streches the picture in the rectangle
             spriteBatch.Draw(character1, new Rectangle(Convert.ToInt32(ImagePos.X), Convert.ToInt32(ImagePos.Y), 16 * 6, 16 * 6), Color.White);
             ///spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
+            spriteBatch.End();
 
             //scale to users monitor resolution
-            int screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            int screenWidth = screenHeight * 16 / 9;
+            GraphicsDevice.SetRenderTarget(null);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);           
+            spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
