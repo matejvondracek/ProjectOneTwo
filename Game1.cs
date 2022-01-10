@@ -27,12 +27,11 @@ namespace ProjectOneTwo
             graphics = new GraphicsDeviceManager(this);
             
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            screenWidth = screenHeight * 16 /9;
+            screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         }
 
         protected override void Initialize()
-        {
-            
+        {            
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
@@ -80,22 +79,42 @@ namespace ProjectOneTwo
 
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
            
 
             //render all to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
+
             spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///streches the picture in the rectangle
             spriteBatch.Draw(character1, new Rectangle(Convert.ToInt32(ImagePos.X), Convert.ToInt32(ImagePos.Y), 16 * 6, 16 * 6), Color.White);
-            ///spriteBatch.DrawString(spriteFont, "hra", new Vector2(350, 200), Color.Black);
+
             spriteBatch.End();
 
             //scale to users monitor resolution
             GraphicsDevice.SetRenderTarget(null);
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);           
-            spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);  
+            
+            if (screenWidth == (screenHeight * 16 / 9))   ///for 16/9 screen ratio
+                spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+            else
+            {
+                if (screenWidth > (screenHeight * 16 / 9))    ///for wider screens (e.g. 21/9 ratio)
+                {
+                    int renderWidth = screenHeight * 16 / 9;
+                    int blackBar = (screenWidth - renderWidth) / 2;
+
+                    spriteBatch.Draw(_renderTarget, new Rectangle(blackBar, 0, renderWidth, screenHeight), Color.White);
+                }
+                else ///for taller screens (e.g. 4/3 ratio)
+                {
+                    int renderHeight = screenWidth * 9 / 16;
+                    int blackBar = (screenHeight - renderHeight) / 2;
+                    
+
+                    spriteBatch.Draw(_renderTarget, new Rectangle(0, blackBar, screenWidth, renderHeight), Color.White);
+                }
+            }     
             spriteBatch.End();
 
             base.Draw(gameTime);
