@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,13 +24,13 @@ namespace ProjectOneTwo
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
-            
+
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         }
 
         protected override void Initialize()
-        {            
+        {
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
@@ -81,7 +80,7 @@ namespace ProjectOneTwo
         {
             GraphicsDevice.SetRenderTarget(_renderTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-           
+
 
             //render all to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
@@ -93,13 +92,13 @@ namespace ProjectOneTwo
 
             //scale to users monitor resolution
             GraphicsDevice.SetRenderTarget(null);
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);  
-            
-            if (screenWidth == (screenHeight * 16 / 9))   ///for 16/9 screen ratio
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            if ((9 * screenWidth) == (16 * screenHeight))   ///for 16/9 screen ratio
                 spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
             else
             {
-                if (screenWidth > (screenHeight * 16 / 9))    ///for wider screens (e.g. 21/9 ratio)
+                if ((9 * screenWidth) > (16 * screenHeight))    ///for wider screens (e.g. 21/9 ratio)
                 {
                     int renderWidth = screenHeight * 16 / 9;
                     int blackBar = (screenWidth - renderWidth) / 2;
@@ -110,11 +109,11 @@ namespace ProjectOneTwo
                 {
                     int renderHeight = screenWidth * 9 / 16;
                     int blackBar = (screenHeight - renderHeight) / 2;
-                    
+
 
                     spriteBatch.Draw(_renderTarget, new Rectangle(0, blackBar, screenWidth, renderHeight), Color.White);
                 }
-            }     
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);
