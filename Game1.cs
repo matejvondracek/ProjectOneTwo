@@ -35,7 +35,7 @@ namespace ProjectOneTwo
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
-            ImagePos.Equals(new Vector2(0, 0));
+            ImagePos = new Vector2(100, 100);
 
 
             base.Initialize();
@@ -49,6 +49,8 @@ namespace ProjectOneTwo
             background = Content.Load<Texture2D>("background");
 
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
+
+            Physics.LoadMap();
         }
 
         protected override void UnloadContent()
@@ -64,15 +66,24 @@ namespace ProjectOneTwo
                 Exit();
 
             //character movement
+            Vector2 move = new Vector2(0, 0);
             if (state.IsKeyDown(Keys.Right))
-                ImagePos.X += 10;
+                ///ImagePos.X += 10;
+                move.X += 10;
             if (state.IsKeyDown(Keys.Left))
-                ImagePos.X -= 10;
+                ///ImagePos.X -= 10;
+                move.X -= 10;
             if (state.IsKeyDown(Keys.Down))
-                ImagePos.Y += 10;
+                ///ImagePos.Y += 10;
+                move.Y += 10;
             if (state.IsKeyDown(Keys.Up))
-                ImagePos.Y -= 10;
+                ///ImagePos.Y -= 10;
+                move.Y -= 10;
 
+            ///Physics.AddEntity(player1.char_name, player1.pos, player1.move);
+            Physics.AddEntity("test", ImagePos, move); ///how do pointers work?
+            Physics.Update();
+            ImagePos = Physics.GetPos("test");
             base.Update(gameTime);
         }
 
