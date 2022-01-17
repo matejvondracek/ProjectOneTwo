@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 public class Barrier
 {
-	private float minX, maxX, minY, maxY, A, B, C;
+	private readonly float minX, maxX, minY, maxY, A, B, C;
 	public Barrier(Vector2 pos1, Vector2 pos2) ///position vectors
 	{
 		//sets funkční obor úsečky
@@ -37,10 +37,10 @@ public class Barrier
 		C = -A * pos1.X - B * pos1.Y;
 	}
 
-	private double Angle(Vector2 vector1, Vector2 vector2)
+	/*private double Angle(Vector2 vector1, Vector2 vector2)
     {
 		return Math.Atan2(vector2.Y - vector1.Y, vector2.X - vector1.X);
-	}
+	}*/
 	
 	private Vector2 Distance(float iX, float iY, Vector2 pos, Vector2 move)
     {

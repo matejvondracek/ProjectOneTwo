@@ -12,13 +12,13 @@ namespace ProjectOneTwo
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Texture2D character1, background;
         Vector2 ImagePos;
         RenderTarget2D _renderTarget;
-        int screenWidth, screenHeight;
+        readonly int screenWidth, screenHeight;
         public Game1()
         {
             Content.RootDirectory = "Content";
