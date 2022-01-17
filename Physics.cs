@@ -11,8 +11,8 @@ public static class Physics
     public static void LoadMap()
     {
         obstacles[0] = new Barrier(new Vector2(0, 0), new Vector2(0, 1080));
-        obstacles[1] = new Barrier(new Vector2(0, 1080), new Vector2(1920, 1080));
-        obstacles[2] = new Barrier(new Vector2(1920, 1080), new Vector2(1920, 0));
+        obstacles[1] = new Barrier(new Vector2(0, 1080 - 6 * 16), new Vector2(1920, 1080 - 6 * 16));
+        obstacles[2] = new Barrier(new Vector2(1920 - 6 * 16, 1080), new Vector2(1920 - 6 * 16, 0));
         obstacles[3] = new Barrier(new Vector2(1920, 0), new Vector2(0, 0));
     }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows;
 using Microsoft.Xna.Framework;
 
 public class Barrier
@@ -37,15 +37,50 @@ public class Barrier
 		C = -A * pos1.X - B * pos1.Y;
 	}
 
+	private double Angle(Vector2 vector1, Vector2 vector2)
+    {
+		return Math.Atan2(vector2.Y - vector1.Y, vector2.X - vector1.X);
+	}
+	
 	private Vector2 Distance(float iX, float iY, Vector2 pos, Vector2 move)
     {
-		if ((Convert.ToInt32(iX) > maxX) || (Convert.ToInt32(iX) < minX) || (Convert.ToInt32(iY) > maxY) || (Convert.ToInt32(iY) < minY))
+		Vector2 s_bar = new Vector2(-B, A);
+		Vector2 n_bar = new Vector2(A, B);
+		Vector2 s_move = move;
+		s_bar.Normalize();
+		n_bar.Normalize();
+		s_move.Normalize();
+
+		if ((Convert.ToInt32(iX) > maxX) || (Convert.ToInt32(iX) < minX) || (Convert.ToInt32(iY) > maxY) || (Convert.ToInt32(iY) < minY)) ///around barrier
 		{
 			return move;
 		}
 		else
 		{
-			return new Vector2(Convert.ToInt32(iX - pos.X), Convert.ToInt32(iY - pos.Y));
+			if ((iX == pos.X) && (iY == pos.Y)) ///if the object is currently on the barrier
+            {
+				if (s_move == n_bar) ///moving from barrier at 90 deg angle
+                {
+					return move;
+                }			
+			    if (s_bar.X == 0) ///if the barrier is vertical
+                {
+					if (n_bar.X * s_move.X > 0) ///if the object is trying to move from the barrier
+                    {
+						return move;
+                    }
+					return new Vector2(0, move.Y); ///allows the object to slide along
+                }
+				if (s_bar.Y == 0) ///if the barrier is horizontal
+                {
+					if (n_bar.Y * s_move.Y > 0) ///if the object is trying to move from the barrier
+					{
+						return move;
+					}
+					return new Vector2(move.X, 0); ///allows the object to slide along
+				}
+			}
+			return new Vector2(Convert.ToInt32(iX - pos.X), Convert.ToInt32(iY - pos.Y)); ///moves the object onto the barrier
 		}
     }
 
@@ -89,7 +124,7 @@ public class Barrier
 					float iX = (- B * iY - C) / A;										
 					return Distance(iX, iY, pos, move);
 				}
-				return move; ///should never return
+				return move*50; ///should never return
             }
 
 		}

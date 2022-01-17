@@ -69,16 +69,16 @@ namespace ProjectOneTwo
             Vector2 move = new Vector2(0, 0);
             if (state.IsKeyDown(Keys.Right))
                 ///ImagePos.X += 10;
-                move.X += 10;
+                move += new Vector2(10, 0);
             if (state.IsKeyDown(Keys.Left))
                 ///ImagePos.X -= 10;
-                move.X -= 10;
+                move += new Vector2(-10, 0);
             if (state.IsKeyDown(Keys.Down))
                 ///ImagePos.Y += 10;
-                move.Y += 10;
+                move += new Vector2(0, 10);
             if (state.IsKeyDown(Keys.Up))
                 ///ImagePos.Y -= 10;
-                move.Y -= 10;
+                move += new Vector2(0, -10);
 
             ///Physics.AddEntity(player1.char_name, player1.pos, player1.move);
             Physics.AddEntity("test", ImagePos, move); ///how do pointers work?
