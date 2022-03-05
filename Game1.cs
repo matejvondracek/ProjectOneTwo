@@ -36,6 +36,7 @@ namespace ProjectOneTwo
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
             ImagePos = new Vector2(100, 100);
+            ///Player1 = new Player_idk;
 
 
             base.Initialize();
@@ -80,10 +81,17 @@ namespace ProjectOneTwo
                 ///ImagePos.Y -= 10;
                 move += new Vector2(0, -10);
 
+            ///Player1.keyboard(Keyboard.GetState());
+            ///move = Player1.getmove();
+            ///Physics.AddAttack(Player1.GetAttack());
+
+
+            ///Physics.CheckAttacks1();
             ///Physics.AddEntity(player1.char_name, player1.pos, player1.move);
             Physics.AddEntity("test", ImagePos, move); ///how do pointers work?
             Physics.Update();
             ImagePos = Physics.GetPos("test");
+            ///character1 = player1.GetImage();
             base.Update(gameTime);
         }
 

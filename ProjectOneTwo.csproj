@@ -27,4 +27,26 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Barrier.cs">
+      <Generator>FCMCommand</Generator>
+      <LastGenOutput>Barrier.dgml</LastGenOutput>
+    </Compile>
+    <Compile Update="Game1.cs">
+      <Generator>FCMCommand</Generator>
+      <LastGenOutput>Game1.dgml</LastGenOutput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Barrier.dgml">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Barrier.cs</DependentUpon>
+    </None>
+    <None Update="Game1.dgml">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Game1.cs</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

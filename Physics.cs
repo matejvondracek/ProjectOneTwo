@@ -32,7 +32,7 @@ public static class Physics
         AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
     }
 
-    public static void AddEntity(string _name, Vector2 _pos, Vector2 _move)
+    public static void AddEntity(string _name, Vector2 _pos, Vector2 _move) ///rectange4le
     {
         name = _name;
         pos = _pos;
