@@ -19,6 +19,8 @@ namespace ProjectOneTwo
         Vector2 ImagePos;
         RenderTarget2D _renderTarget;
         readonly int screenWidth, screenHeight;
+        Player1 player1, player2;
+
         public Game1()
         {
             Content.RootDirectory = "Content";
@@ -36,8 +38,8 @@ namespace ProjectOneTwo
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
             ImagePos = new Vector2(100, 100);
-            ///Player1 = new Player_idk;
-
+            player1 = new Player1(1);
+            player2 = new Player1(2);
 
             base.Initialize();
         }
@@ -56,6 +58,7 @@ namespace ProjectOneTwo
 
         protected override void UnloadContent()
         {
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,22 +71,10 @@ namespace ProjectOneTwo
 
             //character movement
             Vector2 move = new Vector2(0, 0);
-            if (state.IsKeyDown(Keys.Right))
-                ///ImagePos.X += 10;
-                move += new Vector2(10, 0);
-            if (state.IsKeyDown(Keys.Left))
-                ///ImagePos.X -= 10;
-                move += new Vector2(-10, 0);
-            if (state.IsKeyDown(Keys.Down))
-                ///ImagePos.Y += 10;
-                move += new Vector2(0, 10);
-            if (state.IsKeyDown(Keys.Up))
-                ///ImagePos.Y -= 10;
-                move += new Vector2(0, -10);
-
-            ///Player1.keyboard(Keyboard.GetState());
-            ///move = Player1.getmove();
-            ///Physics.AddAttack(Player1.GetAttack());
+            int damage = 0;
+            player1.Keyboard(state);
+            move = player1.GetVector();
+            Physics.AddAttack(player1.GetAttack(ref damage), damage);
 
 
             ///Physics.CheckAttacks1();

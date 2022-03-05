@@ -67,4 +67,9 @@ public static class Physics
     {
         return pos + move;
     }
+
+    public static void AddAttack(Rectangle rectangle, int damage)
+    {
+
+    }
 }
