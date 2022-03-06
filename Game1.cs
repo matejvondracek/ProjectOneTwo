@@ -21,6 +21,8 @@ namespace ProjectOneTwo
         readonly int screenWidth, screenHeight;
         Player1 player1, player2;
 
+        SimpleFps fps = new SimpleFps();
+
         public Game1()
         {
             Content.RootDirectory = "Content";
@@ -63,6 +65,8 @@ namespace ProjectOneTwo
 
         protected override void Update(GameTime gameTime)
         {
+            fps.Update(gameTime);
+
             KeyboardState state = Keyboard.GetState();
 
             //exits game
@@ -74,12 +78,14 @@ namespace ProjectOneTwo
             int damage = 0;
             player1.Keyboard(state);
             move = player1.GetVector();
+            
+            //attacks
             Physics.AddAttack(player1.GetAttack(ref damage), damage);
-
-
             ///Physics.CheckAttacks1();
             ///Physics.AddEntity(player1.char_name, player1.pos, player1.move);
             Physics.AddEntity("test", ImagePos, move); ///how do pointers work?
+
+            //final position
             Physics.Update();
             ImagePos = Physics.GetPos("test");
             ///character1 = player1.GetImage();
@@ -97,6 +103,7 @@ namespace ProjectOneTwo
 
             spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///streches the picture in the rectangle
             spriteBatch.Draw(character1, new Rectangle(Convert.ToInt32(ImagePos.X), Convert.ToInt32(ImagePos.Y), 16 * 6, 16 * 6), Color.White);
+            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
 
             spriteBatch.End();
 
