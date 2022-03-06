@@ -15,13 +15,12 @@ namespace ProjectOneTwo
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
-        Texture2D character1, background;
-        Vector2 ImagePos;
+        Texture2D background;
         RenderTarget2D _renderTarget;
         readonly int screenWidth, screenHeight;
         Player1 player1, player2;
 
-        SimpleFps fps = new SimpleFps();
+        readonly SimpleFps fps = new SimpleFps();
 
         public Game1()
         {
@@ -39,7 +38,6 @@ namespace ProjectOneTwo
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
-            ImagePos = new Vector2(100, 100);
             player1 = new Player1(1);
             player2 = new Player1(2);
 
@@ -50,12 +48,12 @@ namespace ProjectOneTwo
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("font");
-            character1 = Content.Load<Texture2D>("character1");
             background = Content.Load<Texture2D>("background");
 
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
             Physics.LoadMap();
+            Physics.AddEntity(ref player1);
         }
 
         protected override void UnloadContent()
@@ -73,22 +71,10 @@ namespace ProjectOneTwo
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            //character movement
-            Vector2 move = new Vector2(0, 0);
-            int damage = 0;
-            player1.Keyboard(state);
-            move = player1.GetVector();
-            
-            //attacks
-            Physics.AddAttack(player1.GetAttack(ref damage), damage);
-            ///Physics.CheckAttacks1();
-            ///Physics.AddEntity(player1.char_name, player1.pos, player1.move);
-            Physics.AddEntity("test", ImagePos, move); ///how do pointers work?
+            //character movement           
+            player1.Keyboard(state);                
+            Physics.MoveUpdate();
 
-            //final position
-            Physics.Update();
-            ImagePos = Physics.GetPos("test");
-            ///character1 = player1.GetImage();
             base.Update(gameTime);
         }
 
@@ -98,13 +84,11 @@ namespace ProjectOneTwo
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            //render all to FullHD for precision movement
+            //render all objects to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
-
-            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///streches the picture in the rectangle
-            spriteBatch.Draw(character1, new Rectangle(Convert.ToInt32(ImagePos.X), Convert.ToInt32(ImagePos.Y), 16 * 6, 16 * 6), Color.White);
-            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
-
+                spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
+                Physics.Draw(spriteBatch);       
+                fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow); ///on top
             spriteBatch.End();
 
             //scale to users monitor resolution

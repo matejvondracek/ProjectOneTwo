@@ -1,14 +1,15 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 public static class Physics
 {
-    private static Vector2 gravity = new Vector2(0, 5);
     private readonly static Barrier[] obstacles = new Barrier[100];
-    private static int obstacle_count = 0;
-    ///static Player[] entities = new  ///player class should be replaced by entity - supertype
-    public static string name;
-    public static Vector2 pos, move;
+    public static ProjectOneTwo.Player1[] Entities= new ProjectOneTwo.Player1[5]; ///Player1 class should be replaced by Player - a supertype
+    
+    private static Vector2 gravity = new Vector2(0, 5);  
+    private static int obstacle_count = 0, entity_count = -1;
+    
     
     private static void AddBarrierBlock(Rectangle rectangle)
     {
@@ -32,44 +33,42 @@ public static class Physics
         AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
     }
 
-    public static void AddEntity(string _name, Vector2 _pos, Vector2 _move) ///rectange4le
+    public static void AddEntity(ref ProjectOneTwo.Player1 entity) 
     {
-        name = _name;
-        pos = _pos;
-        move = _move;
+        Entities[++entity_count] = entity;
     }
-    
-    public static void Update()
-    {
-        //gravity
-        move += gravity;
-        
-        ///additional loop
-        for (int i = 0; i <= obstacle_count; i++) 
+
+    public static void MoveUpdate()
+    {       
+        for (int e = 0; e <= entity_count; e++)
         {
-            Barrier barrier = obstacles[i];
-            Vector2 vector2 = barrier.Check(pos, move);
-            if (vector2.Length() != 0)
+            for (int i = 0; i <= obstacle_count; i++) 
             {
-                if (vector2.Length() < move.Length())
+                Entities[e].move += gravity;
+                Barrier barrier = obstacles[i];
+                Vector2 vector2 = barrier.Check(Entities[e].pos, Entities[e].move);
+                if (vector2.Length() != 0)
                 {
-                    move = vector2;
+                    if (vector2.Length() < Entities[e].move.Length())
+                    {
+                        Entities[e].move = vector2;
+                    }
+                }
+                else
+                {
+                    Entities[e].move = new Vector2(0, 0);
+                    break;
                 }
             }
-            else
-            {                
-                move = new Vector2(0, 0);
-            }
         }
+        
     }
 
-    public static Vector2 GetPos(string name)
+    public static void Draw(SpriteBatch spriteBatch)
     {
-        return pos + move;
-    }
-
-    public static void AddAttack(Rectangle rectangle, int damage)
-    {
-
+        for (int e = 0; e <= entity_count; e++)
+        {
+            ///spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+        }
     }
 }

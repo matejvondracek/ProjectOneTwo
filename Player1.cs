@@ -11,10 +11,12 @@ using Microsoft.Xna.Framework.Media;
 namespace ProjectOneTwo
 {
 
-    class Player1
+    public class Player1
     {
         KeyboardState state;
         int type;
+        public Vector2 pos, move;
+        public Texture2D image;
 
         public Player1(int i)
         {
@@ -24,9 +26,11 @@ namespace ProjectOneTwo
         public void Keyboard(KeyboardState _state)
         {
             state = _state;
+            MakeVector();
+            MakeAttack();
         }
 
-        public Vector2 GetVector()
+        public void MakeVector()
         {
             Vector2 move = new Vector2(0, 0);            
             if (type == 1)
@@ -40,12 +44,11 @@ namespace ProjectOneTwo
                 if (state.IsKeyDown(Keys.Up))
                     move += new Vector2(0, -10);
             }          
-            return move;
         }
 
-        public Rectangle GetAttack(ref int damage)
+        public void MakeAttack()
         {
-            return new Rectangle(0, 0, 0, 0);
+
         }
     }
 }
