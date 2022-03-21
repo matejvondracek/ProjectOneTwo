@@ -19,12 +19,14 @@ namespace ProjectOneTwo
         RenderTarget2D _renderTarget;
         readonly int screenWidth, screenHeight;
         Player1 player1, player2;
-
+        public static ContentManager Mycontent;
         readonly SimpleFps fps = new SimpleFps();
+
 
         public Game1()
         {
             Content.RootDirectory = "Content";
+            Mycontent = Content;
 
             graphics = new GraphicsDeviceManager(this);
 
@@ -49,11 +51,12 @@ namespace ProjectOneTwo
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("font");
             background = Content.Load<Texture2D>("background");
-
+   
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
             Physics.LoadMap();
             Physics.AddEntity(ref player1);
+
         }
 
         protected override void UnloadContent()
