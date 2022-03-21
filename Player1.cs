@@ -46,6 +46,14 @@ namespace ProjectOneTwo
             }          
         }
 
+        public void ChangeImage()
+        {
+            if (state.IsKeyDown(Keys.Right))  
+                Content.Load<Texture2D>("MadS2.png");
+            if (state.IsKeyDown(Keys.Left))  
+                Content.Load<Texture2D>("MadS1.png");
+        }
+
         public void MakeAttack()
         {
 
