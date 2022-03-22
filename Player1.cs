@@ -14,7 +14,7 @@ namespace ProjectOneTwo
     public class Player1
     {
         KeyboardState state;
-        int type;
+        readonly int type;
         public Vector2 pos, move;
         public Texture2D image;
 
@@ -22,7 +22,7 @@ namespace ProjectOneTwo
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
-
+            pos = new Vector2(100, 100);
         }
         
         public void Keyboard(KeyboardState _state)
@@ -30,11 +30,12 @@ namespace ProjectOneTwo
             state = _state;
             MakeVector();
             MakeAttack();
+            ChangeImage();
         }
 
         public void MakeVector()
         {
-            Vector2 move = new Vector2(0, 0);            
+            move = new Vector2(0, 0);            
             if (type == 1)
             {
                 if (state.IsKeyDown(Keys.Right))

@@ -42,9 +42,9 @@ public static class Physics
     {       
         for (int e = 0; e <= entity_count; e++)
         {
+            Entities[e].move += gravity;
             for (int i = 0; i <= obstacle_count; i++) 
-            {
-                Entities[e].move += gravity;
+            {               
                 Barrier barrier = obstacles[i];
                 Vector2 vector2 = barrier.Check(Entities[e].pos, Entities[e].move);
                 if (vector2.Length() != 0)
@@ -60,6 +60,7 @@ public static class Physics
                     break;
                 }
             }
+            Entities[e].pos += Entities[e].move;
         }
         
     }
