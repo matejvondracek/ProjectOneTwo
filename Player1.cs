@@ -17,12 +17,14 @@ namespace ProjectOneTwo
         readonly int type;
         public Vector2 pos, move;
         public Texture2D image;
+        public int life;
 
         public Player1(int i)
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
             pos = new Vector2(100, 100);
+            life = 100;
         }
         
         public void Keyboard(KeyboardState _state)

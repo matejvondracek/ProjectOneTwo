@@ -56,6 +56,18 @@
 /processorParam:TextureFormat=Color
 /build:MadS2.png
 
+#begin healthbar1.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:healthbar1.jpg
+
 #begin Profil yt - kopie.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

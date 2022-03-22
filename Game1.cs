@@ -12,7 +12,7 @@ namespace ProjectOneTwo
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        readonly GraphicsDeviceManager graphics;
+        static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Texture2D background;
@@ -22,6 +22,7 @@ namespace ProjectOneTwo
         public static ContentManager Mycontent;
         readonly SimpleFps fps = new SimpleFps();
 
+        public Texture2D health_bar;
 
         public Game1()
         {
@@ -51,6 +52,8 @@ namespace ProjectOneTwo
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("font");
             background = Content.Load<Texture2D>("background");
+            health_bar = Content.Load<Texture2D>("healthbar1");
+
    
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
@@ -89,9 +92,20 @@ namespace ProjectOneTwo
 
             //render all objects to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
-                spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
-                Physics.Draw(spriteBatch);       
-                fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow); ///on top
+
+            ///background
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
+
+            ///characters
+            Physics.Draw(spriteBatch); ///draws characters
+
+            ///healthbars
+            spriteBatch.Draw(health_bar, new Rectangle(10, 100, 10, player1.life * 5), Color.White); 
+            spriteBatch.Draw(health_bar, new Rectangle(1900, 100, 10, player2.life * 5), Color.White);
+
+            ///fps
+            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow); ///on top
+
             spriteBatch.End();
 
             //scale to users monitor resolution
