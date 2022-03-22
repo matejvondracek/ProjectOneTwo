@@ -17,10 +17,12 @@ namespace ProjectOneTwo
         int type;
         public Vector2 pos, move;
         public Texture2D image;
+        public int life;
 
         public Player1(int i)
         {
             type = i;
+            life = 100;
         }
         
         public void Keyboard(KeyboardState _state)
