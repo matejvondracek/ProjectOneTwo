@@ -21,7 +21,7 @@ namespace ProjectOneTwo
         public Player1(int i)
         {
             type = i;
-            image = Game1.Mycontent.Load<Texture2D>("character1.png");
+            image = Game1.Mycontent.Load<Texture2D>("MadS1");
 
         }
         
@@ -51,9 +51,9 @@ namespace ProjectOneTwo
         public void ChangeImage()
         {
             if (state.IsKeyDown(Keys.Right))  
-                image=Game1.Mycontent.Load<Texture2D>("character1.png");
+                image=Game1.Mycontent.Load<Texture2D>("MadS2");
             if (state.IsKeyDown(Keys.Left))  
-                image=Game1.Mycontent.Load<Texture2D>("character1.png");
+                image=Game1.Mycontent.Load<Texture2D>("MadS1");
         }
 
         public void MakeAttack()
