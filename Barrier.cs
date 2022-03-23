@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Xna.Framework;
 
-public class Barrier
+class Barrier
 {
 	private readonly float minX, maxX, minY, maxY, A, B, C;
 	public Barrier(Vector2 pos1, Vector2 pos2) ///position vectors

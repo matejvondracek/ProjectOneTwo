@@ -78,7 +78,9 @@ namespace ProjectOneTwo
                 Exit();
 
             //character movement           
-            player1.Keyboard(state);                
+            player1.Keyboard(state);
+            player2.Keyboard(state);
+            Physics.AttacksUpdate();
             Physics.MoveUpdate();
 
             base.Update(gameTime);

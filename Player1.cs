@@ -17,7 +17,8 @@ namespace ProjectOneTwo
         readonly int type;
         public Vector2 pos, move;
         public Texture2D image;
-        public int life;
+        public int life, damage;
+        public Rectangle attack;
 
         public Player1(int i)
         {

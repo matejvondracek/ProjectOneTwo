@@ -6,12 +6,13 @@ using ProjectOneTwo;
 public static class Physics
 {
     private readonly static Barrier[] obstacles = new Barrier[100];
-    public static ProjectOneTwo.Player1[] Entities= new ProjectOneTwo.Player1[5]; ///Player1 class should be replaced by Player - a supertype
-    
-    private static Vector2 gravity = new Vector2(0, 5);  
-    private static int obstacle_count = 0, entity_count = -1;
-    
-    
+    private readonly static Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
+    private readonly static Attack[] Attacks = new Attack[5];
+
+
+    private static Vector2 gravity = new Vector2(0, 5);
+    private static int obstacle_count = 0, entity_count = -1, attack_count = -1;
+
     private static void AddBarrierBlock(Rectangle rectangle)
     {
         obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y));
@@ -34,9 +35,34 @@ public static class Physics
         AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
     }
 
-    public static void AddEntity(ref ProjectOneTwo.Player1 entity) 
+    public static void AddEntity(ref Player1 entity)
     {
         Entities[++entity_count] = entity;
+    }
+
+    public static void AttacksUpdate()
+    {
+        if (attack_count != -1) 
+        {
+            Array.Clear(Attacks, 0, attack_count);
+            attack_count = -1;
+        }       
+
+        for (int e = 0; e <= entity_count; e++)
+        {
+            if (Entities[e].attack != new Rectangle(0, 0, 0, 0))
+            {
+                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage);
+            }
+        }
+
+        for (int e = 0; e <= entity_count; e++)
+        {
+            for (int i = 0; i <= attack_count; i++)
+            {
+                Entities[e].life -= Attacks[i].Check(Entities[e].pos);
+            }
+        }
     }
 
     public static void MoveUpdate()
@@ -62,8 +88,7 @@ public static class Physics
                 }
             }
             Entities[e].pos += Entities[e].move;
-        }
-        
+        }        
     }
 
     public static void Draw(SpriteBatch spriteBatch)
