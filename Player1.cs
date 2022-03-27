@@ -15,13 +15,13 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         readonly int type;
-        readonly Microsoft.Xna.Framework.Input.Keys left, right, down, up;
+        readonly Keys left, right, down, up;
         public Vector2 pos, move;
         public Texture2D image;
         public int life, damage;
         public Rectangle attack;
 
-        public Player1(int i, Microsoft.Xna.Framework.Input.Keys P_left, Microsoft.Xna.Framework.Input.Keys P_right, Microsoft.Xna.Framework.Input.Keys P_down, Microsoft.Xna.Framework.Input.Keys P_up)
+        public Player1(int i, Keys P_left, Keys P_right, Keys P_down, Keys P_up)
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
@@ -43,18 +43,15 @@ namespace ProjectOneTwo
 
         public void MakeVector()
         {
-            move = new Vector2(0, 0);            
-            if (type == 1)
-            {
-                if (state.IsKeyDown(right))
-                    move += new Vector2(10, 0);
-                if (state.IsKeyDown(left))
-                    move += new Vector2(-10, 0);
-                if (state.IsKeyDown(up))
-                    move += new Vector2(0, 10);
-                if (state.IsKeyDown(down))
-                    move += new Vector2(0, -10);
-            }          
+            move = new Vector2(0, 0);
+            if (state.IsKeyDown(right))
+                move += new Vector2(10, 0);
+            if (state.IsKeyDown(left))
+                move += new Vector2(-10, 0);
+            if (state.IsKeyDown(up))
+                move += new Vector2(0, 10);
+            if (state.IsKeyDown(down))
+                move += new Vector2(0, -10);
         }
 
         public void ChangeImage()
