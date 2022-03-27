@@ -41,8 +41,8 @@ namespace ProjectOneTwo
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
-            player1 = new Player1(1);
-            player2 = new Player1(2);
+            player1 = new Player1(1,Keys.A,Keys.D,Keys.W,Keys.S);
+            player2 = new Player1(2, Keys.Left, Keys.Right, Keys.Up, Keys.Down);
 
             base.Initialize();
         }
