@@ -59,7 +59,7 @@ namespace ProjectOneTwo
 
             Physics.LoadMap();
             Physics.AddEntity(ref player1);
-
+            Physics.AddEntity(ref player2);
         }
 
         protected override void UnloadContent()
