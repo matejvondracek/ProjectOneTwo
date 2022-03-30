@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DataVirtualized="false" GraphDirection="LeftToRight" Layout="Sugiyama" NeighborhoodDistance="0" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="@0" Label="Barrier" Category="&#xD;&#xA;	private readonly float minX, maxX, minY, maxY, A, B, C;&#xD;&#xA;	public Barrier(Vector2 pos1, Vector2 pos2) ///position vectors&#xD;&#xA;	{&#xD;&#xA;		//sets funkční obor úsečky&#xD;&#xA;		if (pos1.X &gt; pos2.X)&#xD;&#xA;        {&#xD;&#xA;			minX = pos2.X;&#xD;&#xA;			maxX = pos1.X;&#xD;&#xA;        }&#xD;&#xA;        else &#xD;&#xA;		{&#xD;&#xA;			minX = pos1.X;&#xD;&#xA;			maxX = pos2.X;&#xD;&#xA;		}&#xD;&#xA;&#xD;&#xA;		if (pos1.Y &gt; pos2.Y)&#xD;&#xA;		{&#xD;&#xA;			minY = pos2.Y;&#xD;&#xA;			maxY = pos1.Y;&#xD;&#xA;		}&#xD;&#xA;		else&#xD;&#xA;		{&#xD;&#xA;			minY = pos1.Y;&#xD;&#xA;			maxY = pos2.Y;&#xD;&#xA;		}&#xD;&#xA;&#xD;&#xA;		//calculates obecnou rovnici přímky&#xD;&#xA;		A = pos2.Y - pos1.Y;&#xD;&#xA;		B = pos1.X - pos2.X;&#xD;&#xA;		C = -A * pos1.X - B * pos1.Y;&#xD;&#xA;	}" />
+    <Node Id="@0" Label="Barrier" Category="&#xD;&#xA;	//private readonly float minX, maxX, minY, maxY, A, B, C;&#xD;&#xA;	private Rectangle rect;&#xD;&#xA;	&#xD;&#xA;	public Barrier(Rectangle _rect)&#xD;&#xA;    {&#xD;&#xA;		rect = _rect;&#xD;&#xA;    }" />
   </Nodes>
   <Links />
   <Categories>

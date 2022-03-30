@@ -11,29 +11,47 @@ public static class Physics
 
 
     private static Vector2 gravity = new Vector2(0, 5);
-    private static int obstacle_count = 0, entity_count = -1, attack_count = -1;
+    private static int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
-    private static void AddBarrierBlock(Rectangle rectangle)
+    /*  private static void AddBarrierBlock(Rectangle rectangle)
+      {
+          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y));
+          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y + rectangle.Height));
+          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height));
+          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y));
+      }
+
+      public static void LoadMap()
+      {
+          //rectangle arround screen
+          obstacles[0] = new Barrier(new Vector2(0, 0), new Vector2(0, 1080));
+          obstacles[1] = new Barrier(new Vector2(0, 1080 - 6 * 16), new Vector2(1920, 1080 - 6 * 16));
+          obstacles[2] = new Barrier(new Vector2(1920 - 6 * 16, 1080), new Vector2(1920 - 6 * 16, 0));
+          obstacles[3] = new Barrier(new Vector2(1920, 0), new Vector2(0, 0));
+          obstacle_count = 3;
+
+          //jumping blocks      
+          AddBarrierBlock(new Rectangle(-1 * 6, (136 - 16) * 6, 136 * 6, 60 * 6));
+          AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
+      }*/
+    private static void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
-        obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y));
-        obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y + rectangle.Height));
-        obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height));
-        obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y));
+        obstacles[++obstacle_count] = new Barrier(Ax, Ay, Bx, By);
     }
 
     public static void LoadMap()
     {
-        //rectangle arround screen
-        obstacles[0] = new Barrier(new Vector2(0, 0), new Vector2(0, 1080));
-        obstacles[1] = new Barrier(new Vector2(0, 1080 - 6 * 16), new Vector2(1920, 1080 - 6 * 16));
-        obstacles[2] = new Barrier(new Vector2(1920 - 6 * 16, 1080), new Vector2(1920 - 6 * 16, 0));
-        obstacles[3] = new Barrier(new Vector2(1920, 0), new Vector2(0, 0));
-        obstacle_count = 3;
+        //4 walls on screen bezels
+        AddBarrier(0, 180, 320, 181);
+        AddBarrier(320, 0, 321, 180);
+        AddBarrier(0, -1, 320, 0);
+        AddBarrier(-1, 0, 0, 180);
 
-        //jumping blocks      
-        AddBarrierBlock(new Rectangle(-1 * 6, (136 - 16) * 6, 136 * 6, 60 * 6));
-        AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
+        //world blocks
+        AddBarrier(0, 136, 135, 179);
+        AddBarrier(104, 120, 143, 151);
     }
+
 
     public static void AddEntity(ref Player1 entity)
     {
@@ -73,7 +91,7 @@ public static class Physics
             for (int i = 0; i <= obstacle_count; i++) 
             {               
                 Barrier barrier = obstacles[i];
-                Vector2 vector2 = barrier.Check(Entities[e].pos, Entities[e].move);
+                Vector2 vector2 = barrier.Check(Entities[e].hitbox, Entities[e].move);
                 if (vector2.Length() != 0)
                 {
                     if (vector2.Length() < Entities[e].move.Length())
@@ -88,6 +106,7 @@ public static class Physics
                 }
             }
             Entities[e].pos += Entities[e].move;
+            Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
         }        
     }
 

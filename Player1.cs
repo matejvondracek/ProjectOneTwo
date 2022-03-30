@@ -18,8 +18,8 @@ namespace ProjectOneTwo
         readonly Keys left, right, down, up;
         public Vector2 pos, move;
         public Texture2D image;
-        public int life, damage;
-        public Rectangle attack;
+        public int life, damage, Width, Height;
+        public Rectangle attack, hitbox;
 
         public Player1(int i, Keys P_left, Keys P_right, Keys P_down, Keys P_up)
         {
@@ -31,6 +31,10 @@ namespace ProjectOneTwo
             right = P_right;
             down = P_down;
             up = P_up;
+
+            Width = image.Width;
+            Height = image.Width;
+            hitbox = new Rectangle(0, 0, Width, Height);
         }
         
         public void Keyboard(KeyboardState _state)
