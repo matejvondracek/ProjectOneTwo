@@ -21,11 +21,11 @@ namespace ProjectOneTwo
         public int life, damage, Width, Height;
         public Rectangle attack, hitbox;
 
-        public Player1(int i, Keys P_left, Keys P_right, Keys P_down, Keys P_up)
+        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right)
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
-            pos = new Vector2(100, 100);
+            //pos = new Vector2(100, 100);
             life = 100;
             left = P_left;
             right = P_right;
@@ -53,9 +53,9 @@ namespace ProjectOneTwo
             if (state.IsKeyDown(left))
                 move += new Vector2(-10, 0);
             if (state.IsKeyDown(up))
-                move += new Vector2(0, 10);
-            if (state.IsKeyDown(down))
                 move += new Vector2(0, -10);
+            if (state.IsKeyDown(down))
+                move += new Vector2(0, 10);
         }
 
         public void ChangeImage()

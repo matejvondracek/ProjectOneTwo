@@ -13,27 +13,6 @@ public static class Physics
     private static Vector2 gravity = new Vector2(0, 5);
     private static int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
-    /*  private static void AddBarrierBlock(Rectangle rectangle)
-      {
-          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y));
-          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), new Vector2(rectangle.X, rectangle.Y + rectangle.Height));
-          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X + rectangle.Width, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height));
-          obstacles[++obstacle_count] = new Barrier(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y));
-      }
-
-      public static void LoadMap()
-      {
-          //rectangle arround screen
-          obstacles[0] = new Barrier(new Vector2(0, 0), new Vector2(0, 1080));
-          obstacles[1] = new Barrier(new Vector2(0, 1080 - 6 * 16), new Vector2(1920, 1080 - 6 * 16));
-          obstacles[2] = new Barrier(new Vector2(1920 - 6 * 16, 1080), new Vector2(1920 - 6 * 16, 0));
-          obstacles[3] = new Barrier(new Vector2(1920, 0), new Vector2(0, 0));
-          obstacle_count = 3;
-
-          //jumping blocks      
-          AddBarrierBlock(new Rectangle(-1 * 6, (136 - 16) * 6, 136 * 6, 60 * 6));
-          AddBarrierBlock(new Rectangle((105 - 16) * 6, (120 - 16) * 6, (39 + 16) * 6, (31 + 16) * 6));
-      }*/
     private static void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
         obstacles[++obstacle_count] = new Barrier(Ax, Ay, Bx, By);
@@ -83,28 +62,50 @@ public static class Physics
         }
     }
 
+    private static void ChangeVector(ref Player1 entity, Vector2 move)
+    {
+        if (move.Length() != 0)
+        {
+            if (move.Length() < entity.move.Length())
+            {
+                entity.move = move;
+            }
+        }
+        else
+        {
+            entity.move = new Vector2(0, 0);
+        }
+        
+    }
+
     public static void MoveUpdate()
     {       
         for (int e = 0; e <= entity_count; e++)
         {
             Entities[e].move += gravity;
-            for (int i = 0; i <= obstacle_count; i++) 
-            {               
+            
+            //collision with obstacles
+            for (int i = 0; i <= obstacle_count; i++)
+            {
                 Barrier barrier = obstacles[i];
-                Vector2 vector2 = barrier.Check(Entities[e].hitbox, Entities[e].move);
-                if (vector2.Length() != 0)
+                Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
+                ChangeVector(ref Entities[e], move);
+            }   
+
+            //collision with entities
+            for (int i = 0; i <= entity_count; i++)
+            {
+                if (i != e)
                 {
-                    if (vector2.Length() < Entities[e].move.Length())
-                    {
-                        Entities[e].move = vector2;
-                    }
+                    ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
+                    Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
+                    Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
+                    ChangeVector(ref Entities[e], move);
                 }
-                else
-                {
-                    Entities[e].move = new Vector2(0, 0);
-                    break;
-                }
+                
             }
+
+            //makes the movement
             Entities[e].pos += Entities[e].move;
             Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
         }        

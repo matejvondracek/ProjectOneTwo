@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DataVirtualized="false" GraphDirection="LeftToRight" Layout="Sugiyama" NeighborhoodDistance="0" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="@0" Label="Barrier" Category="&#xD;&#xA;	//private readonly float minX, maxX, minY, maxY, A, B, C;&#xD;&#xA;	private Rectangle rect;&#xD;&#xA;	&#xD;&#xA;	public Barrier(Rectangle _rect)&#xD;&#xA;    {&#xD;&#xA;		rect = _rect;&#xD;&#xA;    }" />
+    <Node Id="@0" Label="Barrier" Category="&#xD;&#xA;	private Rectangle rect;&#xD;&#xA;	&#xD;&#xA;	public Barrier(Rectangle _rect)&#xD;&#xA;    {&#xD;&#xA;		rect = _rect;&#xD;&#xA;    }" />
   </Nodes>
   <Links />
   <Categories>
