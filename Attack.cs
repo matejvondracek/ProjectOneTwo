@@ -8,21 +8,23 @@ namespace ProjectOneTwo
     class Attack
     {
         private Rectangle rectangle;
-        private readonly int damage;
+        public readonly int damage;
+        public Vector2 knockback;
 
-        public Attack(Rectangle _rectangle, int _damage)
+        public Attack(Rectangle _rectangle, int _damage, Vector2 _knockback)
         {
             rectangle = _rectangle;
             damage = _damage;
+            knockback = _knockback;
         }
 
-        public int Check(Vector2 pos)
+        public bool Check(Vector2 pos)
         {
             if ((rectangle.X <= pos.X) && (rectangle.X + rectangle.Width >= pos.X) && (rectangle.Y <= pos.Y) && (rectangle.Y + rectangle.Height >= pos.Y))
             {
-                return damage;
+                return true;
             }
-            return 0;
+            return false;
         }
     }
 }

@@ -49,7 +49,7 @@ public static class Physics
         {
             if (Entities[e].attack != new Rectangle(0, 0, 0, 0))
             {
-                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage);
+                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback);
             }
         }
 
@@ -57,7 +57,11 @@ public static class Physics
         {
             for (int i = 0; i <= attack_count; i++)
             {
-                Entities[e].life -= Attacks[i].Check(Entities[e].pos);
+                if (Attacks[i].Check(Entities[e].pos))
+                {
+                    Entities[e].life -= Attacks[i].damage;
+                    Entities[e].move += Attacks[i].knockback;
+                }                                  
             }
         }
     }

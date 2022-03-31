@@ -16,7 +16,7 @@ namespace ProjectOneTwo
         KeyboardState state;
         readonly int type;
         readonly Keys left, right, down, up;
-        public Vector2 pos, move;
+        public Vector2 pos, move, knockback;
         public Texture2D image;
         public int life, damage, Width, Height;
         public Rectangle attack, hitbox;

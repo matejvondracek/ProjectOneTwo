@@ -86,6 +86,7 @@ namespace ProjectOneTwo
             Physics.AttacksUpdate();
             Physics.MoveUpdate();
 
+
             base.Update(gameTime);
         }
 
