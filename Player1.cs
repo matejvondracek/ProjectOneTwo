@@ -18,7 +18,7 @@ namespace ProjectOneTwo
         readonly Keys left, right, down, up;
         public Vector2 pos, move, knockback;
         public Texture2D image;
-        public int life, damage, Width, Height;
+        public int life, damage, Width, Height, times_dead;
         public Rectangle attack, hitbox;
         public bool dead;
 
@@ -38,6 +38,7 @@ namespace ProjectOneTwo
             hitbox = new Rectangle(0, 0, Width, Height);
 
             dead = false;
+            times_dead = 0;
         }
         
         public void Keyboard(KeyboardState _state)

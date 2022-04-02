@@ -126,7 +126,7 @@ public static class Physics
         }
     }
 
-    public static void GameRules()
+    public static string GameRules()
     {
         //checkes whether any player is off screen
         Rectangle screen = new Rectangle(0, 0, 1920, 1080);
@@ -137,20 +137,33 @@ public static class Physics
             {
                 Entities[e].life = 0;
                 Entities[e].dead = true;
+                Entities[e].times_dead += 1;
             }
         }
 
         //handeling death
         for (int e = 0; e <= entity_count; e++)
         {
-            if ((Entities[e].dead) && (!exile.Contains(Entities[e].pos.ToPoint())))
+            if (Entities[e].dead && (!exile.Contains(Entities[e].pos.ToPoint())))
             {
-                Entities[e].pos = new Vector2(2020, 2020);
-                Timer timer = new Timer(2000);
-                timer.Elapsed += Entities[e].Reset;
-                timer.Enabled = true;
-                timer.AutoReset = false;
+                if (Entities[e].times_dead >= 3)
+                {
+                    int type = e;
+                    if (e == 0) type = 2;
+                    return "player" + Convert.ToString(type);
+                }
+                else
+                {
+                    Entities[e].pos = new Vector2(2020, 2020);
+                    Timer timer = new Timer(2000);
+                    timer.Elapsed += Entities[e].Reset;
+                    timer.Enabled = true;
+                    timer.AutoReset = false;
+                }
+                
             }
         }
+
+        return "";
     }
 }
