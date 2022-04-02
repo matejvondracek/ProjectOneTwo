@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +20,7 @@ namespace ProjectOneTwo
         public Texture2D image;
         public int life, damage, Width, Height;
         public Rectangle attack, hitbox;
+        public bool dead;
 
         public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right)
         {
@@ -35,6 +36,8 @@ namespace ProjectOneTwo
             Width = image.Width;
             Height = image.Width;
             hitbox = new Rectangle(0, 0, Width, Height);
+
+            dead = false;
         }
         
         public void Keyboard(KeyboardState _state)
@@ -69,6 +72,33 @@ namespace ProjectOneTwo
         public void MakeAttack()
         {
 
+        }
+
+        public void Reset()
+        {
+            life = 100;
+            if (type == 1)
+            {
+                pos = new Vector2(100, 600);
+            }
+            else if (type == 2)
+            {
+                pos = new Vector2(600, 400); 
+            }
+        }
+
+        public void Reset(Object source, ElapsedEventArgs e)
+        {
+            life = 100;
+            dead = false;
+            if (type == 1)
+            {
+                pos = new Vector2(100, 600);
+            }
+            else if (type == 2)
+            {
+                pos = new Vector2(600, 400);
+            }
         }
     }
 }

@@ -44,8 +44,8 @@ namespace ProjectOneTwo
             player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D);
             player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right);
 
-            player1.pos = new Vector2(100, 600);
-            player2.pos = new Vector2(600, 400);
+            player1.Reset();
+            player2.Reset();
 
             base.Initialize();
         }
@@ -85,6 +85,7 @@ namespace ProjectOneTwo
             player2.Keyboard(state);
             Physics.AttacksUpdate();
             Physics.MoveUpdate();
+            Physics.GameRules();
 
 
             base.Update(gameTime);

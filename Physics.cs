@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectOneTwo;
@@ -21,7 +22,7 @@ public static class Physics
     public static void LoadMap()
     {
         //4 walls on screen bezels
-        AddBarrier(0, 180, 320, 181);
+        //AddBarrier(0, 180, 320, 181);
         AddBarrier(320, 0, 321, 180);
         AddBarrier(0, -1, 320, 0);
         AddBarrier(-1, 0, 0, 180);
@@ -86,32 +87,34 @@ public static class Physics
     {       
         for (int e = 0; e <= entity_count; e++)
         {
-            Entities[e].move += gravity;
+            if (!Entities[e].dead)
+            {
+                Entities[e].move += gravity;
             
-            //collision with obstacles
-            for (int i = 0; i <= obstacle_count; i++)
-            {
-                Barrier barrier = obstacles[i];
-                Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
-                ChangeVector(ref Entities[e], move);
-            }   
-
-            //collision with entities
-            for (int i = 0; i <= entity_count; i++)
-            {
-                if (i != e)
+                //collision with obstacles
+                for (int i = 0; i <= obstacle_count; i++)
                 {
-                    ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
-                    Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
+                    Barrier barrier = obstacles[i];
                     Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
                     ChangeVector(ref Entities[e], move);
-                }
-                
-            }
+                }   
 
-            //makes the movement
-            Entities[e].pos += Entities[e].move;
-            Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
+                //collision with entities
+                for (int i = 0; i <= entity_count; i++)
+                {
+                    if (i != e)
+                    {
+                        ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
+                        Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
+                        Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
+                        ChangeVector(ref Entities[e], move);
+                    }                
+                }
+
+                //makes the movement
+                Entities[e].pos += Entities[e].move;
+                Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
+            }          
         }        
     }
 
@@ -120,6 +123,34 @@ public static class Physics
         for (int e = 0; e <= entity_count; e++)
         {
           spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+        }
+    }
+
+    public static void GameRules()
+    {
+        //checkes whether any player is off screen
+        Rectangle screen = new Rectangle(0, 0, 1920, 1080);
+        Rectangle exile = new Rectangle(2000, 2000, 1000, 1000);
+        for (int e = 0; e <= entity_count; e++)
+        {
+            if ((!screen.Contains(Entities[e].pos.ToPoint())) && (!exile.Contains(Entities[e].pos.ToPoint())))
+            {
+                Entities[e].life = 0;
+                Entities[e].dead = true;
+            }
+        }
+
+        //handeling death
+        for (int e = 0; e <= entity_count; e++)
+        {
+            if ((Entities[e].dead) && (!exile.Contains(Entities[e].pos.ToPoint())))
+            {
+                Entities[e].pos = new Vector2(2020, 2020);
+                Timer timer = new Timer(2000);
+                timer.Elapsed += Entities[e].Reset;
+                timer.Enabled = true;
+                timer.AutoReset = false;
+            }
         }
     }
 }
