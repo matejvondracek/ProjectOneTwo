@@ -10,17 +10,9 @@ public static class Physics
     private readonly static Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
     private readonly static Attack[] Attacks = new Attack[5];
 
-
     private static Vector2 gravity = new Vector2(0, 5);
     private static int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
-    /*public enum Winner
-    {
-        Player1,
-        Player2,
-        Draw,
-        None,
-    }*/
 
     private static void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
@@ -162,7 +154,7 @@ public static class Physics
                 else
                 {
                     Entities[e].pos = new Vector2(2020, 2020);
-                    Timer timer = new Timer(2000);
+                    Timer timer = new Timer(1000);   ///maybe not the smartest way
                     timer.Elapsed += Entities[e].Reset;
                     timer.Enabled = true;
                     timer.AutoReset = false;

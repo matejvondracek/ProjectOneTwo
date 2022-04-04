@@ -16,16 +16,15 @@ namespace ProjectOneTwo
         SpriteBatch spriteBatch;
         SpriteFont spriteFont, gameOverFont;
         Texture2D background, gameOverBackground;
-        Texture2D[] buttonSprites = new Texture2D[2];
+        readonly Texture2D[] buttonSprites = new Texture2D[2];
         RenderTarget2D _renderTarget;
         readonly int screenWidth, screenHeight;
-        Player1 player1, player2;     
+        Player1 player1, player2;
         readonly SimpleFps fps = new SimpleFps();
-        // status, winner;
         public static ContentManager Mycontent;
         public Texture2D health_bar;
         string line;
-        Button playButton, quitButton;
+        Button playButton, quitButton, restartButton, quitButton2;
 
         enum GameState
         {
@@ -58,7 +57,7 @@ namespace ProjectOneTwo
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                       
             gameState = GameState.MainMenu;
-            winner = Winner.Draw;
+            winner = Winner.None;
         }
 
         protected override void Initialize()
@@ -103,6 +102,11 @@ namespace ProjectOneTwo
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton.AddText("Quit", spriteFont, 10, 10);
+
+            restartButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
+            restartButton.AddText("Play again", spriteFont, 30, 10);
+            quitButton2 = new Button(new Vector2(1500, 900), new Vector2(1900, 1000), buttonSprites);
+            quitButton2.AddText("Return to main menu", spriteFont, 30, 10);
         }
 
         protected override void UnloadContent()
@@ -122,9 +126,9 @@ namespace ProjectOneTwo
                 Exit();
 
             switch (gameState)
-            {
-                //character movement
+            {               
                 case GameState.GamePlay:
+                    //character movement
                     player1.Keyboard(state);
                     player2.Keyboard(state);
                     Physics.AttacksUpdate();
@@ -134,13 +138,42 @@ namespace ProjectOneTwo
                     {
                         gameState = GameState.GameOver;
                     }
+
+                    this.IsMouseVisible = false;
                     break;
 
                 case GameState.MainMenu:
                     playButton.Update(mouse);
                     quitButton.Update(mouse);
-                    if (playButton.IsPressed(mouse)) gameState = GameState.GamePlay;
+                    if (playButton.IsPressed(mouse)) 
+                    { 
+                        gameState = GameState.GamePlay;
+                        winner = Winner.None;
+                        player1.Reset();
+                        player1.times_dead = 0;
+                        player2.Reset();
+                        player2.times_dead = 0;
+                    }
+
                     if (quitButton.IsPressed(mouse)) Exit();
+
+                    this.IsMouseVisible = true;
+                    break;
+
+                case GameState.GameOver:
+                    restartButton.Update(mouse);
+                    quitButton2.Update(mouse);
+                    if (restartButton.IsPressed(mouse))
+                    {
+                        player1.Reset();
+                        player1.times_dead = 0;
+                        player2.Reset();
+                        player2.times_dead = 0;
+                        gameState = GameState.GamePlay;
+                    }
+                    if (quitButton2.IsPressed(mouse)) gameState = GameState.MainMenu;
+
+                    this.IsMouseVisible = true;
                     break;
             }        
 
@@ -193,6 +226,8 @@ namespace ProjectOneTwo
                     }
                     spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, 1920, 1080), Color.White);
                     spriteBatch.DrawString(gameOverFont, line, new Vector2(500f, 500f), Color.Red);
+                    restartButton.Draw(spriteBatch);
+                    quitButton2.Draw(spriteBatch);
                     break;
 
                 case GameState.MainMenu:
@@ -225,7 +260,6 @@ namespace ProjectOneTwo
                 {
                     int renderHeight = screenWidth * 9 / 16;
                     int blackBar = (screenHeight - renderHeight) / 2;
-
 
                     spriteBatch.Draw(_renderTarget, new Rectangle(0, blackBar, screenWidth, renderHeight), Color.White);
                 }

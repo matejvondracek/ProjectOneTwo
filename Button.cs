@@ -23,12 +23,14 @@ namespace ProjectOneTwo
         {
             rect = _rect;
             textures = _textures;
+            texture = textures[0];
         }
 
         public Button(Vector2 a, Vector2 b, Texture2D[] _textures)
         {
             rect = new Rectangle(a.ToPoint(), new Point(Convert.ToInt32(b.X - a.X), Convert.ToInt32(b.Y - a.Y)));
             textures = _textures;
+            texture = textures[0];
         }
 
         public void AddText(string _text, SpriteFont _spriteFont, int xBezel, int yBezel)
