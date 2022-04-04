@@ -16,6 +16,7 @@ namespace ProjectOneTwo
         SpriteBatch spriteBatch;
         SpriteFont spriteFont, gameOverFont;
         Texture2D background, gameOverBackground;
+        Texture2D[] buttonSprites = new Texture2D[2];
         RenderTarget2D _renderTarget;
         readonly int screenWidth, screenHeight;
         Player1 player1, player2;     
@@ -24,6 +25,7 @@ namespace ProjectOneTwo
         public static ContentManager Mycontent;
         public Texture2D health_bar;
         string line;
+        Button playButton, quitButton;
 
         enum GameState
         {
@@ -55,22 +57,28 @@ namespace ProjectOneTwo
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                       
-            gameState = GameState.GamePlay;
+            gameState = GameState.MainMenu;
             winner = Winner.Draw;
         }
 
         protected override void Initialize()
         {
+            //mouse settings
+            Mouse.SetCursor(MouseCursor.Arrow);
+            this.IsMouseVisible = true;
+
+            //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ToggleFullScreen();
             graphics.ApplyChanges();
+
             player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D);
             player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right);
 
             player1.Reset();
             player2.Reset();
-         
+           
             base.Initialize();
         }
 
@@ -82,13 +90,19 @@ namespace ProjectOneTwo
             background = Content.Load<Texture2D>("background");
             gameOverBackground = Content.Load<Texture2D>("background2");
             health_bar = Content.Load<Texture2D>("healthbar1");
+            buttonSprites[0] = Content.Load<Texture2D>("button1");
+            buttonSprites[1] = Content.Load<Texture2D>("button2");
 
-   
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
             Physics.LoadMap();
             Physics.AddEntity(ref player1);
             Physics.AddEntity(ref player2);
+
+            playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
+            playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
+            quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
+            quitButton.AddText("Quit", spriteFont, 10, 10);
         }
 
         protected override void UnloadContent()
@@ -101,6 +115,7 @@ namespace ProjectOneTwo
             fps.Update(gameTime);
 
             KeyboardState state = Keyboard.GetState();
+            MouseState mouse = Mouse.GetState();
 
             //exits game
             if (state.IsKeyDown(Keys.Escape))
@@ -119,6 +134,13 @@ namespace ProjectOneTwo
                     {
                         gameState = GameState.GameOver;
                     }
+                    break;
+
+                case GameState.MainMenu:
+                    playButton.Update(mouse);
+                    quitButton.Update(mouse);
+                    if (playButton.IsPressed(mouse)) gameState = GameState.GamePlay;
+                    if (quitButton.IsPressed(mouse)) Exit();
                     break;
             }        
 
@@ -171,7 +193,12 @@ namespace ProjectOneTwo
                     }
                     spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, 1920, 1080), Color.White);
                     spriteBatch.DrawString(gameOverFont, line, new Vector2(500f, 500f), Color.Red);
-                    break;                      
+                    break;
+
+                case GameState.MainMenu:
+                    playButton.Draw(spriteBatch);
+                    quitButton.Draw(spriteBatch);
+                    break;
             }
 
             //fps
