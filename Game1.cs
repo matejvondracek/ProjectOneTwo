@@ -20,10 +20,30 @@ namespace ProjectOneTwo
         readonly int screenWidth, screenHeight;
         Player1 player1, player2;     
         readonly SimpleFps fps = new SimpleFps();
-        string status, winner;
-
+        // status, winner;
         public static ContentManager Mycontent;
         public Texture2D health_bar;
+        string line;
+
+        enum GameState
+        {
+            MainMenu,
+            GamePlay,
+            GameOver,
+        }
+
+        GameState gameState;
+
+        public enum Winner
+        {
+            Player1,
+            Player2,
+            Draw,
+            None,
+        }
+
+        Winner winner;
+        
 
         public Game1()
         {
@@ -34,6 +54,9 @@ namespace ProjectOneTwo
 
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                      
+            gameState = GameState.GamePlay;
+            winner = Winner.Draw;
         }
 
         protected override void Initialize()
@@ -47,9 +70,7 @@ namespace ProjectOneTwo
 
             player1.Reset();
             player2.Reset();
-
-            status = "Playing";
-
+         
             base.Initialize();
         }
 
@@ -85,21 +106,21 @@ namespace ProjectOneTwo
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            //character movement
-            if (status == "Playing")
-            {                           
-                player1.Keyboard(state);
-                player2.Keyboard(state);
-                Physics.AttacksUpdate();
-                Physics.MoveUpdate();
-                string winner = Physics.GameRules();
-                if (winner != "")
-                {
-                    status = "GameOver";
-                }
-            }
-            
-
+            switch (gameState)
+            {
+                //character movement
+                case GameState.GamePlay:
+                    player1.Keyboard(state);
+                    player2.Keyboard(state);
+                    Physics.AttacksUpdate();
+                    Physics.MoveUpdate();
+                    winner = Physics.GameRules();                                      
+                    if (winner != Winner.None)
+                    {
+                        gameState = GameState.GameOver;
+                    }
+                    break;
+            }        
 
             base.Update(gameTime);
         }
@@ -111,40 +132,46 @@ namespace ProjectOneTwo
 
             //render all objects to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
-
-            if (status == "Playing")
+            
+            switch (gameState)
             {
-                //background
-                spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
+                case GameState.GamePlay:
+                    //background
+                    spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
 
-                //characters
-                Physics.Draw(spriteBatch); ///draws characters
+                    //characters
+                    Physics.Draw(spriteBatch); ///draws characters
 
-                //healthbars
-                spriteBatch.Draw(health_bar, new Rectangle(10, 100, 10, player1.life * 5), Color.White); 
-                spriteBatch.Draw(health_bar, new Rectangle(1900, 100, 10, player2.life * 5), Color.White);
+                    //healthbars
+                    spriteBatch.Draw(health_bar, new Rectangle(10, 100, 10, player1.life * 5), Color.White); 
+                    spriteBatch.Draw(health_bar, new Rectangle(1900, 100, 10, player2.life * 5), Color.White);
 
-                //life counter
-                spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), new Vector2(5f, 610f), Color.Red);
-                spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), new Vector2(1895f, 610f), Color.Red);
-            }
-            else if (status == "GameOver")
-            {
-                string line;
-                if (winner == "player1")
-                {
-                    line = "Player1 has won the game!";
-                }
-                else if (winner == "player2")
-                {
-                    line = "Player2 has won the game!";
-                }
-                else
-                {
-                    line = "It somehow ended up as a draw...";
-                }
-                spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, 1920, 1080), Color.White);
-                spriteBatch.DrawString(gameOverFont, line, new Vector2(500f, 500f), Color.Red);
+                    //life counter
+                    spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), new Vector2(5f, 610f), Color.Red);
+                    spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), new Vector2(1895f, 610f), Color.Red);
+                    break;
+
+                case GameState.GameOver:                    
+                    switch (winner)
+                    {
+                        case Winner.Player1:
+                            line = "Player1 has won the game!";
+                            break;
+
+                        case Winner.Player2:
+                            line = "Player2 has won the game!";
+                            break;
+
+                        case Winner.Draw:
+                            line = "It somehow ended up as a draw...";
+                            break;
+                        case Winner.None:
+                            line = "It somehow ended up as a draw...";
+                            break;
+                    }
+                    spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, 1920, 1080), Color.White);
+                    spriteBatch.DrawString(gameOverFont, line, new Vector2(500f, 500f), Color.Red);
+                    break;                      
             }
 
             //fps

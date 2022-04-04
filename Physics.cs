@@ -14,6 +14,14 @@ public static class Physics
     private static Vector2 gravity = new Vector2(0, 5);
     private static int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
+    /*public enum Winner
+    {
+        Player1,
+        Player2,
+        Draw,
+        None,
+    }*/
+
     private static void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
         obstacles[++obstacle_count] = new Barrier(Ax, Ay, Bx, By);
@@ -126,7 +134,7 @@ public static class Physics
         }
     }
 
-    public static string GameRules()
+    public static Game1.Winner GameRules()
     {
         //checkes whether any player is off screen
         Rectangle screen = new Rectangle(0, 0, 1920, 1080);
@@ -148,9 +156,8 @@ public static class Physics
             {
                 if (Entities[e].times_dead >= 3)
                 {
-                    int type = e;
-                    if (e == 0) type = 2;
-                    return "player" + Convert.ToString(type);
+                    if (e == 0) return Game1.Winner.Player2;
+                    else return Game1.Winner.Player1;
                 }
                 else
                 {
@@ -164,6 +171,6 @@ public static class Physics
             }
         }
 
-        return "";
+        return Game1.Winner.None;
     }
 }
