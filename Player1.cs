@@ -15,14 +15,15 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         readonly int type;
-        readonly Keys left, right, down, up;
+        readonly Keys left, right, down, up,attack1;
         public Vector2 pos, move, knockback;
         public Texture2D image;
-        public int life, damage, Width, Height, times_dead;
+        public int life, damage, Width, Height, times_dead,Facing;
         public Rectangle attack, hitbox;
         public bool dead;
+        public Point AttackPoint;
 
-        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right)
+        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_attack1)
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
@@ -32,6 +33,7 @@ namespace ProjectOneTwo
             right = P_right;
             down = P_down;
             up = P_up;
+            attack1 = P_attack1;
 
             Width = image.Width;
             Height = image.Width;
@@ -39,6 +41,8 @@ namespace ProjectOneTwo
 
             dead = false;
             times_dead = 0;
+
+            Facing = 1;
         }
         
         public void Keyboard(KeyboardState _state)
@@ -64,14 +68,40 @@ namespace ProjectOneTwo
 
         public void ChangeImage()
         {
-            if (state.IsKeyDown(right))  
-                image=Game1.Mycontent.Load<Texture2D>("MadS2");
-            if (state.IsKeyDown(left))  
-                image=Game1.Mycontent.Load<Texture2D>("MadS1");
+            if (state.IsKeyDown(right))
+            {
+                image = Game1.Mycontent.Load<Texture2D>("MadS2");
+                Facing = 1;
+            };
+            if (state.IsKeyDown(left))
+            {
+                image = Game1.Mycontent.Load<Texture2D>("MadS1");
+                Facing = -1;
+            } 
+                
         }
 
         public void MakeAttack()
         {
+            if (state.IsKeyDown(attack1))
+            {
+                AttackPoint = new Point(0, 0);
+                AttackPoint.X = (int)pos.X;
+                
+                AttackPoint.X += 10*Facing;
+
+                AttackPoint.Y = (int)pos.Y;
+                attack = new Rectangle(AttackPoint.X, AttackPoint.Y, AttackPoint.X + 100*Facing, AttackPoint.Y - 100);
+                damage = 10;
+                knockback = new Vector2(10, 1);
+            }
+            else
+            {
+                attack = new Rectangle(0,0,0,0);
+                damage = 0;
+                knockback = new Vector2(0,0);
+
+            };
 
         }
 
