@@ -25,12 +25,14 @@ namespace ProjectOneTwo
         public Texture2D health_bar;
         string line;
         Button playButton, quitButton, restartButton, quitButton2;
+        Screen screen;
 
         enum GameState
         {
             MainMenu,
             GamePlay,
             GameOver,
+            Test,
         }
 
         GameState gameState;
@@ -55,9 +57,11 @@ namespace ProjectOneTwo
 
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
                       
-            gameState = GameState.MainMenu;
+            gameState = GameState.Test;
             winner = Winner.None;
+            screen = new Screen();
         }
 
         protected override void Initialize()
@@ -92,6 +96,8 @@ namespace ProjectOneTwo
             buttonSprites[0] = Content.Load<Texture2D>("button1");
             buttonSprites[1] = Content.Load<Texture2D>("button2");
 
+            screen.AddRenderTexture2D(background, new Rectangle(0, 0, 1920, 1080));
+
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
             Physics.LoadMap();
@@ -107,6 +113,7 @@ namespace ProjectOneTwo
             restartButton.AddText("Play again", spriteFont, 30, 10);
             quitButton2 = new Button(new Vector2(1500, 900), new Vector2(1900, 1000), buttonSprites);
             quitButton2.AddText("Return to main menu", spriteFont, 30, 10);
+            screen.AddButton(ref quitButton);
         }
 
         protected override void UnloadContent()
@@ -126,14 +133,14 @@ namespace ProjectOneTwo
                 Exit();
 
             switch (gameState)
-            {               
+            {
                 case GameState.GamePlay:
                     //character movement
                     player1.Keyboard(state);
                     player2.Keyboard(state);
                     Physics.AttacksUpdate();
                     Physics.MoveUpdate();
-                    winner = Physics.GameRules();                                      
+                    winner = Physics.GameRules();
                     if (winner != Winner.None)
                     {
                         gameState = GameState.GameOver;
@@ -145,8 +152,8 @@ namespace ProjectOneTwo
                 case GameState.MainMenu:
                     playButton.Update(mouse);
                     quitButton.Update(mouse);
-                    if (playButton.IsPressed(mouse)) 
-                    { 
+                    if (playButton.IsPressed(mouse))
+                    {
                         gameState = GameState.GamePlay;
                         winner = Winner.None;
                         player1.Reset();
@@ -174,6 +181,11 @@ namespace ProjectOneTwo
                     if (quitButton2.IsPressed(mouse)) gameState = GameState.MainMenu;
 
                     this.IsMouseVisible = true;
+                    break;
+
+                case GameState.Test:
+                    screen.Update(gameTime, mouse, state);
+                    if (screen.buttons[0].IsPressed(mouse)) Exit();
                     break;
             }        
 
@@ -233,6 +245,10 @@ namespace ProjectOneTwo
                 case GameState.MainMenu:
                     playButton.Draw(spriteBatch);
                     quitButton.Draw(spriteBatch);
+                    break;
+
+                case GameState.Test:
+                    screen.Draw(gameTime, spriteBatch);
                     break;
             }
 
