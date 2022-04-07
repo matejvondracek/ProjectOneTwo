@@ -23,10 +23,18 @@ namespace ProjectOneTwo
 
     class RenderString
     {
-        string str;
-        public RenderString(string _str)
+        public string str;
+        public SpriteFont font;
+        public Vector2 pos;
+        public Color color;
+
+
+        public RenderString(ref string _str, SpriteFont _font, Vector2 _pos, Color _color)
         {
             str = _str;
+            font = _font;
+            pos = _pos;
+            color = _color;
         }
     }
 }

@@ -23,19 +23,16 @@ namespace ProjectOneTwo
         readonly SimpleFps fps = new SimpleFps();
         public static ContentManager Mycontent;
         public Texture2D health_bar;
-        string line;
+        string line = "idk";
         Button playButton, quitButton, restartButton, quitButton2;
-        Screen screen;
 
-        enum GameState
+        public enum GameState
         {
             MainMenu,
             GamePlay,
             GameOver,
             Test,
         }
-
-        GameState gameState;
 
         public enum Winner
         {
@@ -59,9 +56,8 @@ namespace ProjectOneTwo
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
                       
-            gameState = GameState.Test;
+            //gameState = GameState.Test;
             winner = Winner.None;
-            screen = new Screen();
         }
 
         protected override void Initialize()
@@ -73,7 +69,7 @@ namespace ProjectOneTwo
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
 
             player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D);
@@ -96,24 +92,44 @@ namespace ProjectOneTwo
             buttonSprites[0] = Content.Load<Texture2D>("button1");
             buttonSprites[1] = Content.Load<Texture2D>("button2");
 
-            screen.AddRenderTexture2D(background, new Rectangle(0, 0, 1920, 1080));
-
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
-            Physics.LoadMap();
-            Physics.AddEntity(ref player1);
-            Physics.AddEntity(ref player2);
+            //Physics.LoadMap();
+            //Physics.AddEntity(ref player1);
+            //Physics.AddEntity(ref player2);
 
+            //load gameplay
+            ScreenManager.AddScreen(GameState.GamePlay);
+            ScreenManager.ChangeGameStateTo(GameState.GamePlay);
+            ScreenManager.screen.LoadMap();
+            ScreenManager.screen.AddEntity(ref player1);
+            ScreenManager.screen.AddEntity(ref player2);
+            ScreenManager.screen.AddRenderTexture2D(background, new Rectangle(0, 0, 1920, 1080));
+
+            //load main menu
+            ScreenManager.AddScreen(GameState.MainMenu);
+            ScreenManager.ChangeGameStateTo(GameState.MainMenu);
             playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
+            ScreenManager.screen.AddButton(ref playButton);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton.AddText("Quit", spriteFont, 10, 10);
+            ScreenManager.screen.AddButton(ref quitButton);
 
+            //load game over screen
+            ScreenManager.AddScreen(GameState.GameOver);
+            ScreenManager.ChangeGameStateTo(GameState.GameOver);
             restartButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
             restartButton.AddText("Play again", spriteFont, 30, 10);
+            ScreenManager.screen.AddButton(ref restartButton);
             quitButton2 = new Button(new Vector2(1500, 900), new Vector2(1900, 1000), buttonSprites);
             quitButton2.AddText("Return to main menu", spriteFont, 30, 10);
-            screen.AddButton(ref quitButton);
+            ScreenManager.screen.AddButton(ref quitButton2);
+            ScreenManager.screen.AddRenderTexture2D(gameOverBackground, new Rectangle(0, 0, 1920, 1080));
+            ScreenManager.screen.AddRenderString(ref line, gameOverFont, new Vector2(500f, 500f), Color.Red);
+
+            //starting gamestate
+            ScreenManager.ChangeGameStateTo(GameState.GamePlay);
         }
 
         protected override void UnloadContent()
@@ -125,22 +141,30 @@ namespace ProjectOneTwo
         {
             fps.Update(gameTime);
 
-            KeyboardState state = Keyboard.GetState();
+            KeyboardState keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
 
             //exits game
-            if (state.IsKeyDown(Keys.Escape))
+            if (keyboard.IsKeyDown(Keys.Escape))
                 Exit();
 
+            winner = ScreenManager.screen.Update(gameTime, mouse, keyboard);
+
+            if (winner != Winner.None)
+            {
+                ScreenManager.ChangeGameStateTo(GameState.GameOver);
+            }
+
+            /*
             switch (gameState)
             {
                 case GameState.GamePlay:
                     //character movement
-                    player1.Keyboard(state);
-                    player2.Keyboard(state);
-                    Physics.AttacksUpdate();
-                    Physics.MoveUpdate();
-                    winner = Physics.GameRules();
+                    player1.Keyboard(keyboard);
+                    player2.Keyboard(keyboard);
+                    //Physics.AttacksUpdate();
+                    //Physics.MoveUpdate();
+                    //winner = Physics.GameRules();
                     if (winner != Winner.None)
                     {
                         gameState = GameState.GameOver;
@@ -187,7 +211,7 @@ namespace ProjectOneTwo
                     screen.Update(gameTime, mouse, state);
                     if (screen.buttons[0].IsPressed(mouse)) Exit();
                     break;
-            }        
+            }        */
 
             base.Update(gameTime);
         }
@@ -199,15 +223,35 @@ namespace ProjectOneTwo
 
             //render all objects to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
-            
-            switch (gameState)
+
+            ScreenManager.screen.Draw(gameTime, spriteBatch);
+
+            switch (winner)
+            {
+                case Winner.Player1:
+                    line = "Player1 has won the game!";
+                    break;
+
+                case Winner.Player2:
+                    line = "Player2 has won the game!";
+                    break;
+
+                case Winner.Draw:
+                    line = "It somehow ended up as a draw...";
+                    break;
+                case Winner.None:
+                    line = "It somehow ended up as a draw...";
+                    break;
+            }
+
+            /*switch (gameState)
             {
                 case GameState.GamePlay:
                     //background
                     spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White); ///on bottom
 
                     //characters
-                    Physics.Draw(spriteBatch); ///draws characters
+                    //Physics.Draw(spriteBatch); ///draws characters
 
                     //healthbars
                     spriteBatch.Draw(health_bar, new Rectangle(10, 100, 10, player1.life * 5), Color.White); 
@@ -248,9 +292,9 @@ namespace ProjectOneTwo
                     break;
 
                 case GameState.Test:
-                    screen.Draw(gameTime, spriteBatch);
+                    //screen.Draw(gameTime, spriteBatch);
                     break;
-            }
+            }*/
 
             //fps
             fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow); 
@@ -258,6 +302,13 @@ namespace ProjectOneTwo
             spriteBatch.End();
 
             //scale to users monitor resolution
+            AdjustRanderTarget();
+
+            base.Draw(gameTime);
+        }
+
+        private void AdjustRanderTarget()
+        {
             GraphicsDevice.SetRenderTarget(null);
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
@@ -281,8 +332,6 @@ namespace ProjectOneTwo
                 }
             }
             spriteBatch.End();
-
-            base.Draw(gameTime);
         }
     }
 }

@@ -12,15 +12,14 @@ namespace ProjectOneTwo
 {
     class Screen
     {
-        //Physics physics; not static
+        Physics physics;
         public List<Button> buttons = new List<Button>();
         List<RenderTexture2D> textures = new List<RenderTexture2D>();
         List<RenderString> strings = new List<RenderString>();
-        //RenderString2D[] strings; new type
         
         public Screen()
         {
-
+            physics = new Physics();
         }
 
         #region main loop
@@ -34,12 +33,17 @@ namespace ProjectOneTwo
 
         }
 
-        public void Update(GameTime gameTime, MouseState mouse, KeyboardState keyboard)
+        public Game1.Winner Update(GameTime gameTime, MouseState mouse, KeyboardState keyboard)
         {
             for (int i = 0; i <= buttons.Count - 1; i++)
             {
                 buttons[i].Update(mouse);
             }
+
+            physics.AttacksUpdate();
+            physics.MoveUpdate();
+
+            return physics.GameRules();
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -54,7 +58,12 @@ namespace ProjectOneTwo
                 buttons[i].Draw(spriteBatch);
             }
 
-            
+            for (int i = 0; i <= strings.Count - 1; i++)
+            {
+                spriteBatch.DrawString(strings[i].font, strings[i].str, strings[i].pos, strings[i].color);
+            }
+
+            physics.Draw(spriteBatch);
         }
         #endregion 
 
@@ -69,6 +78,22 @@ namespace ProjectOneTwo
         {
             RenderTexture2D renderTexture2D = new RenderTexture2D(texture, rectangle);
             textures.Add(renderTexture2D);
+        }
+
+        public void AddRenderString(ref string str, SpriteFont font, Vector2 pos, Color color)
+        {
+            RenderString renderString = new RenderString(ref str, font, pos, color);
+            strings.Add(renderString);
+        }
+
+        public void AddEntity(ref Player1 player)
+        {
+            physics.AddEntity(ref player);
+        }
+
+        public void LoadMap()
+        {
+            physics.LoadMap();
         }
         #endregion
     }
