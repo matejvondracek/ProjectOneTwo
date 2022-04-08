@@ -13,6 +13,8 @@ namespace ProjectOneTwo
     public class ScreenManager
     {
         Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
+        SpriteFont spriteFont;
+        readonly SimpleFps fps = new SimpleFps();
 
         public enum GameState
         {
@@ -39,6 +41,7 @@ namespace ProjectOneTwo
             screens.Add(GameState.GamePlay, new Screen_GamePlay());
             screens.Add(GameState.GameOver, new Screen_GameOver());
             gameState = _gameState;
+            screens[gameState].ChangeTo();
             winner = Winner.None;
         }
         public void Initialize()
@@ -55,6 +58,8 @@ namespace ProjectOneTwo
             {
                 screen.LoadContent();
             }
+
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
@@ -63,11 +68,17 @@ namespace ProjectOneTwo
             {
                 screens[gameState].ChangeTo();
             }
+
+            fps.Update(gameTime);
+
+            if (keyboard.IsKeyDown(Keys.Escape))
+                Game1.self.Exit();
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             screens[gameState].Draw(gameTime, spriteBatch);
+            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
         }
     }
 }

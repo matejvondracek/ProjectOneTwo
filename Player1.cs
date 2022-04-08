@@ -65,9 +65,9 @@ namespace ProjectOneTwo
         public void ChangeImage()
         {
             if (state.IsKeyDown(right))  
-                image=Game1.Mycontent.Load<Texture2D>("MadS2");
+                image = Game1.Mycontent.Load<Texture2D>("MadS2");
             if (state.IsKeyDown(left))  
-                image=Game1.Mycontent.Load<Texture2D>("MadS1");
+                image = Game1.Mycontent.Load<Texture2D>("MadS1");
         }
 
         public void MakeAttack()

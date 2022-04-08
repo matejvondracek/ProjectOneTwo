@@ -14,24 +14,20 @@ namespace ProjectOneTwo
     {
         static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
-        RenderTarget2D _renderTarget;
+        RenderTarget2D renderTarget;
         readonly int screenWidth, screenHeight;
-        readonly SimpleFps fps = new SimpleFps();
         public static ContentManager Mycontent;
-        public Texture2D health_bar;
         public static ScreenManager screenManager;
         public static Game1 self;
 
         public Game1()
         {
-            self = this;
+            self = this; ///allows to call Game1 function from other classes
 
             Content.RootDirectory = "Content";
             Mycontent = Content;
 
             graphics = new GraphicsDeviceManager(this);
-
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
@@ -42,7 +38,6 @@ namespace ProjectOneTwo
         {
             //mouse settings
             Mouse.SetCursor(MouseCursor.Arrow);
-            this.IsMouseVisible = true;
 
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -59,9 +54,8 @@ namespace ProjectOneTwo
         {
             screenManager.LoadContent();
 
-            _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
+            renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteFont = Content.Load<SpriteFont>("font");
         }
 
         protected override void UnloadContent()
@@ -70,15 +64,9 @@ namespace ProjectOneTwo
         }
 
         protected override void Update(GameTime gameTime)
-        {
-            fps.Update(gameTime);
-
+        {          
             KeyboardState keyboard = Keyboard.GetState();
-            MouseState mouse = Mouse.GetState();
-
-            //exits game
-            if (keyboard.IsKeyDown(Keys.Escape))
-                Exit();
+            MouseState mouse = Mouse.GetState();      
 
             screenManager.Update(gameTime, keyboard, mouse);          
 
@@ -87,17 +75,12 @@ namespace ProjectOneTwo
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(_renderTarget);
+            GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //render all objects to FullHD for precision movement
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);   ///prevents blurring
-
             screenManager.Draw(gameTime, spriteBatch);          
-
-            //fps
-            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow); 
-
             spriteBatch.End();
 
             //scale to users monitor resolution
@@ -106,13 +89,14 @@ namespace ProjectOneTwo
             base.Draw(gameTime);
         }
 
+        #region private
         void AdjustRenderTarget()
         {
             GraphicsDevice.SetRenderTarget(null);
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             if ((9 * screenWidth) == (16 * screenHeight))   ///for 16/9 screen ratio
-                spriteBatch.Draw(_renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                spriteBatch.Draw(renderTarget, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
             else
             {
                 if ((9 * screenWidth) > (16 * screenHeight))    ///for wider screens (e.g. 21/9 ratio)
@@ -120,17 +104,19 @@ namespace ProjectOneTwo
                     int renderWidth = screenHeight * 16 / 9;
                     int blackBar = (screenWidth - renderWidth) / 2;
 
-                    spriteBatch.Draw(_renderTarget, new Rectangle(blackBar, 0, renderWidth, screenHeight), Color.White);
+                    spriteBatch.Draw(renderTarget, new Rectangle(blackBar, 0, renderWidth, screenHeight), Color.White);
                 }
                 else ///for taller screens (e.g. 4/3 ratio)
                 {
                     int renderHeight = screenWidth * 9 / 16;
                     int blackBar = (screenHeight - renderHeight) / 2;
 
-                    spriteBatch.Draw(_renderTarget, new Rectangle(0, blackBar, screenWidth, renderHeight), Color.White);
+                    spriteBatch.Draw(renderTarget, new Rectangle(0, blackBar, screenWidth, renderHeight), Color.White);
                 }
             }
             spriteBatch.End();
         }
+
+        #endregion
     }
 }
