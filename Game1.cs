@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lidgren;
 
 namespace ProjectOneTwo
 {
@@ -42,7 +43,7 @@ namespace ProjectOneTwo
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
 
             screenManager.Initialize();

@@ -28,6 +28,11 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\..\Downloads\lidgren-network-gen3-master\lidgren-network-gen3-master\Lidgren.Network\bin\Debug\Lidgren.Network.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Barrier.cs">
       <Generator>FCMCommand</Generator>
       <LastGenOutput>Barrier.dgml</LastGenOutput>

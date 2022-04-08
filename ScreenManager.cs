@@ -12,13 +12,13 @@ namespace ProjectOneTwo
 {
     public class ScreenManager
     {
-        Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
+        readonly Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
         SpriteFont spriteFont;
         readonly SimpleFps fps = new SimpleFps();
 
         public enum GameState
         {
-            MainMenu,
+            MainMenu, MultiplayerMenu, HostGameMenu, JoinGameMenu,
             GamePlay,
             GameOver,
         }
@@ -38,6 +38,9 @@ namespace ProjectOneTwo
         public ScreenManager(GameState _gameState)
         {
             screens.Add(GameState.MainMenu, new Screen_MainMenu());
+            screens.Add(GameState.MultiplayerMenu, new Screen_MultiplayerMenu());           
+            screens.Add(GameState.HostGameMenu, new Screen_HostGameMenu());
+            screens.Add(GameState.JoinGameMenu, new Screen_JoinGameMenu());
             screens.Add(GameState.GamePlay, new Screen_GamePlay());
             screens.Add(GameState.GameOver, new Screen_GameOver());
             gameState = _gameState;
