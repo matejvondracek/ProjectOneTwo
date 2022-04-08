@@ -4,22 +4,26 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectOneTwo;
 
-public static class Physics
+public class Physics
 {
-    private readonly static Barrier[] obstacles = new Barrier[100];
-    private readonly static Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
-    private readonly static Attack[] Attacks = new Attack[5];
+    private readonly Barrier[] obstacles = new Barrier[100];
+    private readonly Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
+    private readonly Attack[] Attacks = new Attack[5];
 
-    private static Vector2 gravity = new Vector2(0, 5);
-    private static int obstacle_count = -1, entity_count = -1, attack_count = -1;
+    private Vector2 gravity = new Vector2(0, 5);
+    private int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
+    public Physics() 
+    {
 
-    private static void AddBarrier(int Ax, int Ay, int Bx, int By)
+    }
+
+    private void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
         obstacles[++obstacle_count] = new Barrier(Ax, Ay, Bx, By);
     }
 
-    public static void LoadMap()
+    public void LoadMap()
     {
         //4 walls on screen bezels
         //AddBarrier(0, 180, 320, 181);
@@ -33,12 +37,12 @@ public static class Physics
     }
 
 
-    public static void AddEntity(ref Player1 entity)
+    public void AddEntity(ref Player1 entity)
     {
         Entities[++entity_count] = entity;
     }
 
-    public static void AttacksUpdate()
+    public void AttacksUpdate()
     {
         if (attack_count != -1) 
         {
@@ -67,7 +71,7 @@ public static class Physics
         }
     }
 
-    private static void ChangeVector(ref Player1 entity, Vector2 move)
+    private void ChangeVector(ref Player1 entity, Vector2 move)
     {
         if (move.Length() != 0)
         {
@@ -83,7 +87,7 @@ public static class Physics
         
     }
 
-    public static void MoveUpdate()
+    public void MoveUpdate()
     {       
         for (int e = 0; e <= entity_count; e++)
         {
@@ -118,7 +122,7 @@ public static class Physics
         }        
     }
 
-    public static void Draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch)
     {
         for (int e = 0; e <= entity_count; e++)
         {
@@ -126,7 +130,7 @@ public static class Physics
         }
     }
 
-    public static Game1.Winner GameRules()
+    public ScreenManager.Winner GameRules()
     {
         //checkes whether any player is off screen
         Rectangle screen = new Rectangle(0, 0, 1920, 1080);
@@ -148,8 +152,8 @@ public static class Physics
             {
                 if (Entities[e].times_dead >= 3)
                 {
-                    if (e == 0) return Game1.Winner.Player2;
-                    else return Game1.Winner.Player1;
+                    if (e == 0) return ScreenManager.Winner.Player2;
+                    else return ScreenManager.Winner.Player1;
                 }
                 else
                 {
@@ -163,6 +167,6 @@ public static class Physics
             }
         }
 
-        return Game1.Winner.None;
+        return ScreenManager.Winner.None;
     }
 }
