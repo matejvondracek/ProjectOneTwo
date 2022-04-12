@@ -43,21 +43,20 @@ namespace ProjectOneTwo
             physics.AddEntity(ref player2);
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             //character movement
             player1.Keyboard(keyboard);
             player2.Keyboard(keyboard);
             physics.AttacksUpdate();
             physics.MoveUpdate();
-            Game1.screenManager.winner = physics.GameRules();
-            if (Game1.screenManager.winner != ScreenManager.Winner.None)
+            Game1.self.screenManager.winner = physics.GameRules();
+            if (Game1.self.screenManager.winner != ScreenManager.Winner.None)
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.GameOver;
-                return true;
+                return ScreenManager.GameState.GameOver;
             }
 
-            return false;
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -81,7 +80,7 @@ namespace ProjectOneTwo
         {
             Game1.self.IsMouseVisible = false;
 
-            Game1.screenManager.winner = ScreenManager.Winner.None;
+            Game1.self.screenManager.winner = ScreenManager.Winner.None;
             player1.Reset();
             player1.times_dead = 0;
             player2.Reset();

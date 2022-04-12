@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ProjectOneTwo
 {
-    class Screen
+    public class Screen
     {
         public Screen()
         {
@@ -27,9 +27,9 @@ namespace ProjectOneTwo
 
         }
 
-        public virtual bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public virtual ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            return false;
+            return ScreenManager.GameState.Null;
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -39,7 +39,7 @@ namespace ProjectOneTwo
 
         public virtual void ChangeTo()
         {
-
+            
         }
     }
 }

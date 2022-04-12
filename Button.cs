@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,9 +14,11 @@ namespace ProjectOneTwo
         Texture2D texture;
         string text;
         SpriteFont spriteFont;
-        bool withText = false;
+        bool withText = false, released = false;
+        public bool enabled = true;
         Vector2 textSize, textPosition;
         float textScale;
+        MouseState mouse;
 
 
         public Button(Rectangle _rect, Texture2D[] _textures)
@@ -51,16 +53,40 @@ namespace ProjectOneTwo
             textPosition.Y = (((bounds.Height - textHeight) / 2) + bounds.Y);
         }
 
-        public void Update(MouseState mouse)
+        public void Update(MouseState _mouse)
         {
-            if (rect.Contains(mouse.Position)) texture = textures[1];
-            else texture = textures[0];
+            if (enabled)
+            {
+                mouse = _mouse;
+                if (IsHoveringOver()) texture = textures[1];
+                else texture = textures[0];
+            }
+            else released = false;
+               
         }
 
-        public bool IsPressed(MouseState mouse)
+        public bool IsPressed()
         {
-            if (rect.Contains(mouse.Position) && mouse.LeftButton == ButtonState.Pressed) return true;           
-            else return false;
+            if (enabled)
+            {
+                if (released)
+                {
+                    released = !IsTargeted();
+                    return IsTargeted();
+                }
+                released = !IsTargeted();
+            }            
+            return false;
+        }
+
+        private bool IsHoveringOver()
+        {
+            return mouse.LeftButton != ButtonState.Pressed && rect.Contains(mouse.Position);
+        }
+
+        private bool IsTargeted()
+        {
+            return mouse.LeftButton == ButtonState.Pressed && rect.Contains(mouse.Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -68,6 +94,11 @@ namespace ProjectOneTwo
             spriteBatch.Draw(texture, rect, Color.White);
             if (withText) 
                 spriteBatch.DrawString(spriteFont, text, textPosition, Color.White, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
+        }
+
+        public void ChangePos(Vector2 a, Vector2 b)
+        {
+            rect = new Rectangle(a.ToPoint(), new Point(Convert.ToInt32(b.X - a.X), Convert.ToInt32(b.Y - a.Y)));
         }
     }
 }

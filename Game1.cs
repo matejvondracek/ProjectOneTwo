@@ -12,12 +12,12 @@ namespace ProjectOneTwo
 {
     public class Game1 : Game
     {
-        static GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         RenderTarget2D renderTarget;
         readonly int screenWidth, screenHeight;
         public static ContentManager Mycontent;
-        public static ScreenManager screenManager;
+        public ScreenManager screenManager;
         public static Game1 self;
 
         public Game1()
@@ -42,7 +42,7 @@ namespace ProjectOneTwo
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
 
             screenManager.Initialize();

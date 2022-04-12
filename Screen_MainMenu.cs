@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using ProjectOneTwo;
 
 namespace ProjectOneTwo
@@ -37,22 +38,24 @@ namespace ProjectOneTwo
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton.AddText("Quit", spriteFont, 10, 10);
+
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             playButton.Update(mouse);
             quitButton.Update(mouse);
-            if (playButton.IsPressed(mouse))
+            if (playButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.GamePlay;
-                Game1.screenManager.winner = ScreenManager.Winner.None;
-                return true;
+                Game1.self.screenManager.winner = ScreenManager.Winner.None;
+                return ScreenManager.GameState.GamePlay;
             }
 
-            if (quitButton.IsPressed(mouse)) Game1.self.Exit();
+            if (quitButton.IsPressed()) Game1.self.Exit();
 
-            return false;
+            quitButton.enabled = true;
+            EnableButtons(true);
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -64,6 +67,14 @@ namespace ProjectOneTwo
         public override void ChangeTo()
         {
             Game1.self.IsMouseVisible = true;
+
+            EnableButtons(false);
+        }
+
+        private void EnableButtons(bool b)
+        {
+            if (quitButton != null) quitButton.enabled = b;
+            if (playButton != null) playButton.enabled = b;
         }
     }
 }

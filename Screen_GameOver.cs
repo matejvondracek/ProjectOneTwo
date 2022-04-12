@@ -37,28 +37,30 @@ namespace ProjectOneTwo
 
             restartButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
             restartButton.AddText("Play again", spriteFont, 30, 10);
-            quitButton2 = new Button(new Vector2(1500, 900), new Vector2(1900, 1000), buttonSprites);
+            quitButton2 = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton2.AddText("Return to main menu", spriteFont, 30, 10);
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             restartButton.Update(mouse);
             quitButton2.Update(mouse);
-            if (restartButton.IsPressed(mouse))
+            if (restartButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.GamePlay;
-                return true;
+                return ScreenManager.GameState.GamePlay;
             }
-            if (quitButton2.IsPressed(mouse)) Game1.screenManager.gameState = ScreenManager.GameState.MainMenu;
-            
-            return false;
+            if (quitButton2.IsPressed()) 
+            {
+                return ScreenManager.GameState.MainMenu;
+            }
+
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             string line = "";
-            switch (Game1.screenManager.winner)
+            switch (Game1.self.screenManager.winner)
             {
                 case ScreenManager.Winner.Player1:
                     line = "Player1 has won the game!";
