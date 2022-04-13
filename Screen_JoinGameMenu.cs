@@ -26,9 +26,9 @@ namespace ProjectOneTwo
             
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            return false;
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

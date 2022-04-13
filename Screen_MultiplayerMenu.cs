@@ -43,30 +43,27 @@ namespace ProjectOneTwo
 
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             hostButton.Update(mouse);
-            if (hostButton.IsPressed(mouse))
+            if (hostButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.HostGameMenu;
-                return true;
+                return ScreenManager.GameState.HostGameMenu;
             }
 
             joinButton.Update(mouse);
-            if (joinButton.IsPressed(mouse))
+            if (joinButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.JoinGameMenu;
-                return true;
+                return ScreenManager.GameState.JoinGameMenu;
             }
 
             backButton.Update(mouse);
-            if (backButton.IsPressed(mouse))
+            if (backButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.MainMenu;
-                return true;
+                return ScreenManager.GameState.MainMenu;
             }
             
-            return false;
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

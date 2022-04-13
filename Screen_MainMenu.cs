@@ -35,7 +35,7 @@ namespace ProjectOneTwo
             spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
 
             onlineButton = new Button(new Vector2(460, 200), new Vector2(1360, 400), buttonSprites);
-            onlineButton.AddText("Online Multtiplayer", spriteFont, 30, 0);
+            onlineButton.AddText("Online Multiplayer", spriteFont, 30, 0);
 
             playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
@@ -52,22 +52,21 @@ namespace ProjectOneTwo
             playButton.Update(mouse);
             quitButton.Update(mouse);
             onlineButton.Update(mouse);
-            if (onlineButton.IsPressed(mouse))
+            if (onlineButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.MultiplayerMenu;
-                Game1.screenManager.winner = ScreenManager.Winner.None;
-                return true;
+                Game1.self.screenManager.winner = ScreenManager.Winner.None;
+                return ScreenManager.GameState.MultiplayerMenu;
             }
 
             playButton.Update(mouse);            
-            if (playButton.IsPressed(mouse))
+            if (playButton.IsPressed())
             {
                 Game1.self.screenManager.winner = ScreenManager.Winner.None;
                 return ScreenManager.GameState.GamePlay;
             }
 
             quitButton.Update(mouse);
-            if (quitButton.IsPressed(mouse)) Game1.self.Exit();
+            if (quitButton.IsPressed()) Game1.self.Exit();
 
             quitButton.enabled = true;
             EnableButtons(buttons, true);

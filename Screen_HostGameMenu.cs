@@ -49,10 +49,10 @@ namespace ProjectOneTwo
             backButton.AddText("Back", spriteFont, 30, 0);
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             startButton.Update(mouse);
-            if (startButton.IsPressed(mouse))
+            if (startButton.IsPressed())
             {
                 if (running)
                 {
@@ -79,13 +79,12 @@ namespace ProjectOneTwo
             }
 
             backButton.Update(mouse);
-            if (backButton.IsPressed(mouse))
+            if (backButton.IsPressed())
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.MultiplayerMenu;
-                return true;
+                return ScreenManager.GameState.MultiplayerMenu;
             }
 
-            return false;
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
