@@ -18,11 +18,9 @@ namespace ProjectOneTwo
         Button startButton, backButton;
         readonly Texture2D[] buttonSprites = new Texture2D[2];
         SpriteFont spriteFont, bigFont;
+        string line = "";
 
         //server
-        NetPeerConfiguration config;
-        NetServer server;
-        bool running = false;
         string ipAdress = "";
 
         public Screen_HostGameMenu()
@@ -54,28 +52,25 @@ namespace ProjectOneTwo
             startButton.Update(mouse);
             if (startButton.IsPressed())
             {
-                if (running)
+                if (Game1.self.client.connected) line = "Cannot both host and join game!";
+                else if (Game1.self.server.running)
                 {
-                    //turning the server off
-                    server.Shutdown("bye");
-                    running = false;
+                    Game1.self.server.Shutdown();
+                    Game1.self.peer = Game1.Peer.Offline;
 
                     //changing the button
                     startButton.AddText("Start", spriteFont, 30, 0);
                 }
                 else
                 {
-                    //starting the server
-                    config = new NetPeerConfiguration("ProjectOneTwo.exe")
-                    { Port = 12345 };
-                    server = new NetServer(config);
-                    server.Start();
-                    running = true;
+                    Game1.self.server.Start();
                     ipAdress = GetLocalIPAddress();
+                    line = "Local IP Adress: " + ipAdress;
+                    Game1.self.peer = Game1.Peer.Server;
 
                     //changing the button
-                    startButton.AddText("Cancel", spriteFont, 30, 0);
-                }               
+                    startButton.AddText("Cancel", spriteFont, 30, 0);                   
+                }
             }
 
             backButton.Update(mouse);
@@ -92,7 +87,6 @@ namespace ProjectOneTwo
             startButton.Draw(spriteBatch);
             backButton.Draw(spriteBatch);
 
-            string line = "Local IP Adress: " + ipAdress;
             spriteBatch.DrawString(bigFont, line, new Vector2(500f, 500f), Color.Red);
         }
 

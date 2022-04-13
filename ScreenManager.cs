@@ -14,7 +14,7 @@ namespace ProjectOneTwo
     {
         readonly public Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
         SpriteFont spriteFont;
-        readonly SimpleFps fps = new SimpleFps();
+        readonly SimpleFps fps = new SimpleFps();      
 
         public enum GameState
         {
@@ -23,7 +23,6 @@ namespace ProjectOneTwo
             GameOver,
             Null,
         }
-
         public GameState gameState;
 
         public enum Winner
@@ -33,7 +32,6 @@ namespace ProjectOneTwo
             Draw,
             None,
         }
-
         public Winner winner;
 
         public ScreenManager(GameState _gameState)
@@ -85,6 +83,7 @@ namespace ProjectOneTwo
         {
             screens[gameState].Draw(gameTime, spriteBatch);
             fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+            spriteBatch.DrawString(spriteFont, Game1.self.peer.ToString(), new Vector2(100, 10), Color.GreenYellow);
         }
 
         public Screen GetScreen(GameState state)

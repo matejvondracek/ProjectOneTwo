@@ -21,6 +21,16 @@ namespace ProjectOneTwo
         public ScreenManager screenManager;
         public static Game1 self;
 
+        public Server server;
+        public Client client;
+        public enum Peer
+        {
+            Offline,
+            Server,
+            Client,
+        }
+        public Peer peer = Peer.Offline;
+
         public Game1()
         {
             self = this; ///allows to call Game1 function from other classes
@@ -33,6 +43,9 @@ namespace ProjectOneTwo
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 
             screenManager = new ScreenManager(ScreenManager.GameState.MainMenu);
+
+            server = new Server();
+            client = new Client();
         }
 
         protected override void Initialize()
@@ -69,7 +82,18 @@ namespace ProjectOneTwo
             KeyboardState keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();      
 
-            screenManager.Update(gameTime, keyboard, mouse);          
+            screenManager.Update(gameTime, keyboard, mouse);
+
+            switch (peer)
+            {
+                case Peer.Server:
+                    server.Update();
+                    break;
+
+                case Peer.Client:
+                    client.Update();
+                    break;
+            }
 
             base.Update(gameTime);
         }
