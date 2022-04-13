@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using ProjectOneTwo;
 
 namespace ProjectOneTwo
@@ -16,6 +17,7 @@ namespace ProjectOneTwo
         readonly Texture2D[] buttonSprites = new Texture2D[2];
         SpriteFont spriteFont;
         Button playButton, quitButton, onlineButton;
+        readonly List<Button> buttons = new List<Button>();
 
         public Screen_MainMenu()
         {
@@ -24,7 +26,6 @@ namespace ProjectOneTwo
 
         public override void Initialize()
         {
-
         }
 
         public override void LoadContent()
@@ -40,11 +41,16 @@ namespace ProjectOneTwo
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
 
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
-            quitButton.AddText("Quit", spriteFont, 10, 10);           
+            quitButton.AddText("Quit", spriteFont, 10, 10);
+            
+            buttons.Add(playButton);
+            buttons.Add(quitButton);
         }
 
-        public override bool Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
+        public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
+            playButton.Update(mouse);
+            quitButton.Update(mouse);
             onlineButton.Update(mouse);
             if (onlineButton.IsPressed(mouse))
             {
@@ -56,15 +62,16 @@ namespace ProjectOneTwo
             playButton.Update(mouse);            
             if (playButton.IsPressed(mouse))
             {
-                Game1.screenManager.gameState = ScreenManager.GameState.GamePlay;
-                Game1.screenManager.winner = ScreenManager.Winner.None;
-                return true;
+                Game1.self.screenManager.winner = ScreenManager.Winner.None;
+                return ScreenManager.GameState.GamePlay;
             }
 
             quitButton.Update(mouse);
             if (quitButton.IsPressed(mouse)) Game1.self.Exit();
 
-            return false;
+            quitButton.enabled = true;
+            EnableButtons(buttons, true);
+            return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -77,6 +84,8 @@ namespace ProjectOneTwo
         public override void ChangeTo()
         {
             Game1.self.IsMouseVisible = true;
+
+            EnableButtons(buttons, false);
         }
     }
 }

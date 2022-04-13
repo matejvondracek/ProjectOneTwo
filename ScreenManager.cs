@@ -12,7 +12,7 @@ namespace ProjectOneTwo
 {
     public class ScreenManager
     {
-        readonly Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
+        readonly public Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
         SpriteFont spriteFont;
         readonly SimpleFps fps = new SimpleFps();
 
@@ -21,6 +21,7 @@ namespace ProjectOneTwo
             MainMenu, MultiplayerMenu, HostGameMenu, JoinGameMenu,
             GamePlay,
             GameOver,
+            Null,
         }
 
         public GameState gameState;
@@ -67,8 +68,10 @@ namespace ProjectOneTwo
 
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            if (screens[gameState].Update(gameTime, keyboard, mouse))
+            GameState newState = screens[gameState].Update(gameTime, keyboard, mouse);
+            if ((newState != gameState) && (newState != GameState.Null))
             {
+                gameState = newState;
                 screens[gameState].ChangeTo();
             }
 
@@ -82,6 +85,11 @@ namespace ProjectOneTwo
         {
             screens[gameState].Draw(gameTime, spriteBatch);
             fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+        }
+
+        public Screen GetScreen(GameState state)
+        {
+            return screens[state];
         }
     }
 }
