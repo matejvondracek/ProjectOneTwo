@@ -41,5 +41,13 @@ namespace ProjectOneTwo
         {
             
         }
+
+        protected void EnableButtons(List<Button> buttons, bool b)
+        {
+            foreach (Button button in buttons)
+            {
+                if (button != null) button.enabled = b;
+            }
+        }
     }
 }

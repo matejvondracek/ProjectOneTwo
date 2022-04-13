@@ -79,12 +79,12 @@ namespace ProjectOneTwo
             return false;
         }
 
-        private bool IsHoveringOver()
+        public bool IsHoveringOver()
         {
             return mouse.LeftButton != ButtonState.Pressed && rect.Contains(mouse.Position);
         }
 
-        private bool IsTargeted()
+        public bool IsTargeted()
         {
             return mouse.LeftButton == ButtonState.Pressed && rect.Contains(mouse.Position);
         }
