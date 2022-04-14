@@ -84,6 +84,15 @@ namespace ProjectOneTwo
             screens[gameState].Draw(gameTime, spriteBatch);
             fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
             spriteBatch.DrawString(spriteFont, Game1.self.peer.ToString(), new Vector2(100, 10), Color.GreenYellow);
+
+            if (Game1.self.peer != Game1.Peer.Offline)
+            {
+                string text = "";
+                if (Game1.self.connected) text = "Connected";
+                else text = "Not connected";
+
+                spriteBatch.DrawString(spriteFont, text, new Vector2(300, 10), Color.GreenYellow);
+            }
         }
 
         public Screen GetScreen(GameState state)

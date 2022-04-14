@@ -11,6 +11,7 @@ namespace ProjectOneTwo
         readonly NetClient client;
         public bool connected = false, playing = false;
         NetIncomingMessage incoming;
+        string commands = "";
 
         public Client()
         {
@@ -73,11 +74,22 @@ namespace ProjectOneTwo
         private void IncomingMessage()
         {
             incoming = client.ReadMessage();
+            if (incoming != null)
+            {
+                if (incoming.MessageType == NetIncomingMessageType.Data) commands = incoming.ReadString();
+                else commands = "";
+            }
+            
         }
 
         private void SendMessage(NetOutgoingMessage outgoing)
         {
             client.SendMessage(outgoing, NetDeliveryMethod.ReliableOrdered);
+        }
+
+        public string GetState()
+        {
+            return commands;
         }
     }
 }

@@ -20,9 +20,6 @@ namespace ProjectOneTwo
         SpriteFont spriteFont, bigFont;
         string line = "";
 
-        //server
-        string ipAdress = "";
-
         public Screen_HostGameMenu()
         {
             
@@ -57,6 +54,7 @@ namespace ProjectOneTwo
                 {
                     Game1.self.server.Shutdown();
                     Game1.self.peer = Game1.Peer.Offline;
+                    line = "";
 
                     //changing the button
                     startButton.AddText("Start", spriteFont, 30, 0);
@@ -64,8 +62,11 @@ namespace ProjectOneTwo
                 else
                 {
                     Game1.self.server.Start();
-                    ipAdress = GetLocalIPAddress();
-                    line = "Local IP Adress: " + ipAdress;
+                    string ipAdress0 = GetLocalIPAddress(0);
+                    string ipAdress1 = GetLocalIPAddress(1);
+                    string ipAdress2 = GetLocalIPAddress(2);
+                    string ipAdress3 = GetLocalIPAddress(3);
+                    line = "IP Adresses: " + "\n" + ipAdress0 + "\n" +  ipAdress1 + "\n" + ipAdress2 + "\n" + ipAdress3;
                     Game1.self.peer = Game1.Peer.Server;
 
                     //changing the button
@@ -87,7 +88,7 @@ namespace ProjectOneTwo
             startButton.Draw(spriteBatch);
             backButton.Draw(spriteBatch);
 
-            spriteBatch.DrawString(bigFont, line, new Vector2(500f, 500f), Color.Red);
+            spriteBatch.DrawString(bigFont, line, new Vector2(100f, 300f), Color.White);
         }
 
         public override void ChangeTo()
@@ -95,10 +96,11 @@ namespace ProjectOneTwo
 
         }
 
-        private static string GetLocalIPAddress()
+        private static string GetLocalIPAddress(int i)
         {
             string hostName = Dns.GetHostName();
-            return Dns.GetHostEntry(hostName).AddressList[1].ToString();
+            if (Dns.GetHostEntry(hostName).AddressList.Length > i) return Dns.GetHostEntry(hostName).AddressList[i].ToString();
+            else return "";
         }
     }
 }

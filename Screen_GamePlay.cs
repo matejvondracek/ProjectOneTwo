@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lidgren.Network;
 
 namespace ProjectOneTwo
 {
@@ -45,17 +46,54 @@ namespace ProjectOneTwo
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            //character movement
-            player1.Keyboard(keyboard);
-            player2.Keyboard(keyboard);
-            physics.AttacksUpdate();
-            physics.MoveUpdate();
-            Game1.self.screenManager.winner = physics.GameRules();
-            if (Game1.self.screenManager.winner != ScreenManager.Winner.None)
+            switch (Game1.self.peer)
             {
-                return ScreenManager.GameState.GameOver;
-            }
+                case Game1.Peer.Offline:                   
+                    player1.Keyboard(keyboard);
+                    player2.Keyboard(keyboard);
+                    physics.AttacksUpdate();
+                    physics.MoveUpdate();
+                    Game1.self.screenManager.winner = physics.GameRules();
+                    if (Game1.self.screenManager.winner != ScreenManager.Winner.None)
+                    {
+                        return ScreenManager.GameState.GameOver;
+                    }
+                    return ScreenManager.GameState.Null;
 
+                case Game1.Peer.Server:
+                    //server side player
+                    player1.Keyboard(keyboard);
+
+                    //client side player
+                    KeyboardState keyboard2 = Game1.self.server.GetInput();
+                    player2.Keyboard(keyboard2);
+
+                    //game logic
+                    physics.AttacksUpdate();
+                    physics.MoveUpdate();                                    
+                    Game1.self.screenManager.winner = physics.GameRules();
+                    if (Game1.self.screenManager.winner != ScreenManager.Winner.None)
+                    {
+                        Game1.self.server.GameOver(Game1.self.screenManager.winner);
+                        return ScreenManager.GameState.GameOver;
+                    }
+
+                    //sending results to client
+                    string state = physics.GetState();
+                    Game1.self.server.SendState(state);
+
+                    return ScreenManager.GameState.Null;
+
+                case Game1.Peer.Client:
+                    state = Game1.self.client.GetState();
+                    physics.SetState(state);
+                    Game1.self.screenManager.winner = physics.GameRules();
+                    if (Game1.self.screenManager.winner != ScreenManager.Winner.None)
+                    {
+                        return ScreenManager.GameState.GameOver;
+                    }
+                    return ScreenManager.GameState.Null;
+            }
             return ScreenManager.GameState.Null;
         }
 

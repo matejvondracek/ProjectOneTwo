@@ -28,14 +28,14 @@ namespace ProjectOneTwo
             buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
 
-            hostButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
-            hostButton.AddText("Host Game", spriteFont, 30, 0);
+            hostButton = new Button(new Vector2(460, 200), new Vector2(1360, 400), buttonSprites);
+            hostButton.AddText("Host Game", spriteFont, 30, 30);
 
-            joinButton = new Button(new Vector2(1500, 900), new Vector2(1900, 1000), buttonSprites);
-            joinButton.AddText("Join Game", spriteFont, 30, 0);
+            joinButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
+            joinButton.AddText("Join Game", spriteFont, 30, 30);
 
-            backButton = new Button(new Vector2(760, 100), new Vector2(1160, 200), buttonSprites);
-            backButton.AddText("Back", spriteFont, 30, 0);
+            backButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
+            backButton.AddText("Back", spriteFont, 30, 10);
         }
 
         public override void LoadContent()

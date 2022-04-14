@@ -21,8 +21,11 @@ namespace ProjectOneTwo
         public ScreenManager screenManager;
         public static Game1 self;
 
+        //online stuff
         public Server server;
         public Client client;
+        public bool waiting_for_connection = true, connected = false;
+
         public enum Peer
         {
             Offline,
@@ -81,19 +84,31 @@ namespace ProjectOneTwo
         {          
             KeyboardState keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();      
-
-            screenManager.Update(gameTime, keyboard, mouse);
-
+           
             switch (peer)
             {
                 case Peer.Server:
                     server.Update();
+                    if (waiting_for_connection) 
+                    { 
+                        bool start = server.StartGame();
+                        waiting_for_connection = !start;
+                        connected = start;
+                    }                    
                     break;
 
                 case Peer.Client:
                     client.Update();
+                    if (waiting_for_connection)
+                    {
+                        bool start = client.StartGame();
+                        waiting_for_connection = !start;
+                        connected = start;
+                    }
                     break;
             }
+
+            screenManager.Update(gameTime, keyboard, mouse);
 
             base.Update(gameTime);
         }

@@ -2,6 +2,7 @@
 using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Lidgren.Network;
 using ProjectOneTwo;
 
 public class Physics
@@ -13,7 +14,7 @@ public class Physics
     private Vector2 gravity = new Vector2(0, 5);
     private int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
-    public Physics() 
+    public Physics()
     {
 
     }
@@ -44,11 +45,11 @@ public class Physics
 
     public void AttacksUpdate()
     {
-        if (attack_count != -1) 
+        if (attack_count != -1)
         {
             Array.Clear(Attacks, 0, attack_count);
             attack_count = -1;
-        }       
+        }
 
         for (int e = 0; e <= entity_count; e++)
         {
@@ -66,7 +67,7 @@ public class Physics
                 {
                     Entities[e].life -= Attacks[i].damage;
                     Entities[e].move += Attacks[i].knockback;
-                }                                  
+                }
             }
         }
     }
@@ -84,24 +85,24 @@ public class Physics
         {
             entity.move = new Vector2(0, 0);
         }
-        
+
     }
 
     public void MoveUpdate()
-    {       
+    {
         for (int e = 0; e <= entity_count; e++)
         {
             if (!Entities[e].dead)
             {
                 Entities[e].move += gravity;
-            
+
                 //collision with obstacles
                 for (int i = 0; i <= obstacle_count; i++)
                 {
                     Barrier barrier = obstacles[i];
                     Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
                     ChangeVector(ref Entities[e], move);
-                }   
+                }
 
                 //collision with entities
                 for (int i = 0; i <= entity_count; i++)
@@ -112,21 +113,21 @@ public class Physics
                         Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
                         Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
                         ChangeVector(ref Entities[e], move);
-                    }                
+                    }
                 }
 
                 //makes the movement
                 Entities[e].pos += Entities[e].move;
                 Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
-            }          
-        }        
+            }
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         for (int e = 0; e <= entity_count; e++)
         {
-          spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+            spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
         }
     }
 
@@ -163,10 +164,58 @@ public class Physics
                     timer.Enabled = true;
                     timer.AutoReset = false;
                 }
-                
+
             }
         }
-
         return ScreenManager.Winner.None;
     }
+
+    public string GetState()
+    {
+        string state = "";
+       
+        for (int e = 0; e <= entity_count; e++)
+        {
+            //players position
+            state += "Player" + (e + 1).ToString() +  ".Pos(" + Entities[e].pos.X.ToString() + "," + Entities[e].pos.Y.ToString() + ");";
+
+            //players life
+            state += "Player" + (e + 1).ToString() + ".Life(" + Entities[e].life + ");";
+
+            //players death count
+            state += "Player" + (e + 1).ToString() + ".Death(" + Entities[e].times_dead + ");";
+
+            //players picture index
+        }
+            
+        return state;
+    }
+
+    public void SetState(string state)
+    {
+        for (int e = 0; e <= entity_count; e++)
+        {
+            int start, start2, comma, end, x = 0, y = 0;
+            //players position
+            start = state.IndexOf("Player" + (e + 1).ToString() + ".Pos(");
+            if (start != -1)
+            {
+                start2 = state.IndexOf("(", start) + 1;
+                comma = state.IndexOf(",", start2);
+                end = state.IndexOf(")", start2) - 1;
+                x = Convert.ToInt32(state.Substring(start2, comma - start2));
+                y = Convert.ToInt32(state.Substring(comma + 1, end - comma - 1));
+            }
+            Entities[e].pos = new Vector2(x, y);
+
+            /*
+            //players life
+            state += "Player" + (e + 1).ToString() + ".Life(" + Entities[e].life + ");";
+
+            //players death count
+            state += "Player" + (e + 1).ToString() + ".Death(" + Entities[e].times_dead + ");";*/
+        }
+
+    }
+
 }
