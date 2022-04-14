@@ -9,8 +9,8 @@ namespace ProjectOneTwo
 {
     public class TextBox
     {
-        Button button;
-        SpriteFont font;
+        readonly Button button;
+        readonly SpriteFont font;
         bool selected = false, released = false;
         string text = "";
         public TextBox(Vector2 a, Vector2 b, Texture2D[] _textures, SpriteFont _font)
