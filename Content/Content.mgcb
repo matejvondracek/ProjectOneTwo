@@ -147,3 +147,9 @@
 /processorParam:TextureFormat=Color
 /build:Snímek obrazovky (5).png;background.png
 
+#begin The_Game.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:The_Game.wav;Main_Theme.wav
+

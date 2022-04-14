@@ -18,6 +18,8 @@ namespace ProjectOneTwo
         readonly int screenWidth, screenHeight;
         public static ContentManager Mycontent;
         public ScreenManager screenManager;
+        public Dictionary<string, SoundEffect> sound = new Dictionary<string, SoundEffect>();
+        public Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
         public static Game1 self;
 
         public Game1()

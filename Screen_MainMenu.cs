@@ -71,6 +71,9 @@ namespace ProjectOneTwo
             Game1.self.IsMouseVisible = true;
 
             EnableButtons(buttons, false);
+
+            //music
+            if (Game1.self.soundInstances.ContainsKey("Main_Theme")) Game1.self.soundInstances["Main_Theme"].Stop();
         }
     }
 }

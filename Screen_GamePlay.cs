@@ -34,10 +34,15 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
+            //visuals
             background = Game1.Mycontent.Load<Texture2D>("background");
             health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
 
+            //audio
+            Game1.self.sound.Add("Main_Theme", Game1.Mycontent.Load<SoundEffect>("Main_Theme"));
+
+            //game logic
             physics.LoadMap();
             physics.AddEntity(ref player1);
             physics.AddEntity(ref player2);
@@ -85,6 +90,16 @@ namespace ProjectOneTwo
             player1.times_dead = 0;
             player2.Reset();
             player2.times_dead = 0;
+
+            //playing music
+            var song = Game1.self.sound["Main_Theme"].CreateInstance();
+            if (!Game1.self.soundInstances.ContainsKey("Main_Theme"))
+            {
+                Game1.self.soundInstances.Add("Main_Theme", song);               
+            }
+            Game1.self.soundInstances["Main_Theme"].IsLooped = true;
+            Game1.self.soundInstances["Main_Theme"].Volume = 1f;
+            Game1.self.soundInstances["Main_Theme"].Play();    
         }
     }
 }
