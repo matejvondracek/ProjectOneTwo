@@ -16,7 +16,7 @@ namespace ProjectOneTwo
     {
         readonly Texture2D[] buttonSprites = new Texture2D[2];
         SpriteFont spriteFont;
-        Button playButton, quitButton;
+        Button playButton, quitButton, settingsButton;
         readonly List<Button> buttons = new List<Button>();
 
         public Screen_MainMenu()
@@ -38,6 +38,7 @@ namespace ProjectOneTwo
             playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton.AddText("Quit", spriteFont, 10, 10);
+            settingsButton = new Button(new Vector2(1800, 960), new Vector2(1900, 1060), buttonSprites);
             
             buttons.Add(playButton);
             buttons.Add(quitButton);
@@ -47,6 +48,7 @@ namespace ProjectOneTwo
         {
             playButton.Update(mouse);
             quitButton.Update(mouse);
+            settingsButton.Update(mouse);
             if (playButton.IsPressed()) 
             {
                 Game1.self.screenManager.winner = ScreenManager.Winner.None;
@@ -54,6 +56,8 @@ namespace ProjectOneTwo
             }
 
             if (quitButton.IsPressed()) Game1.self.Exit();
+
+            if (settingsButton.IsPressed()) return ScreenManager.GameState.Settings;
 
             quitButton.enabled = true;
             EnableButtons(buttons, true);
@@ -64,6 +68,7 @@ namespace ProjectOneTwo
         {
             playButton.Draw(spriteBatch);
             quitButton.Draw(spriteBatch);
+            settingsButton.Draw(spriteBatch);
         }
 
         public override void ChangeTo()

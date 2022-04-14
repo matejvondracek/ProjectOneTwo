@@ -19,6 +19,7 @@ namespace ProjectOneTwo
         public enum GameState
         {
             MainMenu,
+            Settings,
             GamePlay,
             GameOver,
             Null,
@@ -41,6 +42,7 @@ namespace ProjectOneTwo
             screens.Add(GameState.MainMenu, new Screen_MainMenu());
             screens.Add(GameState.GamePlay, new Screen_GamePlay());
             screens.Add(GameState.GameOver, new Screen_GameOver());
+            screens.Add(GameState.Settings, new Screen_Settings());
             gameState = _gameState;
             screens[gameState].ChangeTo();
             winner = Winner.None;

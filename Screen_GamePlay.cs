@@ -98,7 +98,7 @@ namespace ProjectOneTwo
                 Game1.self.soundInstances.Add("Main_Theme", song);               
             }
             Game1.self.soundInstances["Main_Theme"].IsLooped = true;
-            Game1.self.soundInstances["Main_Theme"].Volume = 1f;
+            Game1.self.soundInstances["Main_Theme"].Volume = 1f * Game1.self.musicVolume;
             Game1.self.soundInstances["Main_Theme"].Play();    
         }
     }

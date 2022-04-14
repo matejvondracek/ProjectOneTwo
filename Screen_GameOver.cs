@@ -88,7 +88,7 @@ namespace ProjectOneTwo
             Game1.self.IsMouseVisible = true;
 
             //turning down music
-            Game1.self.soundInstances["Main_Theme"].Volume = 0.3f;
+            Game1.self.soundInstances["Main_Theme"].Volume = 0.3f * Game1.self.musicVolume;
         }
     }
 }
