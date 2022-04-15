@@ -22,7 +22,7 @@ namespace ProjectOneTwo
         public Rectangle attack, hitbox;
         public bool dead, is_in_jump = false;
         public float fall = 1f;
-
+        float long_jump = 80;
         bool tries_to_jump = false;
 
         public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump)
@@ -56,7 +56,7 @@ namespace ProjectOneTwo
         {
             move = new Vector2(0, 0);
 
-            if (is_in_jump) move += new Vector2(0, -30);
+            if (is_in_jump) move += new Vector2(0, -20);
 
             if (state.IsKeyDown(right))
                 move += new Vector2(10, 0);
@@ -76,8 +76,20 @@ namespace ProjectOneTwo
             {
                 is_in_jump = false;
                 fall = 1f;
+                long_jump = 80;
             }
-            else tries_to_jump = false;       
+            else if (tries_to_jump)
+            {
+                if (long_jump > 0)
+                {
+                    long_jump -= 1;
+                    move.Y -= 3f;
+                    fall -= 0.05f;
+                }
+                tries_to_jump = false;
+            }
+            else tries_to_jump = false;
+                       
         }
 
         public void GravityAcceleration()

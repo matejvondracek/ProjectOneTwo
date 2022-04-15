@@ -69,6 +69,8 @@ namespace ProjectOneTwo
             playButton.Draw(spriteBatch);
             quitButton.Draw(spriteBatch);
             settingsButton.Draw(spriteBatch);
+
+            spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.White);
         }
 
         public override void ChangeTo()

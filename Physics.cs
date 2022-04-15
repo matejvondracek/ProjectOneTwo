@@ -95,20 +95,12 @@ public class Physics
             {
                 Entities[e].move += gravity * Entities[e].fall;                
 
-                //checkes to see, if the player is standing on ground
                 ObstacleCollision(ref Entities[e]);
                 EntityCollision(ref Entities[e]);
 
                 Entities[e].GravityAcceleration();
 
                 Entities[e].Jump();               
-
-                if (Entities[e].is_in_jump)
-                {                   
-                    //making sure player cant jump into anything above them
-                    ObstacleCollision(ref Entities[e]);
-                    EntityCollision(ref Entities[e]);
-                }
                 
                 //makes the movement
                 Entities[e].pos += Entities[e].move;
