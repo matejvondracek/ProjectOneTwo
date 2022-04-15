@@ -25,6 +25,7 @@ namespace ProjectOneTwo
 
         public override void Initialize()
         {
+            
             player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space);
             player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl);
 
@@ -99,7 +100,12 @@ namespace ProjectOneTwo
             }
             Game1.self.soundInstances["Main_Theme"].IsLooped = true;
             Game1.self.soundInstances["Main_Theme"].Volume = 1f * Game1.self.musicVolume;
-            Game1.self.soundInstances["Main_Theme"].Play();    
+            Game1.self.soundInstances["Main_Theme"].Play();
+
+            //changing controls
+            Screen_Settings settings = (Screen_Settings)Game1.self.screenManager.GetScreen(ScreenManager.GameState.Settings);
+            player1.ChangeControls(settings.up1.key, settings.left1.key, settings.down1.key, settings.right1.key, settings.jump1.key);
+            player2.ChangeControls(settings.up2.key, settings.left2.key, settings.down2.key, settings.right2.key, settings.jump2.key);
         }
     }
 }

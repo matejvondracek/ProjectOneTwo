@@ -9,8 +9,8 @@ namespace ProjectOneTwo
 {
     public class TextBox
     {
-        readonly Button button;
-        readonly SpriteFont font;
+        protected Button button;
+        readonly protected SpriteFont font;
         bool selected = false, released = false;
         string text = "";
         public TextBox(Vector2 a, Vector2 b, Texture2D[] _textures, SpriteFont _font)
@@ -32,7 +32,7 @@ namespace ProjectOneTwo
             button.Draw(sprite);
         }
 
-        private void HandleInput(KeyboardState keyboard)
+        protected virtual void HandleInput(KeyboardState keyboard)
         {
             if ((keyboard.GetPressedKeyCount() > 0) && released)
             {

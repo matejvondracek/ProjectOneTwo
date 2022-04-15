@@ -15,7 +15,7 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         readonly int type;
-        readonly Keys left, right, down, up, jump;
+        Keys left, right, down, up, jump;
         public Vector2 pos, move, knockback;
         public Texture2D image;
         public int life, damage, Width, Height, times_dead;
@@ -137,6 +137,15 @@ namespace ProjectOneTwo
             {
                 pos = new Vector2(600, 400);
             }
+        }
+
+        public void ChangeControls(Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump)
+        {
+            left = P_left;
+            right = P_right;
+            down = P_down;
+            up = P_up;
+            jump = P_jump;
         }
     }
 }
