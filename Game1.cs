@@ -18,6 +18,7 @@ namespace ProjectOneTwo
         readonly int screenWidth, screenHeight;
         public static ContentManager Mycontent;
         public ScreenManager screenManager;
+        public float screenWidthZoom, screenHeightZoom;
 
         //sound
         public Dictionary<string, SoundEffect> sound = new Dictionary<string, SoundEffect>();
@@ -28,7 +29,7 @@ namespace ProjectOneTwo
 
         public Game1()
         {
-            self = this; ///allows to call Game1 function from other classes
+            self = this; ///allows to call Game1 functions from other classes
 
             Content.RootDirectory = "Content";
             Mycontent = Content;
@@ -36,6 +37,9 @@ namespace ProjectOneTwo
             graphics = new GraphicsDeviceManager(this);
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
+            screenWidthZoom = 1920f / screenWidth;
+            screenHeightZoom = 1080f / screenHeight;
 
             screenManager = new ScreenManager(ScreenManager.GameState.MainMenu);
         }

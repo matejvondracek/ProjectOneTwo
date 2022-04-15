@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace ProjectOneTwo
-{   
+{
     public class Button
     {
         Rectangle rect;
@@ -62,7 +62,7 @@ namespace ProjectOneTwo
                 else texture = textures[0];
             }
             else released = false;
-               
+
         }
 
         public bool IsPressed()
@@ -75,30 +75,37 @@ namespace ProjectOneTwo
                     return IsTargeted();
                 }
                 released = !IsTargeted();
-            }            
+            }
             return false;
         }
 
         public bool IsHoveringOver()
         {
-            return mouse.LeftButton != ButtonState.Pressed && rect.Contains(mouse.Position);
+            return mouse.LeftButton != ButtonState.Pressed && rect.Contains(CorrectPos(mouse.Position));
         }
 
         public bool IsTargeted()
         {
-            return mouse.LeftButton == ButtonState.Pressed && rect.Contains(mouse.Position);
+            return mouse.LeftButton == ButtonState.Pressed && rect.Contains(CorrectPos(mouse.Position));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.White);
-            if (withText) 
+            if (withText)
                 spriteBatch.DrawString(spriteFont, text, textPosition, Color.White, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
         }
 
         public void ChangePos(Vector2 a, Vector2 b)
         {
             rect = new Rectangle(a.ToPoint(), new Point(Convert.ToInt32(b.X - a.X), Convert.ToInt32(b.Y - a.Y)));
+        }
+
+        private Point CorrectPos(Point position) //corrects mouse based on display resolution
+        {
+            int x = Convert.ToInt32(position.X * Game1.self.screenWidthZoom);
+            int y = Convert.ToInt32(position.Y * Game1.self.screenHeightZoom);
+            return new Point(x, y);
         }
     }
 }

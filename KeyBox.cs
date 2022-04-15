@@ -11,12 +11,13 @@ namespace ProjectOneTwo
     {
         string text;
         public Keys key;
+        readonly int bezel = 10;
 
         public KeyBox(Vector2 a, Vector2 b, Texture2D[] _textures, SpriteFont _font, Keys defaulKey) : base(a, b, _textures, _font)
         {
             key = defaulKey;
             text = key.ToString();
-            button.AddText(text, font, 10, 10);
+            button.AddText(text, font, bezel, bezel);
         }
 
         protected override void HandleInput(KeyboardState keyboard)
@@ -26,7 +27,7 @@ namespace ProjectOneTwo
                 key = keyboard.GetPressedKeys()[0];
                 text = key.ToString();
             }           
-            button.AddText(text, font, 20, 20);
+            button.AddText(text, font, bezel, bezel);
         }
     }
 }
