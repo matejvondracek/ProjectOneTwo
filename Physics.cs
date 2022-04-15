@@ -71,22 +71,6 @@ public class Physics
         }
     }
 
-    private void ChangeVector(ref Player1 entity, Vector2 move)
-    {
-        if (move.Length() != 0)
-        {
-            if (move.Length() < entity.move.Length())
-            {
-                entity.move = move;
-            }
-        }
-        else
-        {
-            entity.move = new Vector2(0, 0);
-        }
-        
-    }
-
     public void MoveUpdate()
     {       
         for (int e = 0; e <= entity_count; e++)
@@ -115,7 +99,8 @@ public class Physics
         {
             Barrier barrier = obstacles[i];
             Vector2 move = barrier.Check(entity.hitbox, entity.move);
-            ChangeVector(ref entity, move);
+            //ChangeVector(ref entity, move);
+            entity.move = move;
         }
     }
 
@@ -127,8 +112,12 @@ public class Physics
             {
                 ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
                 Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
-                Vector2 move = barrier.Check(entity.hitbox, entity.move);
-                ChangeVector(ref entity, move);
+                Vector2 move1 = barrier.Check(entity.hitbox, entity.move);
+                Vector2 move2 = barrier.Check(entity.hitbox, entity.move + new Vector2(0, -5));
+
+                //to prevent character pinning
+                if (move1.Length() == move2.Length()) entity.move.Y = 0;
+                else entity.move = move1;//ChangeVector(ref entity, move1);
             }
         }
     }

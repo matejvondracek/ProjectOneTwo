@@ -95,7 +95,9 @@ namespace ProjectOneTwo
         public void GravityAcceleration()
         {
             if (move.Y != 0)
-                fall += 0.2f;
+            {
+                if (fall < 20) fall += 0.2f; //terminal velocity
+            }               
             else fall = 1f;
         }
 
