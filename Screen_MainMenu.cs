@@ -15,7 +15,7 @@ namespace ProjectOneTwo
     class Screen_MainMenu : Screen
     {
         readonly Texture2D[] buttonSprites = new Texture2D[2];
-        SpriteFont spriteFont;
+        SpriteFont spriteFont, buttonFont;
         Button playButton, quitButton, settingsButton;
         readonly List<Button> buttons = new List<Button>();
 
@@ -32,12 +32,13 @@ namespace ProjectOneTwo
         {
             buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1");
             buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
+            buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
             playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
-            playButton.AddText("Local Multiplayer", spriteFont, 30, 0);
+            playButton.AddText("Local Multiplayer", buttonFont, 30, 0);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
-            quitButton.AddText("Quit", spriteFont, 10, 10);
+            quitButton.AddText("Quit", buttonFont, 10, 10);
             settingsButton = new Button(new Vector2(1800, 960), new Vector2(1900, 1060), buttonSprites);
             
             buttons.Add(playButton);

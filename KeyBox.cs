@@ -16,7 +16,7 @@ namespace ProjectOneTwo
         {
             key = defaulKey;
             text = key.ToString();
-            button.AddText(text, font, 20, 20);
+            button.AddText(text, font, 10, 10);
         }
 
         protected override void HandleInput(KeyboardState keyboard)

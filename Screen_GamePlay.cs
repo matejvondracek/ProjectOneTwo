@@ -38,7 +38,7 @@ namespace ProjectOneTwo
             //visuals
             background = Game1.Mycontent.Load<Texture2D>("background");
             health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
 
             //audio
             Game1.self.sound.Add("Main_Theme", Game1.Mycontent.Load<SoundEffect>("Main_Theme"));

@@ -12,7 +12,7 @@ namespace ProjectOneTwo
 {
     class Screen_GameOver : Screen
     {
-        SpriteFont spriteFont, gameOverFont;
+        SpriteFont gameOverFont, buttonFont;
         Button restartButton, quitButton2;
         readonly Texture2D[] buttonSprites = new Texture2D[2];
         Texture2D gameOverBackground;
@@ -29,16 +29,16 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
-            gameOverFont = Game1.Mycontent.Load<SpriteFont>("font2");
+            gameOverFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala50");
+            buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
             buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1");
             buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
             gameOverBackground = Game1.Mycontent.Load<Texture2D>("background2");
 
             restartButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
-            restartButton.AddText("Play again", spriteFont, 30, 10);
+            restartButton.AddText("Play again", buttonFont, 30, 10);
             quitButton2 = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
-            quitButton2.AddText("Return to main menu", spriteFont, 30, 10);
+            quitButton2.AddText("Return to main menu", buttonFont, 30, 10);
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
