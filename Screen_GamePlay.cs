@@ -25,8 +25,8 @@ namespace ProjectOneTwo
 
         public override void Initialize()
         {
-            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D);
-            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right);
+            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space);
+            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl);
 
             player1.Reset();
             player2.Reset();

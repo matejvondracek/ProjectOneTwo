@@ -93,33 +93,52 @@ public class Physics
         {
             if (!Entities[e].dead)
             {
-                Entities[e].move += gravity;
-            
-                //collision with obstacles
-                for (int i = 0; i <= obstacle_count; i++)
-                {
-                    Barrier barrier = obstacles[i];
-                    Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
-                    ChangeVector(ref Entities[e], move);
-                }   
+                Entities[e].move += gravity * Entities[e].fall;                
 
-                //collision with entities
-                for (int i = 0; i <= entity_count; i++)
-                {
-                    if (i != e)
-                    {
-                        ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
-                        Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
-                        Vector2 move = barrier.Check(Entities[e].hitbox, Entities[e].move);
-                        ChangeVector(ref Entities[e], move);
-                    }                
+                //checkes to see, if the player is standing on ground
+                ObstacleCollision(ref Entities[e]);
+                EntityCollision(ref Entities[e]);
+
+                Entities[e].GravityAcceleration();
+
+                Entities[e].Jump();               
+
+                if (Entities[e].is_in_jump)
+                {                   
+                    //making sure player cant jump into anything above them
+                    ObstacleCollision(ref Entities[e]);
+                    EntityCollision(ref Entities[e]);
                 }
-
+                
                 //makes the movement
                 Entities[e].pos += Entities[e].move;
                 Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
             }          
         }        
+    }
+
+    private void ObstacleCollision(ref Player1 entity)
+    {
+        for (int i = 0; i <= obstacle_count; i++)
+        {
+            Barrier barrier = obstacles[i];
+            Vector2 move = barrier.Check(entity.hitbox, entity.move);
+            ChangeVector(ref entity, move);
+        }
+    }
+
+    private void EntityCollision(ref Player1 entity)
+    {
+        for (int i = 0; i <= entity_count; i++)
+        {
+            if (Entities[i] != entity)
+            {
+                ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
+                Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
+                Vector2 move = barrier.Check(entity.hitbox, entity.move);
+                ChangeVector(ref entity, move);
+            }
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)
