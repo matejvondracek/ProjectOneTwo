@@ -15,17 +15,18 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         readonly int type;
-        Keys left, right, down, up, jump;
+        readonly Keys left, right, down, up, jump, attack1;
         public Vector2 pos, move, knockback;
-        public Texture2D image;
-        public int life, damage, Width, Height, times_dead;
+        public Texture2D image, A_image;
+        readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
+        public int life, damage, Width, Height, times_dead, Facing, A_timer, A_image_timer;
         public Rectangle attack, hitbox;
         public bool dead, is_in_jump = false;
         public float fall = 1f;
         float long_jump = 80;
         bool tries_to_jump = false;
 
-        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump)
+        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1)
         {
             type = i;
             image = Game1.Mycontent.Load<Texture2D>("MadS1");
@@ -34,16 +35,27 @@ namespace ProjectOneTwo
             right = P_right;
             down = P_down;
             up = P_up;
-            jump = P_jump;
+            attack1 = P_attack1;
 
-            Width = image.Width;
-            Height = image.Width;
-            hitbox = new Rectangle(0, 0, Width, Height);
+            A_pressed = false;
 
             dead = false;
             times_dead = 0;
+
+            Facing = 1;
         }
         
+        public void LoadContent()
+        {
+            images.Add("MadS1", Game1.Mycontent.Load<Texture2D>("MadS1"));
+            images.Add("MadS2", Game1.Mycontent.Load<Texture2D>("MadS2"));
+            A_image = Game1.Mycontent.Load<Texture2D>("ForgAttack");
+            image = images["MadS1"];
+            Width = image.Width;
+            Height = image.Width;
+            hitbox = new Rectangle(0, 0, Width, Height);
+        }
+
         public void Keyboard(KeyboardState _state)
         {
             state = _state;
@@ -104,14 +116,50 @@ namespace ProjectOneTwo
         public void ChangeImage()
         {
             if (state.IsKeyDown(right))  
-                image = Game1.Mycontent.Load<Texture2D>("MadS2");
-            if (state.IsKeyDown(left))  
-                image = Game1.Mycontent.Load<Texture2D>("MadS1");
+            {
+                image = images["MadS2"];
+                Facing = 1;
+            };
+            if (state.IsKeyDown(left))
+            {
+                image = images["MadS1"];
+                Facing = -1;
+            }                 
         }
 
         public void MakeAttack()
         {
-
+            if (state.IsKeyDown(attack1))
+            { if (A_pressed == false)
+                {
+                    A_image_timer = 30;
+                    attack = new Rectangle((int)pos.X + 120 * Facing, (int)pos.Y, 90, 90);
+                    damage = 10;
+                    knockback = new Vector2(10 * Facing, 1);
+                    A_timer = 120;
+                    A_pressed = true;
+                }
+                else 
+                {                   
+                    damage = 0;
+                    knockback = new Vector2(0, 0);
+                }             
+            }
+            else
+            {
+                if (A_image_timer > 0)
+                {
+                    attack = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
+                    A_image_timer -= 1;
+                }
+                attack = new Rectangle(0,0,0,0);
+                damage = 0;
+                knockback = new Vector2(0,0);
+            }
+            if (A_timer > 0)
+                A_timer -= 1;
+            if (A_timer == 0)
+                A_pressed = false;
         }
 
         public void Reset()

@@ -3,18 +3,25 @@ using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectOneTwo;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Physics
 {
-    private readonly Barrier[] obstacles = new Barrier[100];
-    private readonly Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
-    private readonly Attack[] Attacks = new Attack[5];
+    private readonly static Barrier[] obstacles = new Barrier[100];
+    private readonly static Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
+    readonly static List<Attack> Attacks = new List<Attack>();
 
     private Vector2 gravity = new Vector2(0, 5);
     private int obstacle_count = -1, entity_count = -1, attack_count = -1;
 
     public Physics() 
     {
+        Player1,
+        Player2,
+        Draw,
+        None,
+    }*/
 
     }
 
@@ -44,29 +51,27 @@ public class Physics
 
     public void AttacksUpdate()
     {
-        if (attack_count != -1) 
+        if (Attacks.Count() != 0) 
         {
-            Array.Clear(Attacks, 0, attack_count);
-            attack_count = -1;
+            Attacks.Clear();
         }       
 
         for (int e = 0; e <= entity_count; e++)
         {
-            if (Entities[e].attack != new Rectangle(0, 0, 0, 0))
+            if (Entities[e].attack != new Rectangle())
             {
-                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback);
+                Attacks.Add(new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback, Entities[e].A_image));
             }
         }
 
         for (int e = 0; e <= entity_count; e++)
         {
-            for (int i = 0; i <= attack_count; i++)
+            foreach (Attack attack in Attacks)
             {
-                if (Attacks[i].Check(Entities[e].pos))
+                if (attack.Check(Entities[e].hitbox)) 
                 {
-                    Entities[e].life -= Attacks[i].damage;
-                    Entities[e].move += Attacks[i].knockback;
-                }                                  
+                    Entities[e].life -= attack.damage;
+                }
             }
         }
     }
@@ -126,7 +131,11 @@ public class Physics
     {
         for (int e = 0; e <= entity_count; e++)
         {
-          spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+          spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);   
+        }
+        foreach (Attack attack in Attacks)
+        {
+            attack.Draw(spriteBatch);
         }
     }
 
