@@ -15,7 +15,7 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         readonly int type;
-        readonly Keys left, right, down, up, jump, attack1;
+        Keys left, right, down, up, jump, attack1;
         public Vector2 pos, move, knockback;
         public Texture2D image, A_image;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
@@ -24,17 +24,17 @@ namespace ProjectOneTwo
         public bool dead, is_in_jump = false;
         public float fall = 1f;
         float long_jump = 80;
-        bool tries_to_jump = false;
+        bool tries_to_jump = false, A_pressed;
 
         public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1)
         {
             type = i;
-            image = Game1.Mycontent.Load<Texture2D>("MadS1");
             life = 100;
             left = P_left;
             right = P_right;
             down = P_down;
             up = P_up;
+            jump = P_jump;
             attack1 = P_attack1;
 
             A_pressed = false;
@@ -133,7 +133,7 @@ namespace ProjectOneTwo
             { if (A_pressed == false)
                 {
                     A_image_timer = 30;
-                    attack = new Rectangle((int)pos.X + 120 * Facing, (int)pos.Y, 90, 90);
+                    attack = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
                     damage = 10;
                     knockback = new Vector2(10 * Facing, 1);
                     A_timer = 120;

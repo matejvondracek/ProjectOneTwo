@@ -13,16 +13,10 @@ public class Physics
     readonly static List<Attack> Attacks = new List<Attack>();
 
     private Vector2 gravity = new Vector2(0, 5);
-    private int obstacle_count = -1, entity_count = -1, attack_count = -1;
+    private int obstacle_count = -1, entity_count = -1;
 
     public Physics() 
     {
-        Player1,
-        Player2,
-        Draw,
-        None,
-    }*/
-
     }
 
     private void AddBarrier(int Ax, int Ay, int Bx, int By)
@@ -157,6 +151,7 @@ public class Physics
         //handeling death
         for (int e = 0; e <= entity_count; e++)
         {
+            if (Entities[e].life <= 0) Entities[e].dead = true;
             if (Entities[e].dead && (!exile.Contains(Entities[e].pos.ToPoint())))
             {
                 if (Entities[e].times_dead >= 3)

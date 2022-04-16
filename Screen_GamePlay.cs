@@ -25,12 +25,6 @@ namespace ProjectOneTwo
 
         public override void Initialize()
         {
-            
-            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space);
-            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl);
-
-            player1.Reset();
-            player2.Reset();
         }
 
         public override void LoadContent()
@@ -45,6 +39,14 @@ namespace ProjectOneTwo
 
             //game logic
             physics.LoadMap();
+            
+            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space, Keys.E);
+            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl, Keys.RightShift);
+            player1.LoadContent();
+            player2.LoadContent();
+            player1.Reset();
+            player2.Reset();
+            
             physics.AddEntity(ref player1);
             physics.AddEntity(ref player2);
         }
