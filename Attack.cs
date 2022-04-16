@@ -33,5 +33,10 @@ namespace ProjectOneTwo
             }
             return false;
         }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(A_image, rectangle, Color.White);
+        }
     }
 }

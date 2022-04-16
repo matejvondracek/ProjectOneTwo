@@ -63,7 +63,7 @@ namespace ProjectOneTwo
         {
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
             player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D,Keys.E);
             player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right,Keys.M);
@@ -83,7 +83,9 @@ namespace ProjectOneTwo
             gameOverBackground = Content.Load<Texture2D>("background2");
             health_bar = Content.Load<Texture2D>("healthbar1");
 
-   
+            player1.LoadContent();
+            player2.LoadContent();
+            
             _renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
 
             Physics.LoadMap();
