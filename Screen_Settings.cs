@@ -17,6 +17,7 @@ namespace ProjectOneTwo
         Button backButton;
         ValueBox masterVolumeBox, effectsVolumeBox, musicVolumeBox;
         public KeyBox up1, up2, left1, left2, down1, down2, right1, right2, jump1, jump2;
+        public ToggleButton fpsToggle;
         SpriteFont spriteFont, buttonFont;
         readonly Texture2D[] buttonSprites = new Texture2D[2];
 
@@ -56,6 +57,9 @@ namespace ProjectOneTwo
             right2 = new KeyBox(new Vector2(900, 700), new Vector2(1100, 800), buttonSprites, buttonFont, Keys.Right);
             jump1 = new KeyBox(new Vector2(1200, 300), new Vector2(1400, 400), buttonSprites, buttonFont, Keys.Space);
             jump2 = new KeyBox(new Vector2(1200, 700), new Vector2(1400, 800), buttonSprites, buttonFont, Keys.RightControl);
+
+            fpsToggle = new ToggleButton(new Vector2(20, 700), new Vector2(420, 800), buttonSprites, true);
+            fpsToggle.DefineText("FPS on", "FPS off", buttonFont, 5);
         }
 
         public  override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
@@ -76,6 +80,8 @@ namespace ProjectOneTwo
             right2.Update(mouse, keyboard);
             jump1.Update(mouse, keyboard);
             jump2.Update(mouse, keyboard);
+
+            fpsToggle.Update(mouse);
 
             SoundEffect.MasterVolume = (float)masterVolumeBox.GetValue() / 10;
             Game1.self.effectsVolume = (float)effectsVolumeBox.GetValue() / 10;
@@ -114,6 +120,8 @@ namespace ProjectOneTwo
             right2.Draw(spriteBatch);
             jump1.Draw(spriteBatch);
             jump2.Draw(spriteBatch);
+
+            fpsToggle.Draw(spriteBatch);
 
             spriteBatch.DrawString(spriteFont, "Player 1:", new Vector2(500, 200), Color.White);
             spriteBatch.DrawString(spriteFont, "Player 2:", new Vector2(500, 600), Color.White);

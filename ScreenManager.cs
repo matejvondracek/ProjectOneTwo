@@ -83,7 +83,11 @@ namespace ProjectOneTwo
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             screens[gameState].Draw(gameTime, spriteBatch);
-            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+            Screen_Settings settings = (Screen_Settings)GetScreen(GameState.Settings);
+            if (settings.fpsToggle.on)
+            {
+                fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+            }            
         }
 
         public Screen GetScreen(GameState state)
