@@ -52,7 +52,7 @@ namespace ProjectOneTwo
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.ToggleFullScreen();
+            //graphics.ToggleFullScreen();
             graphics.ApplyChanges();
 
             screenManager.Initialize();  
@@ -99,7 +99,7 @@ namespace ProjectOneTwo
             base.Draw(gameTime);
         }
 
-        #region private
+        #region utilities
         void AdjustRenderTarget()
         {
             GraphicsDevice.SetRenderTarget(null);
@@ -125,6 +125,22 @@ namespace ProjectOneTwo
                 }
             }
             spriteBatch.End();
+        }
+
+        public void DrawStringIn(Vector2 a, Vector2 b, SpriteBatch spriteBatch, SpriteFont font, string text, Color color)
+        {
+            Rectangle rectangle = new Rectangle((int)a.X, (int)a.Y, (int)(b.X - a.X), (int)(b.Y - a.Y));
+            Vector2 textSize = font.MeasureString(text);
+            float xScale = (rectangle.Width / textSize.X);
+            float yScale = (rectangle.Height / textSize.Y);
+            float textScale = Math.Min(xScale, yScale);
+
+            int textWidth = (int)Math.Round(textSize.X * textScale);
+            int textHeight = (int)Math.Round(textSize.Y * textScale);
+            Vector2 textPosition;
+            textPosition.X = ((rectangle.Width - textWidth) / 2) + rectangle.X;
+            textPosition.Y = ((rectangle.Height - textHeight) / 2) + rectangle.Y;
+            spriteBatch.DrawString(font, text, textPosition, color, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
         }
 
         #endregion

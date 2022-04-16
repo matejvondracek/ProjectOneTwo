@@ -18,6 +18,9 @@ namespace ProjectOneTwo
         SpriteFont spriteFont, buttonFont;
         Button playButton, quitButton, settingsButton, creditsButton;
         readonly List<Button> buttons = new List<Button>();
+        int titleAnimation; 
+        float animationFactor = 1f;
+        Vector2 a, b;
 
         public Screen_MainMenu()
         {
@@ -51,6 +54,21 @@ namespace ProjectOneTwo
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
+            //title animation
+            if (titleAnimation == 0)
+            {
+                animationFactor = -animationFactor;
+                titleAnimation = 120;
+            }
+            else
+            {
+                a.X -= animationFactor;
+                a.Y -= animationFactor;
+                b.X += animationFactor;
+                b.Y += animationFactor;
+                titleAnimation -= 1;
+            }
+
             UpdateButtons(buttons, mouse);
 
             if (playButton.IsPressed()) 
@@ -74,6 +92,8 @@ namespace ProjectOneTwo
             DrawButtons(buttons, spriteBatch);
 
             spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.White);
+            
+            Game1.self.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.Red);
         }
 
         public override void ChangeTo()
@@ -81,6 +101,11 @@ namespace ProjectOneTwo
             Game1.self.IsMouseVisible = true;
 
             EnableButtons(buttons, false);
+
+            //animation
+            titleAnimation = 120;
+            a = new Vector2(460, 100);
+            b = new Vector2(1360, 400);
 
             //music
             if (Game1.self.soundInstances.ContainsKey("Main_Theme")) Game1.self.soundInstances["Main_Theme"].Stop();
