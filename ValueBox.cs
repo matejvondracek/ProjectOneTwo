@@ -14,8 +14,9 @@ namespace ProjectOneTwo
         int value;
         readonly SpriteFont font;
         readonly Texture2D[] textures;
+        Color textColor;
 
-        public ValueBox(int min, int max, int _bezel, SpriteFont spriteFont, Vector2 a, Vector2 b, Texture2D[] _textures)
+        public ValueBox(int min, int max, int _bezel, SpriteFont spriteFont, Color color, Vector2 a, Vector2 b, Texture2D[] _textures)
         {
             //setting vars
             minValue = min;
@@ -24,14 +25,15 @@ namespace ProjectOneTwo
             value = (min + max) / 2;
             font = spriteFont;
             textures = _textures;
+            textColor = color;
 
             //placing buttons
             downButton = new Button(new Vector2(a.X, a.Y), new Vector2(a.X + (b.X - a.X) / 6, b.Y), textures);
             upButton = new Button(new Vector2(a.X + (b.X - a.X) * 5 / 6, a.Y), new Vector2(b.X, b.Y), textures);
             displayButton = new Button(new Vector2(a.X + (b.X - a.X) / 6, a.Y), new Vector2(a.X + (b.X - a.X) * 5 / 6, b.Y), textures);
-            upButton.AddText(">", spriteFont, _bezel, bezel);
-            downButton.AddText("<", spriteFont, _bezel, bezel);
-            displayButton.AddText(value.ToString(), font, bezel, bezel);
+            upButton.AddText(">", spriteFont, _bezel, bezel, color);
+            downButton.AddText("<", spriteFont, _bezel, bezel, color);
+            displayButton.AddText(value.ToString(), font, bezel, bezel, color);
         }
 
         public void Update(MouseState mouse)
@@ -46,7 +48,7 @@ namespace ProjectOneTwo
             {
                 if (value - 1 >= minValue) value -= 1;
             }
-            displayButton.AddText(value.ToString(), font, bezel, bezel);
+            displayButton.AddText(value.ToString(), font, bezel, bezel, textColor);
         }
 
         public void Draw(SpriteBatch spriteBatch)

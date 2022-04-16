@@ -20,6 +20,7 @@ namespace ProjectOneTwo
         {
             MainMenu,
             Settings,
+            Credits,
             GamePlay,
             GameOver,
             Null,
@@ -43,6 +44,7 @@ namespace ProjectOneTwo
             screens.Add(GameState.GamePlay, new Screen_GamePlay());
             screens.Add(GameState.GameOver, new Screen_GameOver());
             screens.Add(GameState.Settings, new Screen_Settings());
+            screens.Add(GameState.Credits, new Screen_Credits());
             gameState = _gameState;
             screens[gameState].ChangeTo();
             winner = Winner.None;
@@ -62,7 +64,7 @@ namespace ProjectOneTwo
                 screen.LoadContent();
             }
 
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("font");
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala50");
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
@@ -83,7 +85,11 @@ namespace ProjectOneTwo
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             screens[gameState].Draw(gameTime, spriteBatch);
-            fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+            Screen_Settings settings = (Screen_Settings)GetScreen(GameState.Settings);
+            if (settings.fpsToggle.on)
+            {
+                fps.DrawFps(spriteBatch, spriteFont, new Vector2(10f, 10f), Color.GreenYellow);
+            }            
         }
 
         public Screen GetScreen(GameState state)
