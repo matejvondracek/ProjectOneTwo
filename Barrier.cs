@@ -6,7 +6,7 @@ using ProjectOneTwo;
 
 class Barrier
 {
-	private Rectangle rect;
+	public Rectangle rect;
 	
 	public Barrier(Rectangle _rect)
     {
@@ -15,8 +15,6 @@ class Barrier
 
 	public Barrier(int Ax, int Ay, int Bx, int By)
     {
-		Ax -= 13;
-		Ay-= 13;
 		rect = new Rectangle(Ax * 6, Ay * 6, (Bx - Ax) * 6, (By - Ay) * 6);
     }
 
@@ -32,7 +30,7 @@ class Barrier
 
 			for (int i = 0; i <= 2; i++)
 			{
-				Rectangle hitbox2 = new Rectangle(Convert.ToInt32(hitbox.X + move_arr[i].X), Convert.ToInt32(hitbox.Y + move_arr[i].Y), hitbox.Width, hitbox.Height);
+				Rectangle hitbox2 = new Rectangle((int)(hitbox.X + move_arr[i].X), (int)(hitbox.Y + move_arr[i].Y), hitbox.Width, hitbox.Height);
 				int k = 0;
 				int precision = 100;
 				for (int j = 0; j <= precision; j++)

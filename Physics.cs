@@ -15,7 +15,7 @@ public class Physics
 
     public Physics() 
     {
-
+        
     }
 
     private void AddBarrier(int Ax, int Ay, int Bx, int By)
@@ -25,15 +25,15 @@ public class Physics
 
     public void LoadMap()
     {
-        //4 walls on screen bezels
-        //AddBarrier(0, 180, 320, 181);
+        //3 walls on screen bezels
         AddBarrier(320, 0, 321, 180);
         AddBarrier(0, -1, 320, 0);
         AddBarrier(-1, 0, 0, 180);
 
-        //world blocks
-        AddBarrier(0, 136, 135, 179);
-        AddBarrier(104, 120, 143, 151);
+        //map blocks
+        AddBarrier(0, 132, 46, 180);
+        AddBarrier(82, 140, 230, 180);
+        AddBarrier(274, 136, 320, 180);
     }
 
 
@@ -88,7 +88,7 @@ public class Physics
                 
                 //makes the movement
                 Entities[e].pos += Entities[e].move;
-                Entities[e].hitbox = new Rectangle(Entities[e].pos.ToPoint(), new Point(Entities[e].Width, Entities[e].Height));
+                Entities[e].Update();
             }          
         }        
     }
@@ -99,7 +99,6 @@ public class Physics
         {
             Barrier barrier = obstacles[i];
             Vector2 move = barrier.Check(entity.hitbox, entity.move);
-            //ChangeVector(ref entity, move);
             entity.move = move;
         }
     }
@@ -110,14 +109,13 @@ public class Physics
         {
             if (Entities[i] != entity)
             {
-                ///Barrier barrier = new Barrier(Entities[i].hitbox); ///ideal solution but doesnt work
-                Barrier barrier = new Barrier(new Rectangle(Convert.ToInt32(Entities[i].pos.X - 13 * 6), Convert.ToInt32(Entities[i].pos.Y) - 13 * 6, (Entities[i].Width + 13) * 6, (Entities[i].Height + 13) * 6)); ///not ideal but does work
+                Barrier barrier = new Barrier(Entities[i].hitbox);            
                 Vector2 move1 = barrier.Check(entity.hitbox, entity.move);
                 Vector2 move2 = barrier.Check(entity.hitbox, entity.move + new Vector2(0, -5));
 
                 //to prevent character pinning
                 if (move1.Length() == move2.Length()) entity.move.Y = 0;
-                else entity.move = move1;//ChangeVector(ref entity, move1);
+                else entity.move = move1;
             }
         }
     }
@@ -126,7 +124,7 @@ public class Physics
     {
         for (int e = 0; e <= entity_count; e++)
         {
-          spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+            spriteBatch.Draw(Entities[e].image, Entities[e].drawbox, Color.White);
         }
     }
 

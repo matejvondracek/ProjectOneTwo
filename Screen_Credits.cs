@@ -35,7 +35,7 @@ namespace ProjectOneTwo
                 tab + "Game design\n" +
                 tab + "Coding\n" +
                 tab + "Game mechanics\n" +
-                tab + "Characters and backgrounds\n\n";
+                tab + "Characters, backgrounds and animations\n\n";
             text += "Johana Vondráčková:\n" +
                 tab + "Game music\n\n";
             text += "Made as a school project for Gymnázium na Vítězné pláni";
