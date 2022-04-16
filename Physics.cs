@@ -58,7 +58,7 @@ public static class Physics
         {
             if (Entities[e].attack != new Rectangle(0, 0, 0, 0))
             {
-                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback);
+                Attacks[++attack_count] = new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback, Entities[e].A_image);
             }
         }
 
@@ -131,6 +131,11 @@ public static class Physics
         for (int e = 0; e <= entity_count; e++)
         {
           spriteBatch.Draw(Entities[e].image, new Rectangle(Convert.ToInt32(Entities[e].pos.X), Convert.ToInt32(Entities[e].pos.Y), 16 * 6, 16 * 6), Color.White);
+          if (Entities[e].attack != new Rectangle(0, 0, 0, 0))
+            {
+             spriteBatch.Draw(Entities[e].A_image,Entities[e].attack, Color.White);
+            }
+               
         }
     }
 
