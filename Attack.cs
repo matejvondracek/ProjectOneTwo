@@ -25,9 +25,9 @@ namespace ProjectOneTwo
             A_image = _A_image;
         }
 
-        public bool Check(Vector2 pos)
+        public bool Check(Rectangle character)
         {
-            if ((rectangle.X <= pos.X) && (rectangle.X + rectangle.Width >= pos.X) && (rectangle.Y <= pos.Y) && (rectangle.Y + rectangle.Height >= pos.Y))
+            if (rectangle.Intersects(character))
             {
                 return true;
             }

@@ -66,7 +66,7 @@ public static class Physics
         {
             for (int i = 0; i <= attack_count; i++)
             {
-                if (Attacks[i].Check(Entities[e].pos))
+                if (Attacks[i].Check(Entities[e].attack))
                 {
                     Entities[e].life -= Attacks[i].damage;
                     Entities[e].move += Attacks[i].knockback;
@@ -141,6 +141,16 @@ public static class Physics
 
     public static Game1.Winner GameRules()
     {
+        //checkes whether any player is dead
+        for (int e = 0; e <= entity_count; e++)
+        {
+            if ((Entities[e].life <= 0) && (!Entities[e].dead))
+            {
+                Entities[e].dead = true;
+                Entities[e].times_dead += 1;
+                //Entities[e].pos = new Vector2(2020, 2020);
+            }
+        }
         //checkes whether any player is off screen
         Rectangle screen = new Rectangle(0, 0, 1920, 1080);
         Rectangle exile = new Rectangle(2000, 2000, 1000, 1000);
@@ -151,6 +161,7 @@ public static class Physics
                 Entities[e].life = 0;
                 Entities[e].dead = true;
                 Entities[e].times_dead += 1;
+                Entities[e].pos = new Vector2(2020, 2020);
             }
         }
 
