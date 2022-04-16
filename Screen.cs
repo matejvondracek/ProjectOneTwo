@@ -49,5 +49,21 @@ namespace ProjectOneTwo
                 if (button != null) button.enabled = b;
             }
         }
+
+        protected void UpdateButtons(List<Button> buttons, MouseState mouse)
+        {
+            foreach (Button button in buttons)
+            {
+                button.Update(mouse);
+            }
+        }
+
+        protected void DrawButtons(List<Button> buttons, SpriteBatch spriteBatch)
+        {
+            foreach (Button button in buttons)
+            {
+                button.Draw(spriteBatch);
+            }
+        }
     }
 }

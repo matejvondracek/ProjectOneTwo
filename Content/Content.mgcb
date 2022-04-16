@@ -34,6 +34,13 @@
 /processorParam:TextureFormat=Compressed
 /build:aApiNyala50.spritefont
 
+#begin Arial50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Arial50.spritefont;Taisean50.spritefont
+
 #begin button1.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

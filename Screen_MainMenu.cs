@@ -16,7 +16,7 @@ namespace ProjectOneTwo
     {
         readonly Texture2D[] buttonSprites = new Texture2D[2];
         SpriteFont spriteFont, buttonFont;
-        Button playButton, quitButton, settingsButton;
+        Button playButton, quitButton, settingsButton, creditsButton;
         readonly List<Button> buttons = new List<Button>();
 
         public Screen_MainMenu()
@@ -36,20 +36,23 @@ namespace ProjectOneTwo
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
             playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
-            playButton.AddText("Local Multiplayer", buttonFont, 30, 0);
+            playButton.AddText("Play on one device", buttonFont, 30, 0);
             quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
             quitButton.AddText("Quit", buttonFont, 10, 10);
             settingsButton = new Button(new Vector2(1800, 960), new Vector2(1900, 1060), buttonSprites);
+            creditsButton = new Button(new Vector2(1500, 960), new Vector2(1700, 1060), buttonSprites);
+            creditsButton.AddText("Credits", spriteFont, 10, 10);
             
             buttons.Add(playButton);
             buttons.Add(quitButton);
+            buttons.Add(settingsButton);
+            buttons.Add(creditsButton);
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            playButton.Update(mouse);
-            quitButton.Update(mouse);
-            settingsButton.Update(mouse);
+            UpdateButtons(buttons, mouse);
+
             if (playButton.IsPressed()) 
             {
                 Game1.self.screenManager.winner = ScreenManager.Winner.None;
@@ -60,16 +63,15 @@ namespace ProjectOneTwo
 
             if (settingsButton.IsPressed()) return ScreenManager.GameState.Settings;
 
-            quitButton.enabled = true;
+            if (creditsButton.IsPressed()) return ScreenManager.GameState.Credits;
+
             EnableButtons(buttons, true);
             return ScreenManager.GameState.Null;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            playButton.Draw(spriteBatch);
-            quitButton.Draw(spriteBatch);
-            settingsButton.Draw(spriteBatch);
+            DrawButtons(buttons, spriteBatch);
 
             spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.White);
         }

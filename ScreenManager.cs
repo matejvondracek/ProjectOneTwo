@@ -20,6 +20,7 @@ namespace ProjectOneTwo
         {
             MainMenu,
             Settings,
+            Credits,
             GamePlay,
             GameOver,
             Null,
@@ -43,6 +44,7 @@ namespace ProjectOneTwo
             screens.Add(GameState.GamePlay, new Screen_GamePlay());
             screens.Add(GameState.GameOver, new Screen_GameOver());
             screens.Add(GameState.Settings, new Screen_Settings());
+            screens.Add(GameState.Credits, new Screen_Credits());
             gameState = _gameState;
             screens[gameState].ChangeTo();
             winner = Winner.None;
