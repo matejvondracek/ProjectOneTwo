@@ -13,10 +13,12 @@ namespace ProjectOneTwo
         readonly protected SpriteFont font;
         bool selected = false, released = false;
         string text = "";
-        public TextBox(Vector2 a, Vector2 b, Texture2D[] _textures, SpriteFont _font)
+        Color textColor;
+        public TextBox(Vector2 a, Vector2 b, Texture2D[] _textures, SpriteFont _font, Color color)
         {
             button = new Button(a, b, _textures);
             font = _font;
+            textColor = color;
         }
 
         public void Update(MouseState mouse, KeyboardState keyboard)
@@ -84,7 +86,7 @@ namespace ProjectOneTwo
             {
                 released = true;
             }
-            button.AddText(text, font, 20, 20);
+            button.AddText(text, font, 20, 20, textColor);
         }
     }
 }

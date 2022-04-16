@@ -28,14 +28,14 @@ namespace ProjectOneTwo
             text = "MADE BY:\n\n";
             text += "Matěj Vondráček:\n" + 
                 tab + "Game design\n" +
-                tab + "Code structure developer\n" +
+                tab + "Code structure\n" +
                 tab + "Coding\n" +
-                tab + "Git master\n\n";
+                tab + "UI design\n\n";
             text += "Tomáš Zderadička:\n" +
                 tab + "Game design\n" +
                 tab + "Coding\n" +
                 tab + "Game mechanics\n" +
-                tab + "Visuals\n\n";
+                tab + "Characters and backgrounds\n\n";
             text += "Johana Vondráčková:\n" +
                 tab + "Game music\n\n";
             text += "Made as a school project for Gymnázium na Vítězné pláni";

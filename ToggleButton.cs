@@ -14,6 +14,7 @@ namespace ProjectOneTwo
         string onText = "", offText = "";
         SpriteFont spriteFont;
         int textBezel;
+        Color textColor;
 
         public ToggleButton(Vector2 a, Vector2 b, Texture2D[] _textures, bool defaultState)
         {
@@ -21,12 +22,13 @@ namespace ProjectOneTwo
             on = defaultState;
         }
 
-        public void DefineText(string on, string off, SpriteFont font, int bezel)
+        public void DefineText(string on, string off, SpriteFont font, int bezel, Color color)
         {
             onText = on;
             offText = off;
             spriteFont = font;
             textBezel = bezel;
+            textColor = color;
         }
 
         public void Update(MouseState mouse)
@@ -38,7 +40,7 @@ namespace ProjectOneTwo
                 string text;
                 if (on) text = onText;
                 else text = offText;
-                button.AddText(text, spriteFont, textBezel, textBezel);
+                button.AddText(text, spriteFont, textBezel, textBezel, textColor);
             }           
         }
 

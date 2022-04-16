@@ -33,18 +33,19 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1");
-            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
+            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_pressed");
+            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1_released");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
-            playButton = new Button(new Vector2(460, 500), new Vector2(1360, 700), buttonSprites);
-            playButton.AddText("Play on one device", buttonFont, 30, 0);
-            quitButton = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
-            quitButton.AddText("Quit", buttonFont, 10, 10);
-            settingsButton = new Button(new Vector2(1800, 960), new Vector2(1900, 1060), buttonSprites);
-            creditsButton = new Button(new Vector2(1500, 960), new Vector2(1700, 1060), buttonSprites);
-            creditsButton.AddText("Credits", spriteFont, 10, 10);
+            playButton = new Button(Game1.self.PixelVector(80, 95), Game1.self.PixelVector(240, 125), buttonSprites);
+            playButton.AddText("Play on single device", buttonFont, 30, 0, Color.Black);
+            quitButton = new Button(Game1.self.PixelVector(80, 155), Game1.self.PixelVector(240, 175), buttonSprites);
+            quitButton.AddText("Quit", buttonFont, 10, 10, Color.Black);
+            settingsButton = new Button(Game1.self.PixelVector(80, 130), Game1.self.PixelVector(155, 150), buttonSprites);
+            settingsButton.AddText("Settings", buttonFont, 10, 10, Color.Black);
+            creditsButton = new Button(Game1.self.PixelVector(165, 130), Game1.self.PixelVector(240, 150), buttonSprites);
+            creditsButton.AddText("Credits", buttonFont, 10, 10, Color.Black);
             
             buttons.Add(playButton);
             buttons.Add(quitButton);
@@ -91,9 +92,9 @@ namespace ProjectOneTwo
         {
             DrawButtons(buttons, spriteBatch);
 
-            spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.White);
+            spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.Black);
             
-            Game1.self.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.Red);
+            Game1.self.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.White);
         }
 
         public override void ChangeTo()
@@ -104,8 +105,9 @@ namespace ProjectOneTwo
 
             //animation
             titleAnimation = 120;
-            a = new Vector2(460, 100);
-            b = new Vector2(1360, 400);
+            a = Game1.self.PixelVector(75, 20);
+            b = Game1.self.PixelVector(245, 70);
+            animationFactor = 1f;
 
             //music
             if (Game1.self.soundInstances.ContainsKey("Main_Theme")) Game1.self.soundInstances["Main_Theme"].Stop();

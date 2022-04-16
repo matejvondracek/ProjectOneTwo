@@ -36,9 +36,9 @@ namespace ProjectOneTwo
             gameOverBackground = Game1.Mycontent.Load<Texture2D>("background2");
 
             restartButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
-            restartButton.AddText("Play again", buttonFont, 30, 10);
+            restartButton.AddText("Play again", buttonFont, 30, 10, Color.Black);
             quitButton2 = new Button(new Vector2(460, 900), new Vector2(1360, 1000), buttonSprites);
-            quitButton2.AddText("Return to main menu", buttonFont, 30, 10);
+            quitButton2.AddText("Return to main menu", buttonFont, 30, 10, Color.Black);
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)

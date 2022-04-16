@@ -38,36 +38,41 @@ namespace ProjectOneTwo
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
             backButton = new Button(new Vector2(20, 900), new Vector2(420, 1000), buttonSprites);
-            backButton.AddText("Back", buttonFont, 30, 0);
+            backButton.AddText("Back", buttonFont, 30, 0, Color.Black);
 
-            masterVolumeBox = new ValueBox(0, 10, 2, buttonFont, new Vector2(20, 200), new Vector2(350, 250), buttonSprites);
+            masterVolumeBox = new ValueBox(0, 10, 2, buttonFont, Color.Black, new Vector2(20, 200), new Vector2(350, 250), buttonSprites);
             masterVolumeBox.SetValue(10);
-            effectsVolumeBox = new ValueBox(0, 10, 2, buttonFont, new Vector2(20, 300), new Vector2(350, 350), buttonSprites);
+            effectsVolumeBox = new ValueBox(0, 10, 2, buttonFont, Color.Black, new Vector2(20, 300), new Vector2(350, 350), buttonSprites);
             effectsVolumeBox.SetValue(10);
-            musicVolumeBox = new ValueBox(0, 10, 2, buttonFont, new Vector2(20, 400), new Vector2(350, 450), buttonSprites);
+            musicVolumeBox = new ValueBox(0, 10, 2, buttonFont, Color.Black, new Vector2(20, 400), new Vector2(350, 450), buttonSprites);
             musicVolumeBox.SetValue(10);
 
-            up1 = new KeyBox(new Vector2(700, 200), new Vector2(900, 300), buttonSprites, buttonFont, Keys.W);
-            up2 = new KeyBox(new Vector2(700, 600), new Vector2(900, 700), buttonSprites, buttonFont, Keys.Up);
-            left1 = new KeyBox(new Vector2(500, 300), new Vector2(700, 400), buttonSprites, buttonFont, Keys.A);
-            left2 = new KeyBox(new Vector2(500, 700), new Vector2(700, 800), buttonSprites, buttonFont, Keys.Left);
-            down1 = new KeyBox(new Vector2(700, 300), new Vector2(900, 400), buttonSprites, buttonFont, Keys.S);
-            down2 = new KeyBox(new Vector2(700, 700), new Vector2(900, 800), buttonSprites, buttonFont, Keys.Down);
-            right1 = new KeyBox(new Vector2(900, 300), new Vector2(1100, 400), buttonSprites, buttonFont, Keys.D);
-            right2 = new KeyBox(new Vector2(900, 700), new Vector2(1100, 800), buttonSprites, buttonFont, Keys.Right);
-            jump1 = new KeyBox(new Vector2(1200, 300), new Vector2(1400, 400), buttonSprites, buttonFont, Keys.Space);
-            jump2 = new KeyBox(new Vector2(1200, 700), new Vector2(1400, 800), buttonSprites, buttonFont, Keys.RightControl);
+            up1 = new KeyBox(new Vector2(700, 200), new Vector2(900, 300), buttonSprites, buttonFont, Color.Black, Keys.W);
+            up2 = new KeyBox(new Vector2(700, 600), new Vector2(900, 700), buttonSprites, buttonFont, Color.Black, Keys.Up);
+            left1 = new KeyBox(new Vector2(500, 300), new Vector2(700, 400), buttonSprites, buttonFont, Color.Black, Keys.A);
+            left2 = new KeyBox(new Vector2(500, 700), new Vector2(700, 800), buttonSprites, buttonFont, Color.Black, Keys.Left);
+            down1 = new KeyBox(new Vector2(700, 300), new Vector2(900, 400), buttonSprites, buttonFont, Color.Black, Keys.S);
+            down2 = new KeyBox(new Vector2(700, 700), new Vector2(900, 800), buttonSprites, buttonFont, Color.Black, Keys.Down);
+            right1 = new KeyBox(new Vector2(900, 300), new Vector2(1100, 400), buttonSprites, buttonFont, Color.Black, Keys.D);
+            right2 = new KeyBox(new Vector2(900, 700), new Vector2(1100, 800), buttonSprites, buttonFont, Color.Black, Keys.Right);
+            jump1 = new KeyBox(new Vector2(1200, 300), new Vector2(1400, 400), buttonSprites, buttonFont, Color.Black, Keys.Space);
+            jump2 = new KeyBox(new Vector2(1200, 700), new Vector2(1400, 800), buttonSprites, buttonFont, Color.Black, Keys.RightControl);
 
-            fpsToggle = new ToggleButton(new Vector2(20, 700), new Vector2(420, 800), buttonSprites, true);
-            fpsToggle.DefineText("FPS on", "FPS off", buttonFont, 5);
+            fpsToggle = new ToggleButton(new Vector2(20, 700), new Vector2(350, 800), buttonSprites, true);
+            fpsToggle.DefineText("FPS on", "FPS off", buttonFont, 5, Color.Black);
         }
 
         public  override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             backButton.Update(mouse);
+
+            //sound
             masterVolumeBox.Update(mouse);
             effectsVolumeBox.Update(mouse);
             musicVolumeBox.Update(mouse);
+            SoundEffect.MasterVolume = (float)masterVolumeBox.GetValue() / 10;
+            Game1.self.effectsVolume = (float)effectsVolumeBox.GetValue() / 10;
+            Game1.self.musicVolume = (float)musicVolumeBox.GetValue() / 10;
 
             //controls
             up1.Update(mouse, keyboard);
@@ -81,11 +86,7 @@ namespace ProjectOneTwo
             jump1.Update(mouse, keyboard);
             jump2.Update(mouse, keyboard);
 
-            fpsToggle.Update(mouse);
-
-            SoundEffect.MasterVolume = (float)masterVolumeBox.GetValue() / 10;
-            Game1.self.effectsVolume = (float)effectsVolumeBox.GetValue() / 10;
-            Game1.self.musicVolume = (float)musicVolumeBox.GetValue() / 10;
+            fpsToggle.Update(mouse);           
 
             if (backButton.IsPressed()) 
             {               

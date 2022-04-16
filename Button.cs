@@ -19,6 +19,7 @@ namespace ProjectOneTwo
         Vector2 textSize, textPosition;
         float textScale;
         MouseState mouse;
+        Color textColor;
 
 
         public Button(Rectangle _rect, Texture2D[] _textures)
@@ -35,7 +36,7 @@ namespace ProjectOneTwo
             texture = textures[0];
         }
 
-        public void AddText(string _text, SpriteFont _spriteFont, int xBezel, int yBezel)
+        public void AddText(string _text, SpriteFont _spriteFont, int xBezel, int yBezel, Color color)
         {
             withText = true;
             text = _text;
@@ -51,6 +52,8 @@ namespace ProjectOneTwo
             int textHeight = (int)Math.Round(textSize.Y * textScale);
             textPosition.X = (((bounds.Width - textWidth) / 2) + bounds.X);
             textPosition.Y = (((bounds.Height - textHeight) / 2) + bounds.Y);
+
+            textColor = color;
         }
 
         public void Update(MouseState _mouse)
@@ -93,7 +96,7 @@ namespace ProjectOneTwo
         {
             spriteBatch.Draw(texture, rect, Color.White);
             if (withText)
-                spriteBatch.DrawString(spriteFont, text, textPosition, Color.White, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
+                spriteBatch.DrawString(spriteFont, text, textPosition, textColor, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
         }
 
         public void ChangePos(Vector2 a, Vector2 b)
