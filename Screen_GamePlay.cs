@@ -14,7 +14,7 @@ namespace ProjectOneTwo
     {
         Player1 player1, player2;
         readonly Physics physics;
-        public Texture2D health_bar;
+        public Texture2D health_bar, health_bar_holder;
         Texture2D background;
         SpriteFont spriteFont;
 
@@ -38,6 +38,7 @@ namespace ProjectOneTwo
             //visuals
             background = Game1.Mycontent.Load<Texture2D>("background");
             health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
+            health_bar_holder = Game1.Mycontent.Load<Texture2D>("healthbar_holder");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
 
             //audio
@@ -74,12 +75,14 @@ namespace ProjectOneTwo
             physics.Draw(spriteBatch); ///draws characters
 
             //healthbars
-            spriteBatch.Draw(health_bar, new Rectangle(10, 100, 10, player1.life * 5), Color.White);
-            spriteBatch.Draw(health_bar, new Rectangle(1900, 100, 10, player2.life * 5), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.self.PixelVector(2, 17).ToPoint(), Game1.self.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.self.PixelVector(315, 17).ToPoint(), Game1.self.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.self.PixelVector(1, 15).ToPoint(), Game1.self.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.self.PixelVector(314, 15).ToPoint(), Game1.self.PixelVector(5, 54).ToPoint()), Color.White);
 
             //life counter
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), new Vector2(5f, 610f), Color.Red);
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), new Vector2(1895f, 610f), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.self.PixelVector(2, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.self.PixelVector(315, 70), Color.Red);
         }
 
         public override void ChangeTo()

@@ -101,6 +101,18 @@
 /processorParam:TextureFormat=Color
 /build:gameover.jpg;background2.jpg
 
+#begin healthbar_holder.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:healthbar_holder.png
+
 #begin healthbar1.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
