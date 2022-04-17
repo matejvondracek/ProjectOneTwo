@@ -28,16 +28,9 @@ namespace ProjectOneTwo
         public Attack attack;
         public Dash dash;
 
-        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1, Keys P_dash)
+        public Player1(int i)
         {
             type = i;
-            up = P_up;
-            left = P_left;
-            down = P_down;
-            right = P_right;
-            jump = P_jump;
-            attack1 = P_attack1;
-            dashButton = P_dash;
         }
 
         public void LoadContent()
@@ -208,13 +201,15 @@ namespace ProjectOneTwo
             Reset();
         }
 
-        public void ChangeControls(Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump)
+        public void SetControls(Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1, Keys P_dash)
         {
             left = P_left;
             right = P_right;
             down = P_down;
             up = P_up;
             jump = P_jump;
+            attack1 = P_attack1;
+            dashButton = P_dash;
         }
     }
 }

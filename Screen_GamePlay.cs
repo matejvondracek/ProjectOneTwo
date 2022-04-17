@@ -41,8 +41,8 @@ namespace ProjectOneTwo
             //game logic
             physics.LoadMap();
             
-            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space, Keys.E, Keys.LeftShift);
-            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl, Keys.RightShift, Keys.NumPad0);
+            player1 = new Player1(1);
+            player2 = new Player1(2);
             player1.LoadContent();
             player2.LoadContent();
             player1.Reset();
@@ -109,8 +109,9 @@ namespace ProjectOneTwo
 
             //changing controls
             Screen_Settings settings = (Screen_Settings)Game1.self.screenManager.GetScreen(ScreenManager.GameState.Settings);
-            player1.ChangeControls(settings.up1.key, settings.left1.key, settings.down1.key, settings.right1.key, settings.jump1.key);
-            player2.ChangeControls(settings.up2.key, settings.left2.key, settings.down2.key, settings.right2.key, settings.jump2.key);
+            var keys = settings.Keyboxes;
+            player1.SetControls(keys["up1"].key, keys["left1"].key, keys["down1"].key, keys["right1"].key, keys["jump1"].key, keys["attack1"].key, keys["dash1"].key);
+            player2.SetControls(keys["up2"].key, keys["left2"].key, keys["down2"].key, keys["right2"].key, keys["jump2"].key, keys["attack2"].key, keys["dash2"].key);
         }
     }
 }

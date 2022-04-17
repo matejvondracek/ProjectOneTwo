@@ -127,7 +127,7 @@ namespace ProjectOneTwo
             spriteBatch.End();
         }
 
-        public void DrawStringIn(Vector2 a, Vector2 b, SpriteBatch spriteBatch, SpriteFont font, string text, Color color)
+        public static void DrawStringIn(Vector2 a, Vector2 b, SpriteBatch spriteBatch, SpriteFont font, string text, Color color)
         {
             Rectangle rectangle = new Rectangle((int)a.X, (int)a.Y, (int)(b.X - a.X), (int)(b.Y - a.Y));
             Vector2 textSize = font.MeasureString(text);

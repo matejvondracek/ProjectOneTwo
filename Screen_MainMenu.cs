@@ -94,7 +94,7 @@ namespace ProjectOneTwo
 
             spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.Black);
             
-            Game1.self.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.White);
+            Game1.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.White);
         }
 
         public override void ChangeTo()
