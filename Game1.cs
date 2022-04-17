@@ -21,8 +21,7 @@ namespace ProjectOneTwo
         public float screenWidthZoom, screenHeightZoom;
 
         //sound
-        public Dictionary<string, SoundEffect> sound = new Dictionary<string, SoundEffect>();
-        public Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
+        public Dictionary<string, SoundEffectInstance> Sounds = new Dictionary<string, SoundEffectInstance>();
         public float effectsVolume = 1f, musicVolume = 1f;
 
         public static Game1 self;
@@ -61,16 +60,23 @@ namespace ProjectOneTwo
         }
 
         protected override void LoadContent()
-        {
-            screenManager.LoadContent();
-
+        {            
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            string[] files = { "Main_Theme", "The_Lobby_Music", "howling_wind", "female_scream", "dying", "jump", "footsteps_in_snow", "sword_swing", "sword_hit", "whoosh" };
+            //loading sound and music
+            foreach (string file in files)
+            {
+                Sounds.Add(file, Content.Load<SoundEffect>(file).CreateInstance());
+            }
+
+            screenManager.LoadContent();
         }
 
         protected override void UnloadContent()
         {
-
+            Content.Unload();
         }
 
         protected override void Update(GameTime gameTime)

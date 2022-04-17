@@ -85,6 +85,8 @@ public class Physics
                         Vector2 direction = attack.knockback;
                         direction.Normalize();
                         entity.dash = new Dash(direction, 20, 10);
+                        Game1.self.Sounds["sword_hit"].Volume = 1f * Game1.self.effectsVolume;
+                        Game1.self.Sounds["sword_hit"].Play();
                     }                 
                 }
             }
@@ -172,13 +174,22 @@ public class Physics
                 entity.life = 0;
                 entity.dead = true;
                 entity.times_dead += 1;
+
+                //sound effect
+                Game1.self.Sounds["female_scream"].Volume = 0.4f * Game1.self.effectsVolume;
+                Game1.self.Sounds["female_scream"].Play();
             }
         }
 
         //handeling death
         foreach (Player1 entity in Entities)
         {
-            if (entity.life <= 0) entity.dead = true;
+            if (entity.life <= 0 && !entity.dead)
+            {
+                entity.dead = true;
+                Game1.self.Sounds["dying"].Volume = 0.7f * Game1.self.effectsVolume;
+                Game1.self.Sounds["dying"].Play();
+            }               
             if (entity.dead && (!exile.Contains(entity.pos.ToPoint())))
             {
                 if (entity.times_dead >= 3)

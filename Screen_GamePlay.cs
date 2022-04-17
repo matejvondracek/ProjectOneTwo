@@ -35,9 +35,6 @@ namespace ProjectOneTwo
             health_bar_holder = Game1.Mycontent.Load<Texture2D>("healthbar_holder");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
 
-            //audio
-            Game1.self.sound.Add("Main_Theme", Game1.Mycontent.Load<SoundEffect>("Main_Theme"));
-
             //game logic
             physics.LoadMap();
             
@@ -54,6 +51,9 @@ namespace ProjectOneTwo
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
+            //lobby music fade-out
+            Game1.self.Sounds["The_Lobby_Music"].Volume *= 0.99f ;
+
             //character movement
             player1.Keyboard(keyboard);
             player2.Keyboard(keyboard);
@@ -98,14 +98,14 @@ namespace ProjectOneTwo
             player2.times_dead = 0;
 
             //playing music
-            var song = Game1.self.sound["Main_Theme"].CreateInstance();
-            if (!Game1.self.soundInstances.ContainsKey("Main_Theme"))
-            {
-                Game1.self.soundInstances.Add("Main_Theme", song);               
-            }
-            Game1.self.soundInstances["Main_Theme"].IsLooped = true;
-            Game1.self.soundInstances["Main_Theme"].Volume = 1f * Game1.self.musicVolume;
-            Game1.self.soundInstances["Main_Theme"].Play();
+
+            Game1.self.Sounds["Main_Theme"].IsLooped = true;
+            Game1.self.Sounds["Main_Theme"].Volume = 1f * Game1.self.musicVolume;
+            Game1.self.Sounds["Main_Theme"].Play();
+
+            Game1.self.Sounds["howling_wind"].IsLooped = true;
+            Game1.self.Sounds["howling_wind"].Volume = 0.1f * Game1.self.effectsVolume;
+            Game1.self.Sounds["howling_wind"].Play();
 
             //changing controls
             Screen_Settings settings = (Screen_Settings)Game1.self.screenManager.GetScreen(ScreenManager.GameState.Settings);

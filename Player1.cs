@@ -19,12 +19,13 @@ namespace ProjectOneTwo
         public Vector2 pos, move;
         public Texture2D image, A_image;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
-        public int life, times_dead, Facing = 1, A_timer, A_image_timer;
+        public int life, times_dead, facing = 1, A_timer, A_image_timer;
         public Rectangle hitbox, drawbox;
         public bool dead, is_in_jump = false, standing;
         public float fall = 1f;
         float long_jump = 80;
-        bool tries_to_jump = false, A_pressed = false, stunned = false, dash_charged;
+        bool tries_to_jump = false, A_pressed = false, dash_charged;
+        readonly bool stunned = false;
         public Attack attack;
         public Dash dash;
 
@@ -41,6 +42,10 @@ namespace ProjectOneTwo
             image = images["MadS1"];
             hitbox = new Rectangle(0, 0, 13 * 6, 16 * 6);
             drawbox = new Rectangle(0, 0, image.Width * 6, image.Height * 6);
+
+            Game1.self.Sounds["footsteps_in_snow"].IsLooped = true;
+            Game1.self.Sounds["footsteps_in_snow"].Volume = 0;           
+            Game1.self.Sounds["footsteps_in_snow"].Play();
         }
 
         public void Update()
@@ -48,7 +53,7 @@ namespace ProjectOneTwo
             hitbox.X = (int)pos.X;
             hitbox.Y = (int)pos.Y;
             drawbox.X = (int)pos.X - 22 * 6; //sprite has large empty sides
-            drawbox.Y = (int)pos.Y - 10 * 6;        ;
+            drawbox.Y = (int)pos.Y - 10 * 6;        
         }
         
         public void Keyboard(KeyboardState _state)
@@ -72,10 +77,14 @@ namespace ProjectOneTwo
                     Vector2 direction = new Vector2();
                     if (state.IsKeyDown(up)) direction.Y = -1;
                     if (state.IsKeyDown(down)) direction.Y = 1;
-                    if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = Facing;
-                    if (direction.Length() == 0) direction.X = Facing;
+                    if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = facing;
+                    if (direction.Length() == 0) direction.X = facing;
                     dash = new Dash(direction, 30, 10);
                     dash_charged = false;
+
+                    //sound effect
+                    Game1.self.Sounds["whoosh"].Volume = 1f * Game1.self.effectsVolume;
+                    Game1.self.Sounds["whoosh"].Play();
                 }               
             }
 
@@ -101,6 +110,15 @@ namespace ProjectOneTwo
                     if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
                     if (state.IsKeyDown(jump)) tries_to_jump = true;    
                 }
+
+                if (standing && (state.IsKeyDown(right) | state.IsKeyDown(left)))
+                {
+                     Game1.self.Sounds["footsteps_in_snow"].Volume = 0.2f * Game1.self.effectsVolume;
+                }
+                else
+                {
+                    Game1.self.Sounds["footsteps_in_snow"].Volume *= 0.9f;
+                }
             }                   
         }
 
@@ -111,6 +129,8 @@ namespace ProjectOneTwo
                 if (tries_to_jump)
                 {
                     is_in_jump = true;
+                    Game1.self.Sounds["jump"].Volume = 0.7f * Game1.self.effectsVolume;
+                    Game1.self.Sounds["jump"].Play();
                 }
                 else
                 {
@@ -144,12 +164,12 @@ namespace ProjectOneTwo
             if (state.IsKeyDown(right))
             {
                 image = images["MadS2"];
-                Facing = 1;
+                facing = 1;
             }
             if (state.IsKeyDown(left))
             {
                 image = images["MadS1"];
-                Facing = -1;
+                facing = -1;
             }
         }
 
@@ -161,11 +181,13 @@ namespace ProjectOneTwo
                 {
                     int imageDuration = 30;
                     int damage = 10;
-                    Vector2 knockback = new Vector2(Facing, 1);
+                    Vector2 knockback = new Vector2(facing, 1);
                     A_timer = 120;
                     A_pressed = true;
-                    Rectangle rectangle = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
+                    Rectangle rectangle = new Rectangle((int)pos.X + 100 * facing, (int)pos.Y, 90, 90);
                     attack = new Attack(rectangle, damage, knockback, A_image, imageDuration);
+                    Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
+                    Game1.self.Sounds["sword_swing"].Play();
                 }
                 else
                 {
@@ -184,13 +206,13 @@ namespace ProjectOneTwo
             if (type == 1)
             {
                 pos = new Vector2(100, 600);
-                Facing = 1;
+                facing = 1;
                 image = images["MadS2"];
             }
             else if (type == 2)
             {
                 pos = new Vector2(1700, 600);
-                Facing = -1;
+                facing = -1;
                 image = images["MadS1"];
             }
             Update();

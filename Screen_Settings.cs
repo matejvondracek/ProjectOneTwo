@@ -80,6 +80,8 @@ namespace ProjectOneTwo
             Game1.self.effectsVolume = (float)effectsVolumeBox.GetValue() / 10;
             Game1.self.musicVolume = (float)musicVolumeBox.GetValue() / 10;
 
+            Game1.self.Sounds["The_Lobby_Music"].Volume = 1f * Game1.self.musicVolume;
+
             //controls
             foreach (KeyBox keyBox in Keyboxes.Values)
             {

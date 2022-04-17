@@ -46,7 +46,7 @@ namespace ProjectOneTwo
             Screens.Add(GameState.Settings, new Screen_Settings());
             Screens.Add(GameState.Credits, new Screen_Credits());
             gameState = _gameState;
-            Screens[gameState].ChangeTo();
+            
             winner = Winner.None;
         }
         public void Initialize()
@@ -65,6 +65,8 @@ namespace ProjectOneTwo
             }
 
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala50");
+
+            Screens[gameState].ChangeTo();
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)

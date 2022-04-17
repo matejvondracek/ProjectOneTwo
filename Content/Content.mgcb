@@ -125,6 +125,24 @@
 /processorParam:TextureFormat=Color
 /build:button2.jpg
 
+#begin dying.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:dying.wav
+
+#begin female_scream.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:female_scream.wav
+
+#begin footsteps_in_swon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footsteps_in_swon.wav;footsteps_in_snow.wav
+
 #begin forgAttack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -173,6 +191,18 @@
 /processorParam:TextureFormat=Color
 /build:healthbar1.jpg
 
+#begin howling_wind.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:howling_wind.wav
+
+#begin jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jump.wav
+
 #begin madeline atlast/standing/MadS2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -185,9 +215,33 @@
 /processorParam:TextureFormat=Color
 /build:madeline atlast/standing/MadS2.png
 
+#begin sword_hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sword_hit.wav
+
+#begin sword_swing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sword_swing.wav
+
 #begin The_Game.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:The_Game.wav;Main_Theme.wav
+
+#begin The_Lobby_Music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:The_Lobby_Music.wav
+
+#begin whoosh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:whoosh.wav
 
