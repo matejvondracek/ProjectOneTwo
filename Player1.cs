@@ -14,7 +14,7 @@ namespace ProjectOneTwo
     public class Player1
     {
         KeyboardState state;
-        readonly int type;
+        public readonly int type;
         Keys left, right, down, up, jump, attack1;
         public Vector2 pos, move, knockback;
         public Texture2D image, A_image;

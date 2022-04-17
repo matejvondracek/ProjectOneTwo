@@ -12,7 +12,7 @@ namespace ProjectOneTwo
 {
     public class ScreenManager
     {
-        readonly public Dictionary<GameState, Screen> screens = new Dictionary<GameState, Screen>();
+        readonly public Dictionary<GameState, Screen> Screens = new Dictionary<GameState, Screen>();
         SpriteFont spriteFont;
         readonly SimpleFps fps = new SimpleFps();
 
@@ -40,18 +40,18 @@ namespace ProjectOneTwo
 
         public ScreenManager(GameState _gameState)
         {
-            screens.Add(GameState.MainMenu, new Screen_MainMenu());
-            screens.Add(GameState.GamePlay, new Screen_GamePlay());
-            screens.Add(GameState.GameOver, new Screen_GameOver());
-            screens.Add(GameState.Settings, new Screen_Settings());
-            screens.Add(GameState.Credits, new Screen_Credits());
+            Screens.Add(GameState.MainMenu, new Screen_MainMenu());
+            Screens.Add(GameState.GamePlay, new Screen_GamePlay());
+            Screens.Add(GameState.GameOver, new Screen_GameOver());
+            Screens.Add(GameState.Settings, new Screen_Settings());
+            Screens.Add(GameState.Credits, new Screen_Credits());
             gameState = _gameState;
-            screens[gameState].ChangeTo();
+            Screens[gameState].ChangeTo();
             winner = Winner.None;
         }
         public void Initialize()
         {
-            foreach (Screen screen in screens.Values)
+            foreach (Screen screen in Screens.Values)
             {
                 screen.Initialize();
             }
@@ -59,7 +59,7 @@ namespace ProjectOneTwo
 
         public void LoadContent()
         {
-            foreach (Screen screen in screens.Values)
+            foreach (Screen screen in Screens.Values)
             {
                 screen.LoadContent();
             }
@@ -69,11 +69,11 @@ namespace ProjectOneTwo
 
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
-            GameState newState = screens[gameState].Update(gameTime, keyboard, mouse);
+            GameState newState = Screens[gameState].Update(gameTime, keyboard, mouse);
             if ((newState != gameState) && (newState != GameState.Null))
             {
                 gameState = newState;
-                screens[gameState].ChangeTo();
+                Screens[gameState].ChangeTo();
             }
 
             fps.Update(gameTime);
@@ -84,7 +84,7 @@ namespace ProjectOneTwo
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            screens[gameState].Draw(gameTime, spriteBatch);
+            Screens[gameState].Draw(gameTime, spriteBatch);
             Screen_Settings settings = (Screen_Settings)GetScreen(GameState.Settings);
             if (settings.fpsToggle.on)
             {
@@ -94,7 +94,7 @@ namespace ProjectOneTwo
 
         public Screen GetScreen(GameState state)
         {
-            return screens[state];
+            return Screens[state];
         }
     }
 }

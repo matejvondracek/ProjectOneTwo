@@ -17,7 +17,7 @@ namespace ProjectOneTwo
         public Vector2 knockback;
         public Texture2D A_image;
 
-        public Attack(Rectangle _rectangle, int _damage, Vector2 _knockback,Texture2D _A_image)
+        public Attack(Rectangle _rectangle, int _damage, Vector2 _knockback, Texture2D _A_image)
         {
             rectangle = _rectangle;
             damage = _damage;

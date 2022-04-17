@@ -8,12 +8,11 @@ using System.Linq;
 
 public class Physics
 {
-    private readonly static Barrier[] obstacles = new Barrier[100];
-    private readonly static Player1[] Entities = new Player1[5]; ///Player1 class should be replaced by Player - a supertype
-    readonly static List<Attack> Attacks = new List<Attack>();
+    readonly List<Barrier> Obstacles = new List<Barrier>();
+    readonly List<Player1> Entities = new List<Player1>(); 
+    readonly List<Attack> Attacks = new List<Attack>();
 
-    private Vector2 gravity = new Vector2(0, 5);
-    private int obstacle_count = -1, entity_count = -1;
+    Vector2 gravity = new Vector2(0, 5);
 
     public Physics() 
     {
@@ -21,7 +20,7 @@ public class Physics
 
     private void AddBarrier(int Ax, int Ay, int Bx, int By)
     {
-        obstacles[++obstacle_count] = new Barrier(Ax, Ay, Bx, By);
+       Obstacles.Add(new Barrier(Ax, Ay, Bx, By));
     }
 
     public void LoadMap()
@@ -40,31 +39,31 @@ public class Physics
 
     public void AddEntity(ref Player1 entity)
     {
-        Entities[++entity_count] = entity;
+        Entities.Add(entity);
     }
 
     public void AttacksUpdate()
     {
-        if (Attacks.Count() != 0) 
-        {
-            Attacks.Clear();
-        }       
+        Attacks.Clear();
 
-        for (int e = 0; e <= entity_count; e++)
+        //make attacks
+        foreach (Player1 entity in Entities)
         {
-            if (Entities[e].attack != new Rectangle())
+            
+            if (entity.attack != new Rectangle())
             {
-                Attacks.Add(new Attack(Entities[e].attack, Entities[e].damage, Entities[e].knockback, Entities[e].A_image));
-            }
+                Attacks.Add(new Attack(entity.attack, entity.damage, entity.knockback, entity.A_image));
+            }          
         }
 
-        for (int e = 0; e <= entity_count; e++)
+        //check attacks
+        foreach (Player1 entity in Entities)
         {
             foreach (Attack attack in Attacks)
             {
-                if (attack.Check(Entities[e].hitbox)) 
+                if (attack.Check(entity.hitbox))
                 {
-                    Entities[e].life -= attack.damage;
+                    entity.life -= attack.damage;
                 }
             }
         }
@@ -72,58 +71,57 @@ public class Physics
 
     public void MoveUpdate()
     {       
-        for (int e = 0; e <= entity_count; e++)
+        foreach (Player1 entity in Entities)
         {
-            if (!Entities[e].dead)
+            if (!entity.dead)
             {
-                Entities[e].move += gravity * Entities[e].fall;                
+                entity.move += gravity * entity.fall;                
 
-                ObstacleCollision(ref Entities[e]);
-                EntityCollision(ref Entities[e]);
+                ObstacleCollision(entity);
+                EntityCollision(entity);
 
-                Entities[e].GravityAcceleration();
+                entity.GravityAcceleration();
 
-                Entities[e].Jump();               
-                
+                entity.Jump();
+
                 //makes the movement
-                Entities[e].pos += Entities[e].move;
-                Entities[e].Update();
+                entity.pos += entity.move;
+                entity.Update();
             }          
         }        
     }
 
-    private void ObstacleCollision(ref Player1 entity)
+    private void ObstacleCollision(Player1 entity)
     {
-        for (int i = 0; i <= obstacle_count; i++)
+        foreach (Barrier obstacle in Obstacles)
         {
-            Barrier barrier = obstacles[i];
-            Vector2 move = barrier.Check(entity.hitbox, entity.move);
+            Vector2 move = obstacle.Check(entity.hitbox, entity.move);
             entity.move = move;
         }
     }
 
-    private void EntityCollision(ref Player1 entity)
+    private void EntityCollision(Player1 _entity)
     {
-        for (int i = 0; i <= entity_count; i++)
+        foreach (Player1 entity in Entities)
         {
-            if (Entities[i] != entity)
+            if (entity != _entity)
             {
-                Barrier barrier = new Barrier(Entities[i].hitbox);            
-                Vector2 move1 = barrier.Check(entity.hitbox, entity.move);
-                Vector2 move2 = barrier.Check(entity.hitbox, entity.move + new Vector2(0, -5));
+                Barrier barrier = new Barrier(entity.hitbox);            
+                Vector2 move1 = barrier.Check(_entity.hitbox, _entity.move);
+                Vector2 move2 = barrier.Check(_entity.hitbox, _entity.move + new Vector2(0, -5));
 
                 //to prevent character pinning
-                if (move1.Length() == move2.Length()) entity.move.Y = 0;
-                else entity.move = move1;
+                if (move1.Length() == move2.Length()) _entity.move.Y = 0;
+                else _entity.move = move1;
             }
         }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        for (int e = 0; e <= entity_count; e++)
+        foreach (Player1 entity in Entities)
         {
-            spriteBatch.Draw(Entities[e].image, Entities[e].drawbox, Color.White);
+            spriteBatch.Draw(entity.image, entity.drawbox, Color.White);
         }
         foreach (Attack attack in Attacks)
         {
@@ -136,32 +134,32 @@ public class Physics
         //checkes whether any player is off screen
         Rectangle screen = new Rectangle(0, 0, 1920, 1080);
         Rectangle exile = new Rectangle(2000, 2000, 1000, 1000);
-        for (int e = 0; e <= entity_count; e++)
+        foreach (Player1 entity in Entities)
         {
-            if ((!screen.Contains(Entities[e].pos.ToPoint())) && (!exile.Contains(Entities[e].pos.ToPoint())))
+            if ((!screen.Contains(entity.pos.ToPoint())) && (!exile.Contains(entity.pos.ToPoint())))
             {
-                Entities[e].life = 0;
-                Entities[e].dead = true;
-                Entities[e].times_dead += 1;
+                entity.life = 0;
+                entity.dead = true;
+                entity.times_dead += 1;
             }
         }
 
         //handeling death
-        for (int e = 0; e <= entity_count; e++)
+        foreach (Player1 entity in Entities)
         {
-            if (Entities[e].life <= 0) Entities[e].dead = true;
-            if (Entities[e].dead && (!exile.Contains(Entities[e].pos.ToPoint())))
+            if (entity.life <= 0) entity.dead = true;
+            if (entity.dead && (!exile.Contains(entity.pos.ToPoint())))
             {
-                if (Entities[e].times_dead >= 3)
+                if (entity.times_dead >= 3)
                 {
-                    if (e == 0) return ScreenManager.Winner.Player2;
+                    if (entity.type == 1) return ScreenManager.Winner.Player2;
                     else return ScreenManager.Winner.Player1;
                 }
                 else
                 {
-                    Entities[e].pos = new Vector2(2020, 2020);
+                    entity.pos = new Vector2(2020, 2020);
                     Timer timer = new Timer(1000);   ///maybe not the smartest way
-                    timer.Elapsed += Entities[e].Reset;
+                    timer.Elapsed += entity.Reset;
                     timer.Enabled = true;
                     timer.AutoReset = false;
                 }
