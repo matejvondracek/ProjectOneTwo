@@ -78,7 +78,14 @@ public class Physics
             {
                 if (attack.Check(entity.hitbox))
                 {
-                    entity.life -= attack.damage;
+                    
+                    if (attack.damage != 0)
+                    {
+                        entity.life -= attack.damage;
+                        Vector2 direction = attack.knockback;
+                        direction.Normalize();
+                        entity.dash = new Dash(direction, 20, 10);
+                    }                 
                 }
             }
         }

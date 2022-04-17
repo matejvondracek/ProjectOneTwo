@@ -168,7 +168,7 @@ namespace ProjectOneTwo
                 {
                     int imageDuration = 30;
                     int damage = 10;
-                    Vector2 knockback = new Vector2(10 * Facing, 1);
+                    Vector2 knockback = new Vector2(Facing, 1);
                     A_timer = 120;
                     A_pressed = true;
                     Rectangle rectangle = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);

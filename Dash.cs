@@ -18,7 +18,7 @@ namespace ProjectOneTwo
         public Dash(Vector2 direction, float speed, int _duration)
         {
             duration = _duration;
-            if (direction.X != 0 && direction.Y != 0) duration -= 5;
+            //if (direction.X != 0 && direction.Y != 0) duration -= 5;
             vector = direction * speed;
         }
 
