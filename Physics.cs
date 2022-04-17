@@ -42,17 +42,32 @@ public class Physics
         Entities.Add(entity);
     }
 
+    private bool OldAttacks(Attack attack)
+    {
+        return attack.imageDuration <= 0;
+    }
+
     public void AttacksUpdate()
     {
-        Attacks.Clear();
+        foreach (Attack attack in Attacks)
+        {
+            if (attack.imageDuration > 0)
+            {
+                //keep attacks for image rendering
+                attack.damage = 0;
+                attack.knockback = new Vector2();
+            }       
+        }
+
+        //delete old attacks to save memory
+        Attacks.RemoveAll(OldAttacks);
 
         //make attacks
         foreach (Player1 entity in Entities)
-        {
-            
-            if (entity.attack != new Rectangle())
+        {            
+            if (entity.attack != null)
             {
-                Attacks.Add(new Attack(entity.attack, entity.damage, entity.knockback, entity.A_image));
+                Attacks.Add(entity.attack);
             }          
         }
 

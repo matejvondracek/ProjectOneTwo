@@ -16,15 +16,16 @@ namespace ProjectOneTwo
         KeyboardState state;
         public readonly int type;
         Keys left, right, down, up, jump, attack1;
-        public Vector2 pos, move, knockback;
+        public Vector2 pos, move;
         public Texture2D image, A_image;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
-        public int life, damage, times_dead, Facing = 1, A_timer, A_image_timer;
-        public Rectangle attack, hitbox, drawbox;
+        public int life, times_dead, Facing = 1, A_timer, A_image_timer;
+        public Rectangle hitbox, drawbox;
         public bool dead, is_in_jump = false;
         public float fall = 1f;
         float long_jump = 80;
         bool tries_to_jump = false, A_pressed = false;
+        public Attack attack;
 
         public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1)
         {
@@ -122,36 +123,24 @@ namespace ProjectOneTwo
         public void MakeAttack()
         {
             if (state.IsKeyDown(attack1))
-            { if (A_pressed == false)
+            { 
+                if (A_pressed == false)
                 {
-                    A_image_timer = 30;
-                    attack = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
-                    damage = 10;
-                    knockback = new Vector2(10 * Facing, 1);
+                    int imageDuration = 30;
+                    int damage = 10;
+                    Vector2 knockback = new Vector2(10 * Facing, 1);
                     A_timer = 120;
                     A_pressed = true;
+                    Rectangle rectangle = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
+                    attack = new Attack(rectangle, damage, knockback, A_image, imageDuration);
                 }
-                else 
-                {                   
-                    damage = 0;
-                    knockback = new Vector2(0, 0);
-                }             
-            }
-            else
-            {
-                if (A_image_timer > 0)
+                else
                 {
-                    attack = new Rectangle((int)pos.X + 100 * Facing, (int)pos.Y, 90, 90);
-                    A_image_timer -= 1;
+                    attack = null;
                 }
-                attack = new Rectangle(0,0,0,0);
-                damage = 0;
-                knockback = new Vector2(0,0);
             }
-            if (A_timer > 0)
-                A_timer -= 1;
-            if (A_timer == 0)
-                A_pressed = false;
+            if (A_timer > 0) A_timer -= 1;
+            if (A_timer == 0) A_pressed = false;
         }
 
         public void Reset()
