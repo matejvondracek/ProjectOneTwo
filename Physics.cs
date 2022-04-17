@@ -27,7 +27,7 @@ public class Physics
     {
         //3 walls on screen bezels
         AddBarrier(320, 0, 321, 180);
-        AddBarrier(0, -1, 320, 0);
+       // AddBarrier(0, -1, 320, 0);
         AddBarrier(-1, 0, 0, 180);
 
         //map blocks
@@ -90,7 +90,7 @@ public class Physics
         {
             if (!entity.dead)
             {
-                entity.move += gravity * entity.fall;                
+                if (entity.dash == null) entity.move += gravity * entity.fall;                
 
                 ObstacleCollision(entity);
                 EntityCollision(entity);
@@ -111,6 +111,11 @@ public class Physics
         foreach (Barrier obstacle in Obstacles)
         {
             Vector2 move = obstacle.Check(entity.hitbox, entity.move);
+
+            //checkes if entity is standing on the obstacle
+            if ((entity.move.Y > 0) && (move.Length() < entity.move.Length())) entity.standing = true;
+            else if (entity.move.Y != 0) entity.standing = false;
+
             entity.move = move;
         }
     }
@@ -124,6 +129,10 @@ public class Physics
                 Barrier barrier = new Barrier(entity.hitbox);            
                 Vector2 move1 = barrier.Check(_entity.hitbox, _entity.move);
                 Vector2 move2 = barrier.Check(_entity.hitbox, _entity.move + new Vector2(0, -5));
+
+                //checks if the entity is standing on another entity
+                if ((_entity.move.Y > 0) && (move1.Length() < _entity.move.Length())) _entity.standing = true;
+                else if (_entity.move.Y != 0) _entity.standing = false;
 
                 //to prevent character pinning
                 if (move1.Length() == move2.Length()) _entity.move.Y = 0;

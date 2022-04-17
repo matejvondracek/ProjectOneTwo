@@ -41,8 +41,8 @@ namespace ProjectOneTwo
             //game logic
             physics.LoadMap();
             
-            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space, Keys.E);
-            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl, Keys.RightShift);
+            player1 = new Player1(1, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space, Keys.E, Keys.LeftShift);
+            player2 = new Player1(2, Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.RightControl, Keys.RightShift, Keys.NumPad0);
             player1.LoadContent();
             player2.LoadContent();
             player1.Reset();

@@ -15,19 +15,20 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         public readonly int type;
-        Keys left, right, down, up, jump, attack1;
+        Keys left, right, down, up, jump, attack1, dashButton;
         public Vector2 pos, move;
         public Texture2D image, A_image;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
         public int life, times_dead, Facing = 1, A_timer, A_image_timer;
         public Rectangle hitbox, drawbox;
-        public bool dead, is_in_jump = false;
+        public bool dead, is_in_jump = false, standing;
         public float fall = 1f;
         float long_jump = 80;
-        bool tries_to_jump = false, A_pressed = false;
+        bool tries_to_jump = false, A_pressed = false, stunned = false, dash_charged;
         public Attack attack;
+        public Dash dash;
 
-        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1)
+        public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1, Keys P_dash)
         {
             type = i;
             up = P_up;
@@ -36,6 +37,7 @@ namespace ProjectOneTwo
             right = P_right;
             jump = P_jump;
             attack1 = P_attack1;
+            dashButton = P_dash;
         }
 
         public void LoadContent()
@@ -70,23 +72,60 @@ namespace ProjectOneTwo
 
             if (is_in_jump) move += new Vector2(0, -20);
 
-            if (state.IsKeyDown(right)) move += new Vector2(10, 0);
-            if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
-            if (state.IsKeyDown(jump)) tries_to_jump = true;            
+            if (state.IsKeyDown(dashButton))
+            {
+                if (dash == null && dash_charged)
+                {
+                    Vector2 direction = new Vector2();
+                    if (state.IsKeyDown(up)) direction.Y = -1;
+                    if (state.IsKeyDown(down)) direction.Y = 1;
+                    if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = Facing;
+                    if (direction.Length() == 0) direction.X = Facing;
+                    dash = new Dash(direction, 30, 10);
+                    dash_charged = false;
+                }               
+            }
+
+            if (dash != null && dash.Update())
+            {
+                move = dash.vector;
+                fall = 1;
+            }
+            else
+            {
+                if (dash != null)
+                {
+                    if (dash.vector.Y < 0)
+                    {                        
+                        is_in_jump = true;
+                    }
+                    dash = null;
+                }               
+
+                if (!stunned)
+                {
+                    if (state.IsKeyDown(right)) move += new Vector2(10, 0);
+                    if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
+                    if (state.IsKeyDown(jump)) tries_to_jump = true;    
+                }
+            }                   
         }
 
         public void Jump()
         {
-            if (tries_to_jump && (move.Y == 0))
+            if (standing)
             {
-                tries_to_jump = false;
-                is_in_jump = true;
-            }
-            else if (move.Y == 0)
-            {
-                is_in_jump = false;
-                fall = 1f;
-                long_jump = 80;
+                if (tries_to_jump)
+                {
+                    is_in_jump = true;
+                }
+                else
+                {
+                    is_in_jump = false;
+                    fall = 1f;
+                    long_jump = 80;
+                }               
+                if (state.IsKeyUp(dashButton)) dash_charged = true;
             }
             else if (tries_to_jump)
             {
@@ -96,9 +135,10 @@ namespace ProjectOneTwo
                     move.Y -= 3f;
                     fall -= 0.05f;
                 }
-                tries_to_jump = false;
             }
-            else tries_to_jump = false;                      
+            tries_to_jump = false;
+            if (dash != null) is_in_jump = false;
+
         }
 
         public void GravityAcceleration()
@@ -160,6 +200,7 @@ namespace ProjectOneTwo
                 Facing = -1;
                 image = images["MadS1"];
             }
+            Update();
         }
 
         public void Reset(Object source, ElapsedEventArgs e)
