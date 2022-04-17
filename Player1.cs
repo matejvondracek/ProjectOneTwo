@@ -17,7 +17,7 @@ namespace ProjectOneTwo
         public readonly int type;
         Keys left, right, down, up, jump, attack1, dashButton;
         public Vector2 pos, move;
-        public Texture2D image, A_image;
+        public Texture2D image, A_image_right, A_image_left;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
         public int life, times_dead, facing = 1, A_timer, A_image_timer;
         public Rectangle hitbox, drawbox;
@@ -38,7 +38,8 @@ namespace ProjectOneTwo
         {
             images.Add("MadS1", Game1.Mycontent.Load<Texture2D>("MadS1"));
             images.Add("MadS2", Game1.Mycontent.Load<Texture2D>("MadS2"));
-            A_image = Game1.Mycontent.Load<Texture2D>("ForgAttack");
+            A_image_right = Game1.Mycontent.Load<Texture2D>("melee_attack_right");
+            A_image_left = Game1.Mycontent.Load<Texture2D>("melee_attack_left");
             image = images["MadS1"];
             hitbox = new Rectangle(0, 0, 13 * 6, 16 * 6);
             drawbox = new Rectangle(0, 0, image.Width * 6, image.Height * 6);
@@ -185,6 +186,9 @@ namespace ProjectOneTwo
                     A_timer = 120;
                     A_pressed = true;
                     Rectangle rectangle = new Rectangle((int)pos.X + 100 * facing, (int)pos.Y, 90, 90);
+                    Texture2D A_image;
+                    if (facing > 0) A_image = A_image_right;
+                    else A_image = A_image_left;
                     attack = new Attack(rectangle, damage, knockback, A_image, imageDuration);
                     Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
                     Game1.self.Sounds["sword_swing"].Play();

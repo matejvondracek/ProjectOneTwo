@@ -38,8 +38,8 @@ namespace ProjectOneTwo
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
-            playButton = new Button(Game1.self.PixelVector(80, 95), Game1.self.PixelVector(240, 125), buttonSprites);
-            playButton.AddText("Play on single device", buttonFont, 30, 0, Color.Black);
+            playButton = new Button(Game1.self.PixelVector(80, 105), Game1.self.PixelVector(240, 125), buttonSprites);
+            playButton.AddText("Play on single device", buttonFont, 30, 10, Color.Black);
             quitButton = new Button(Game1.self.PixelVector(80, 155), Game1.self.PixelVector(240, 175), buttonSprites);
             quitButton.AddText("Quit", buttonFont, 10, 10, Color.Black);
             settingsButton = new Button(Game1.self.PixelVector(80, 130), Game1.self.PixelVector(155, 150), buttonSprites);
