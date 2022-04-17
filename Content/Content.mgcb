@@ -215,6 +215,12 @@
 /processorParam:TextureFormat=Color
 /build:madeline atlast/standing/MadS2.png
 
+#begin stone.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:stone.wav
+
 #begin sword_hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

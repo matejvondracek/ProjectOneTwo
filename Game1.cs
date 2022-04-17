@@ -64,7 +64,9 @@ namespace ProjectOneTwo
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            string[] files = { "Main_Theme", "The_Lobby_Music", "howling_wind", "female_scream", "dying", "jump", "footsteps_in_snow", "sword_swing", "sword_hit", "whoosh" };
+            string[] files = { "Main_Theme", "The_Lobby_Music", "howling_wind", "female_scream", "dying", 
+                "jump", "footsteps_in_snow", "sword_swing", "sword_hit", "whoosh", "stone" };
+
             //loading sound and music
             foreach (string file in files)
             {

@@ -200,7 +200,7 @@ public class Physics
                 else
                 {
                     entity.pos = new Vector2(2020, 2020);
-                    Timer timer = new Timer(1000);   ///maybe not the smartest way
+                    Timer timer = new Timer(3000);   
                     timer.Elapsed += entity.Reset;
                     timer.Enabled = true;
                     timer.AutoReset = false;

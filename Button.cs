@@ -75,6 +75,11 @@ namespace ProjectOneTwo
                 if (released)
                 {
                     released = !IsTargeted();
+                    if (IsTargeted())
+                    {
+                        Game1.self.Sounds["stone"].Volume = 1f * Game1.self.effectsVolume;
+                        Game1.self.Sounds["stone"].Play();
+                    }
                     return IsTargeted();
                 }
                 released = !IsTargeted();
