@@ -19,21 +19,22 @@ namespace ProjectOneTwo
         public Vector2 pos, move, knockback;
         public Texture2D image, A_image;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
-        public int life, damage, times_dead, Facing, A_timer, A_image_timer;
+        public int life, damage, times_dead, Facing = 1, A_timer, A_image_timer;
         public Rectangle attack, hitbox, drawbox;
         public bool dead, is_in_jump = false;
         public float fall = 1f;
         float long_jump = 80;
-        bool tries_to_jump = false, A_pressed;
+        bool tries_to_jump = false, A_pressed = false;
 
         public Player1(int i, Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1)
         {
             type = i;
+            up = P_up;
             left = P_left;
+            down = P_down;
             right = P_right;
-            A_pressed = false;
+            jump = P_jump;
             attack1 = P_attack1;
-
         }
 
         public void LoadContent()
@@ -161,10 +162,14 @@ namespace ProjectOneTwo
             if (type == 1)
             {
                 pos = new Vector2(100, 600);
+                Facing = 1;
+                image = images["MadS2"];
             }
             else if (type == 2)
             {
-                pos = new Vector2(1700, 600); 
+                pos = new Vector2(1700, 600);
+                Facing = -1;
+                image = images["MadS1"];
             }
         }
 
