@@ -83,6 +83,13 @@ public class Physics
                         Vector2 direction = attack.knockback;
                         direction.Normalize();
                         entity.dash = new Dash(direction, 20, 10);
+                        if (attack.gives_stun)
+                        {
+                            entity.stunned = true;
+                            entity.stun_timer = 30;
+                        }
+
+                        //sound effect
                         Game1.self.Sounds["sword_hit"].Volume = 1f * Game1.self.effectsVolume;
                         Game1.self.Sounds["sword_hit"].Play();
                     }                 

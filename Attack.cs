@@ -10,6 +10,7 @@ namespace ProjectOneTwo
         public Vector2 knockback;
         public Texture2D A_image;
         public int imageDuration;
+        public bool gives_stun = false;
 
         public Attack(Rectangle _rectangle, int _damage, Vector2 _knockback, Texture2D _A_image, int _imageDuration)
         {
@@ -18,6 +19,16 @@ namespace ProjectOneTwo
             knockback = _knockback;
             A_image = _A_image;
             imageDuration = _imageDuration;
+        }
+
+        public Attack(Rectangle _rectangle, int _damage, Vector2 _knockback, Texture2D _A_image, int _imageDuration, bool _gives_stun)
+        {
+            rectangle = _rectangle;
+            damage = _damage;
+            knockback = _knockback;
+            A_image = _A_image;
+            imageDuration = _imageDuration;
+            gives_stun = _gives_stun;
         }
 
         public bool Check(Rectangle character)

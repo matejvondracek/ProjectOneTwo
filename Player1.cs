@@ -16,13 +16,12 @@ namespace ProjectOneTwo
         public Vector2 pos, move;
         public Texture2D image, A_image_right, A_image_left;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
-        public int life, times_dead, facing = 1, A_timer = 0, A_image_timer, A_timer_length;
+        public int life, times_dead, facing = 1, A_timer = 0, A_image_timer, A_timer_length, stun_timer = 0;
         public Rectangle hitbox, drawbox;
-        public bool dead, is_in_jump = false, standing, dash_charged;
+        public bool dead, is_in_jump = false, standing, dash_charged, stunned = false;
         public float fall = 1f, A_wait;
         float long_jump = 80;
         bool tries_to_jump = false, A_pressed = false, is_in_attack2 = false;
-        readonly bool stunned = false;
         public Attack attack;
         public Dash dash;
 
@@ -68,66 +67,77 @@ namespace ProjectOneTwo
 
             if (is_in_jump) move += new Vector2(0, -20);
 
-            if (state.IsKeyDown(dashButton))
+            if (!stunned)
             {
-                if (dash == null && dash_charged)
+                if (state.IsKeyDown(dashButton))
                 {
-                    Vector2 direction = new Vector2();
-                    if (state.IsKeyDown(up)) direction.Y = -1;
-                    if (state.IsKeyDown(down)) direction.Y = 1;
-                    if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = facing;
-                    if (direction.Length() == 0) direction.X = facing;
-                    dash = new Dash(direction, 30, 10);
-                    dash_charged = false;
+                    if (dash == null && dash_charged)
+                    {
+                        Vector2 direction = new Vector2();
+                        if (state.IsKeyDown(up)) direction.Y = -1;
+                        if (state.IsKeyDown(down)) direction.Y = 1;
+                        if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = facing;
+                        if (direction.Length() == 0) direction.X = facing;
+                        dash = new Dash(direction, 30, 10);
+                        dash_charged = false;
 
-                    //sound effect
-                    Game1.self.Sounds["whoosh"].Volume = 1f * Game1.self.effectsVolume;
-                    Game1.self.Sounds["whoosh"].Play();
-                }               
-            }
-
-            if (dash != null && dash.Update())
-            {
-                move = dash.vector;
-                fall = 1;
-            }
-            else
-            {
-                if (dash != null)
-                {
-                    if (dash.vector.Y < 0)
-                    {                        
-                        is_in_jump = true;
-                    }
-                    dash = null;
-                }               
-
-                if (!stunned)
-                {
-                    if (state.IsKeyDown(right)) move += new Vector2(10, 0);
-                    if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
-                    if (state.IsKeyDown(jump)) tries_to_jump = true;    
+                        //sound effect
+                        Game1.self.Sounds["whoosh"].Volume = 1f * Game1.self.effectsVolume;
+                        Game1.self.Sounds["whoosh"].Play();
+                    }               
                 }
 
-                if (standing && (state.IsKeyDown(right) | state.IsKeyDown(left)))
+                if (dash != null && dash.Update())
                 {
-                     Game1.self.Sounds["footsteps_in_snow"].Volume = 0.2f * Game1.self.effectsVolume;
+                    move = dash.vector;
+                    fall = 1;
                 }
                 else
                 {
-                    Game1.self.Sounds["footsteps_in_snow"].Volume *= 0.9f;
+                    if (dash != null)
+                    {
+                        if (dash.vector.Y < 0)
+                        {                        
+                            is_in_jump = true;
+                        }
+                        dash = null;
+                    }
+
+                    if (state.IsKeyDown(right)) move += new Vector2(10, 0);
+                    if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
+                    if (state.IsKeyDown(jump)) tries_to_jump = true;
+
+                    if (standing && (state.IsKeyDown(right) | state.IsKeyDown(left)))
+                    {
+                         Game1.self.Sounds["footsteps_in_snow"].Volume = 0.2f * Game1.self.effectsVolume;
+                    }
+                    else
+                    {
+                        Game1.self.Sounds["footsteps_in_snow"].Volume *= 0.9f;
+                    }
+                }        
+            }
+            else
+            {
+                if (stun_timer > 0)
+                {
+                    stun_timer -= 1;
                 }
-            }                   
+                else stunned = false;
+                
+            }
+                       
         }
 
         public void MakeAttack()
         {
+            //melee attack
             if (state.IsKeyDown(attack1))
             { 
                 if (A_pressed == false)
                 {
                     int imageDuration = 30;
-                    int damage = 10;
+                    int damage = 20;
                     Vector2 knockback = new Vector2(facing, 1);
                     A_timer = 120;
                     A_timer_length = A_timer;
@@ -154,10 +164,22 @@ namespace ProjectOneTwo
             {
                 A_timer -= 1;
                 A_wait = (float)A_timer / (float)A_timer_length;
-            }
-                
+            }               
             if (A_timer == 0) A_pressed = false;
 
+            //slam
+            if (dash != null && !is_in_attack2)
+            {
+                Vector2 vector = dash.vector;
+                vector.Normalize();
+                if (vector == new Vector2(0, 1))
+                {
+                    Rectangle rectangle = new Rectangle((int)pos.X, (int)pos.Y + 200, 90, 90);
+                    attack = new Attack(rectangle, 1, new Vector2(0, 1), A_image_right, 10, true);
+                }
+            }
+
+            //push
             if (state.IsKeyDown(attack2))
             {
                 if (!is_in_attack2 && dash_charged && !A_pressed && (A_timer == 0))
@@ -166,7 +188,7 @@ namespace ProjectOneTwo
                     Vector2 direction = new Vector2();
                     if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = facing;
                     if (direction.Length() == 0) direction.X = facing;
-                    dash = new Dash(direction, 20, 40);
+                    dash = new Dash(direction, 20, 45);
                     dash_charged = false;
                     Game1.self.Sounds["whoosh"].Volume = 1f * Game1.self.effectsVolume;
                     Game1.self.Sounds["whoosh"].Play();
@@ -178,9 +200,7 @@ namespace ProjectOneTwo
                     A_timer = 480;
                     A_timer_length = A_timer;
                     A_pressed = true;
-                }
-                
-                
+                }               
             }
             if (is_in_attack2)
             {
@@ -261,6 +281,7 @@ namespace ProjectOneTwo
             life = 100;
             fall = 1f;
             dead = false;
+            stunned = false;
             if (type == 1)
             {
                 pos = new Vector2(100, 600);
