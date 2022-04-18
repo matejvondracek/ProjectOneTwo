@@ -12,16 +12,16 @@ namespace ProjectOneTwo
     {
         KeyboardState state;
         public readonly int type;
-        Keys left, right, down, up, jump, attack1, dashButton;
+        Keys left, right, down, up, jump, attack1, dashButton, attack2;
         public Vector2 pos, move;
         public Texture2D image, A_image_right, A_image_left;
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
-        public int life, times_dead, facing = 1, A_timer, A_image_timer;
+        public int life, times_dead, facing = 1, A_timer = 0, A_image_timer, A_timer_length;
         public Rectangle hitbox, drawbox;
         public bool dead, is_in_jump = false, standing, dash_charged;
         public float fall = 1f, A_wait;
         float long_jump = 80;
-        bool tries_to_jump = false, A_pressed = false;
+        bool tries_to_jump = false, A_pressed = false, is_in_attack2 = false;
         readonly bool stunned = false;
         public Attack attack;
         public Dash dash;
@@ -130,6 +130,7 @@ namespace ProjectOneTwo
                     int damage = 10;
                     Vector2 knockback = new Vector2(facing, 1);
                     A_timer = 120;
+                    A_timer_length = A_timer;
                     A_pressed = true;
                     Rectangle rectangle = new Rectangle((int)pos.X + 100 * facing, (int)pos.Y, 90, 90);
                     Texture2D A_image;
@@ -141,6 +142,7 @@ namespace ProjectOneTwo
                     Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
                     Game1.self.Sounds["sword_swing"].Play();
 
+
                     A_wait = 0f;
                 }
                 else
@@ -151,10 +153,56 @@ namespace ProjectOneTwo
             if (A_timer > 0)
             {
                 A_timer -= 1;
-                A_wait = A_timer / 120f;
+                A_wait = (float)A_timer / (float)A_timer_length;
             }
                 
             if (A_timer == 0) A_pressed = false;
+
+            if (state.IsKeyDown(attack2))
+            {
+                if (!is_in_attack2 && dash_charged && !A_pressed && (A_timer == 0))
+                {
+                    //character dashes
+                    Vector2 direction = new Vector2();
+                    if (state.IsKeyDown(right) | state.IsKeyDown(left)) direction.X = facing;
+                    if (direction.Length() == 0) direction.X = facing;
+                    dash = new Dash(direction, 20, 40);
+                    dash_charged = false;
+                    Game1.self.Sounds["whoosh"].Volume = 1f * Game1.self.effectsVolume;
+                    Game1.self.Sounds["whoosh"].Play();
+
+                    //character pushes the other character
+                    is_in_attack2 = true;
+
+                    //attack uses A_timer
+                    A_timer = 480;
+                    A_timer_length = A_timer;
+                    A_pressed = true;
+                }
+                
+                
+            }
+            if (is_in_attack2)
+            {
+                if (dash != null && dash.Update())
+                {
+                    //pushing the other character
+                    Vector2 knockback = new Vector2(facing * 20, 0);
+                    Rectangle rectangle = new Rectangle((int)pos.X + 100 * facing, (int)pos.Y, 90, 90);
+                        Texture2D A_image;
+                    if (facing > 0) A_image = A_image_right;
+                    else A_image = A_image_left;
+                    attack = new Attack(rectangle, 1, knockback, A_image, 20);
+
+                    //sound effect
+                    Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
+                    Game1.self.Sounds["sword_swing"].Play();
+                }
+                else
+                {
+                    is_in_attack2 = false;
+                }
+            }
         }
 
         public void ChangeImage()
@@ -233,7 +281,7 @@ namespace ProjectOneTwo
             Reset();
         }
 
-        public void SetControls(Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1, Keys P_dash)
+        public void SetControls(Keys P_up, Keys P_left, Keys P_down, Keys P_right, Keys P_jump, Keys P_attack1, Keys P_dash, Keys P_attack2)
         {
             left = P_left;
             right = P_right;
@@ -242,6 +290,7 @@ namespace ProjectOneTwo
             jump = P_jump;
             attack1 = P_attack1;
             dashButton = P_dash;
+            attack2 = P_attack2;
         }
     }
 }

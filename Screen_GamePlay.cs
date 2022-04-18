@@ -118,8 +118,10 @@ namespace ProjectOneTwo
             //changing controls
             Screen_Settings settings = (Screen_Settings)Game1.self.screenManager.GetScreen(ScreenManager.GameState.Settings);
             var keys = settings.Keyboxes;
-            player1.SetControls(keys["up1"].key, keys["left1"].key, keys["down1"].key, keys["right1"].key, keys["jump1"].key, keys["attack1"].key, keys["dash1"].key);
-            player2.SetControls(keys["up2"].key, keys["left2"].key, keys["down2"].key, keys["right2"].key, keys["jump2"].key, keys["attack2"].key, keys["dash2"].key);
+            player1.SetControls(keys["up1"].key, keys["left1"].key, keys["down1"].key, keys["right1"].key, 
+                keys["jump1"].key, keys["attack1"].key, keys["dash1"].key, keys["push1"].key);
+            player2.SetControls(keys["up2"].key, keys["left2"].key, keys["down2"].key, keys["right2"].key, 
+                keys["jump2"].key, keys["attack2"].key, keys["dash2"].key, keys["push2"].key);
         }
     }
 }
