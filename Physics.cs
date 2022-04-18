@@ -106,6 +106,8 @@ public class Physics
 
                 entity.Jump();
 
+                EntityCollision(entity);
+
                 //makes the movement
                 entity.pos += entity.move;
                 entity.Update();
@@ -144,7 +146,8 @@ public class Physics
                 else if (_entity.move.Y != 0) _entity.standing = false;
 
                 //to prevent character pinning
-                if (move1.Length() == move2.Length()) _entity.move.Y = 0;
+                if (move1.Length() == move2.Length())
+                    _entity.move.Y = 0;
                 else _entity.move = move1;
             }
         }
