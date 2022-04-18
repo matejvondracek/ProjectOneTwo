@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Timers;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace ProjectOneTwo
 {
@@ -123,57 +120,6 @@ namespace ProjectOneTwo
             }                   
         }
 
-        public void Jump()
-        {
-            if (standing)
-            {
-                if (tries_to_jump)
-                {
-                    is_in_jump = true;
-                    Game1.self.Sounds["jump"].Volume = 0.7f * Game1.self.effectsVolume;
-                    Game1.self.Sounds["jump"].Play();
-                }
-                else
-                {
-                    is_in_jump = false;
-                    fall = 1f;
-                    long_jump = 80;
-                }               
-                if (state.IsKeyUp(dashButton)) dash_charged = true;
-            }
-            else if (tries_to_jump)
-            {
-                if (long_jump > 0)
-                {
-                    long_jump -= 1;
-                    move.Y -= 3f;
-                    fall -= 0.05f;
-                }
-            }
-            tries_to_jump = false;
-            if (dash != null) is_in_jump = false;
-
-        }
-
-        public void GravityAcceleration()
-        {
-            if (move.Y != 0) if (fall < 20) fall += 0.2f; //terminal velocity
-        }
-        
-        public void ChangeImage()
-        { 
-            if (state.IsKeyDown(right))
-            {
-                image = images["MadS2"];
-                facing = 1;
-            }
-            if (state.IsKeyDown(left))
-            {
-                image = images["MadS1"];
-                facing = -1;
-            }
-        }
-
         public void MakeAttack()
         {
             if (state.IsKeyDown(attack1))
@@ -209,6 +155,57 @@ namespace ProjectOneTwo
             }
                 
             if (A_timer == 0) A_pressed = false;
+        }
+
+        public void ChangeImage()
+        {
+            if (state.IsKeyDown(right))
+            {
+                image = images["MadS2"];
+                facing = 1;
+            }
+            if (state.IsKeyDown(left))
+            {
+                image = images["MadS1"];
+                facing = -1;
+            }
+        }
+
+        public void Jump()
+        {
+            if (standing)
+            {
+                if (tries_to_jump)
+                {
+                    is_in_jump = true;
+                    Game1.self.Sounds["jump"].Volume = 0.7f * Game1.self.effectsVolume;
+                    Game1.self.Sounds["jump"].Play();
+                }
+                else
+                {
+                    is_in_jump = false;
+                    fall = 1f;
+                    long_jump = 80;
+                }
+                if (state.IsKeyUp(dashButton)) dash_charged = true;
+            }
+            else if (tries_to_jump)
+            {
+                if (long_jump > 0)
+                {
+                    long_jump -= 1;
+                    move.Y -= 3f;
+                    fall -= 0.05f;
+                }
+            }
+            tries_to_jump = false;
+            if (dash != null) is_in_jump = false;
+
+        }
+
+        public void GravityAcceleration()
+        {
+            if (move.Y != 0) if (fall < 20) fall += 0.2f; //terminal velocity
         }
 
         public void Reset()

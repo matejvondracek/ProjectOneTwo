@@ -113,18 +113,6 @@
 /processorParam:TextureFormat=Color
 /build:button1_snow_blood.png
 
-#begin button2.jpg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:button2.jpg
-
 #begin button2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -197,11 +185,11 @@
 /processorParam:Quality=Best
 /build:female_scream.wav
 
-#begin footsteps_in_swon.wav
+#begin footsteps_in_snow.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:footsteps_in_swon.wav;footsteps_in_snow.wav
+/build:footsteps_in_snow.wav
 
 #begin gameover.jpg
 /importer:TextureImporter

@@ -1,14 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Timers;
-using ProjectOneTwo;
 
 namespace ProjectOneTwo
 {
@@ -95,7 +88,7 @@ namespace ProjectOneTwo
         {
             DrawButtons(buttons, spriteBatch);
 
-            spriteBatch.DrawString(spriteFont, "Pre-Alpha", new Vector2(10, 1025), Color.Black);
+            spriteBatch.DrawString(spriteFont, "Demo", new Vector2(10, 1025), Color.Black);
             
             Game1.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.White);
         }

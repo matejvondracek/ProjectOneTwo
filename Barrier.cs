@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using Microsoft.Xna.Framework;
-using ProjectOneTwo;
+﻿using Microsoft.Xna.Framework;
 
 class Barrier
 {

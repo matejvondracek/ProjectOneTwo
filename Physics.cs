@@ -1,10 +1,8 @@
-﻿using System;
-using System.Timers;
+﻿using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectOneTwo;
 using System.Collections.Generic;
-using System.Linq;
 
 public class Physics
 {
@@ -115,6 +113,8 @@ public class Physics
         }        
     }
 
+    #region collisions
+
     private void ObstacleCollision(Player1 entity)
     {
         foreach (Barrier obstacle in Obstacles)
@@ -149,6 +149,8 @@ public class Physics
             }
         }
     }
+
+    #endregion
 
     public void Draw(SpriteBatch spriteBatch)
     {
@@ -200,6 +202,7 @@ public class Physics
                 else
                 {
                     entity.pos = new Vector2(2020, 2020);
+                    entity.Update();
                     Timer timer = new Timer(3000);   
                     timer.Elapsed += entity.Reset;
                     timer.Enabled = true;
