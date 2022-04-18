@@ -151,7 +151,7 @@ namespace ProjectOneTwo
             spriteBatch.DrawString(font, text, textPosition, color, 0.0f, new Vector2(), textScale, new SpriteEffects(), 0.0f);
         }
 
-        public Vector2 PixelVector(float x, float y)
+        public static Vector2 PixelVector(float x, float y)
         {
             return new Vector2(x * 6, y * 6);
         }

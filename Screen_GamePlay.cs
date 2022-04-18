@@ -77,14 +77,14 @@ namespace ProjectOneTwo
             physics.Draw(spriteBatch); ///draws characters
 
             //healthbars
-            spriteBatch.Draw(health_bar, new Rectangle(Game1.self.PixelVector(2, 17).ToPoint(), Game1.self.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar, new Rectangle(Game1.self.PixelVector(315, 17).ToPoint(), Game1.self.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.self.PixelVector(1, 15).ToPoint(), Game1.self.PixelVector(5, 54).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.self.PixelVector(314, 15).ToPoint(), Game1.self.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(2, 17).ToPoint(), Game1.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(315, 17).ToPoint(), Game1.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(1, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(314, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
 
             //life counter
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.self.PixelVector(2, 70), Color.Red);
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.self.PixelVector(315, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.PixelVector(2, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.PixelVector(315, 70), Color.Red);
         }
 
         public override void ChangeTo()

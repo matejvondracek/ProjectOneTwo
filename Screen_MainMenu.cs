@@ -14,7 +14,7 @@ namespace ProjectOneTwo
 {
     class Screen_MainMenu : Screen
     {
-        readonly Texture2D[] buttonSprites = new Texture2D[2];
+        readonly Texture2D[] buttonSprites = new Texture2D[2], largeButtonSprites = new Texture2D[2];
         SpriteFont spriteFont, buttonFont;
         Button playButton, quitButton, settingsButton, creditsButton;
         readonly List<Button> buttons = new List<Button>();
@@ -33,18 +33,21 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_pressed");
-            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1_released");
+            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_snow");
+            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1");
+            largeButtonSprites[0] = Game1.Mycontent.Load<Texture2D>("button2_snow");
+            largeButtonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
+
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
 
-            playButton = new Button(Game1.self.PixelVector(80, 105), Game1.self.PixelVector(240, 125), buttonSprites);
+            playButton = new Button(Game1.PixelVector(80, 105), Game1.PixelVector(240, 125), largeButtonSprites);
             playButton.AddText("Play on single device", buttonFont, 30, 10, Color.Black);
-            quitButton = new Button(Game1.self.PixelVector(80, 155), Game1.self.PixelVector(240, 175), buttonSprites);
+            quitButton = new Button(Game1.PixelVector(80, 155), Game1.PixelVector(240, 175), largeButtonSprites);
             quitButton.AddText("Quit", buttonFont, 10, 10, Color.Black);
-            settingsButton = new Button(Game1.self.PixelVector(80, 130), Game1.self.PixelVector(155, 150), buttonSprites);
+            settingsButton = new Button(Game1.PixelVector(80, 130), Game1.PixelVector(155, 150), buttonSprites);
             settingsButton.AddText("Settings", buttonFont, 10, 10, Color.Black);
-            creditsButton = new Button(Game1.self.PixelVector(165, 130), Game1.self.PixelVector(240, 150), buttonSprites);
+            creditsButton = new Button(Game1.PixelVector(165, 130), Game1.PixelVector(240, 150), buttonSprites);
             creditsButton.AddText("Credits", buttonFont, 10, 10, Color.Black);
             
             buttons.Add(playButton);
@@ -105,8 +108,8 @@ namespace ProjectOneTwo
 
             //animation
             titleAnimation = 120;
-            a = Game1.self.PixelVector(75, 20);
-            b = Game1.self.PixelVector(245, 70);
+            a = Game1.PixelVector(75, 20);
+            b = Game1.PixelVector(245, 70);
             animationFactor = 1f;
 
             //music

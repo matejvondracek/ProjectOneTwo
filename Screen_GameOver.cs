@@ -30,13 +30,13 @@ namespace ProjectOneTwo
         public override void LoadContent()
         {
             buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
-            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_pressed");
-            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1_released");
+            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_snow_blood");
+            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1");
             gameOverBackground = Game1.Mycontent.Load<Texture2D>("background2");
 
-            restartButton = new Button(Game1.self.PixelVector(80, 155), Game1.self.PixelVector(155, 175), buttonSprites);
+            restartButton = new Button(Game1.PixelVector(80, 155), Game1.PixelVector(155, 175), buttonSprites);
             restartButton.AddText("Play again", buttonFont, 30, 10, Color.Black);
-            quitButton2 = new Button(Game1.self.PixelVector(165, 155), Game1.self.PixelVector(240, 175), buttonSprites);
+            quitButton2 = new Button(Game1.PixelVector(165, 155), Game1.PixelVector(240, 175), buttonSprites);
             quitButton2.AddText("Main menu", buttonFont, 30, 10, Color.Black);
         }
 
@@ -60,7 +60,7 @@ namespace ProjectOneTwo
         {
             spriteBatch.Draw(gameOverBackground, new Rectangle(0, 0, 1920, 1080), Color.White);
             
-            Game1.DrawStringIn(Game1.self.PixelVector(75, 20), Game1.self.PixelVector(245, 70), spriteBatch, buttonFont, "Game Over", Color.Red);
+            Game1.DrawStringIn(Game1.PixelVector(75, 20), Game1.PixelVector(245, 70), spriteBatch, buttonFont, "Game Over", Color.Red);
 
             string line = "";
             switch (Game1.self.screenManager.winner)
@@ -81,7 +81,7 @@ namespace ProjectOneTwo
                     break;
             }
             
-            Game1.DrawStringIn(Game1.self.PixelVector(75, 80), Game1.self.PixelVector(245, 120), spriteBatch, buttonFont, line, Color.Red);
+            Game1.DrawStringIn(Game1.PixelVector(75, 80), Game1.PixelVector(245, 120), spriteBatch, buttonFont, line, Color.Red);
             restartButton.Draw(spriteBatch);
             quitButton2.Draw(spriteBatch);
         }
