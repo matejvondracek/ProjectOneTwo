@@ -199,6 +199,7 @@ public class Physics
             if (entity.life <= 0 && !entity.dead)
             {
                 entity.dead = true;
+                entity.times_dead += 1;
                 Game1.self.Sounds["dying"].Volume = 0.7f * Game1.self.effectsVolume;
                 Game1.self.Sounds["dying"].Play();
             }               

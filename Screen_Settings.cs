@@ -14,6 +14,7 @@ namespace ProjectOneTwo
         public ToggleButton fpsToggle;
         SpriteFont spriteFont, buttonFont;
         readonly Texture2D[] buttonSprites = new Texture2D[2], shortButtonSprites = new Texture2D[2];
+        Texture2D background;
 
         public Screen_Settings()
         {
@@ -66,6 +67,8 @@ namespace ProjectOneTwo
 
             fpsToggle = new ToggleButton(Game1.PixelVector(10, 120), Game1.PixelVector(45, 140), shortButtonSprites, true);
             fpsToggle.DefineText("FPS on", "FPS off", buttonFont, 5, Color.Black);
+
+            background = Game1.Mycontent.Load<Texture2D>("background_Default_smoothed");
         }
 
         public  override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
@@ -102,6 +105,8 @@ namespace ProjectOneTwo
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+
             Color color = Color.White;
             spriteBatch.DrawString(spriteFont, "Master volume:", new Vector2(20, 150), Color.White);
             masterVolumeBox.Draw(spriteBatch);

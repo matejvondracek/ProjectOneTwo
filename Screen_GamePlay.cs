@@ -14,7 +14,6 @@ namespace ProjectOneTwo
         Texture2D background;
         SpriteFont spriteFont;
         public static Dictionary<string,Texture2D> dictionary;
-        String Animations;
 
         public Screen_GamePlay()
         {
@@ -89,13 +88,13 @@ namespace ProjectOneTwo
 
             //healthbars
             spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(4, 17).ToPoint(), Game1.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(313, 17).ToPoint(), Game1.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(312, 17).ToPoint(), Game1.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
             spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(3, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(312, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(311, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
 
             //life counter
             spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.PixelVector(4, 70), Color.Red);
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.PixelVector(313, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.PixelVector(312, 70), Color.Red);
 
             //attack loading bar
             spriteBatch.Draw(melee_attack_icon, new Rectangle(Game1.PixelVector(2, 80).ToPoint(), Game1.PixelVector(7, 7).ToPoint()), Color.White);

@@ -53,7 +53,8 @@ namespace ProjectOneTwo
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, text, position, Color.Black);
+            spriteBatch.GraphicsDevice.Clear(Color.Black);
+            spriteBatch.DrawString(font, text, position, Color.White);
         }
 
         public override void ChangeTo()

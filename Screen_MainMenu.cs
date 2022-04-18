@@ -8,6 +8,7 @@ namespace ProjectOneTwo
     class Screen_MainMenu : Screen
     {
         readonly Texture2D[] buttonSprites = new Texture2D[2], largeButtonSprites = new Texture2D[2];
+        Texture2D background;
         SpriteFont spriteFont, buttonFont;
         Button playButton, quitButton, settingsButton, creditsButton;
         readonly List<Button> buttons = new List<Button>();
@@ -47,6 +48,8 @@ namespace ProjectOneTwo
             buttons.Add(quitButton);
             buttons.Add(settingsButton);
             buttons.Add(creditsButton);
+
+            background = Game1.Mycontent.Load<Texture2D>("background_Default_smoothed");
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
@@ -86,11 +89,13 @@ namespace ProjectOneTwo
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+            
             DrawButtons(buttons, spriteBatch);
 
             spriteBatch.DrawString(spriteFont, "Demo", new Vector2(10, 1025), Color.Black);
             
-            Game1.DrawStringIn(a, b, spriteBatch, buttonFont, "ProjectOneTwo", Color.White);
+            Game1.DrawStringIn(a, b, spriteBatch, buttonFont, "Magical Flying Snow Warriors", Color.White);
         }
 
         public override void ChangeTo()
@@ -101,8 +106,8 @@ namespace ProjectOneTwo
 
             //animation
             titleAnimation = 120;
-            a = Game1.PixelVector(75, 20);
-            b = Game1.PixelVector(245, 70);
+            a = Game1.PixelVector(55, 0);
+            b = Game1.PixelVector(265, 60);
             animationFactor = 1f;
 
             //music

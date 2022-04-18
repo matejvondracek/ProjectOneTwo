@@ -13,28 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin aApiNyala200.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:aApiNyala200.spritefont
-
-#begin aApiNyala30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:aApiNyala30.spritefont
-
-#begin aApiNyala50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:aApiNyala50.spritefont
-
-#begin Agnes_Left_Running00_.png
+#begin agnes atlas/Agnes_Left_Running00.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -44,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running00_.png;Agnes_Left_Running00.png
+/build:agnes atlas/Agnes_Left_Running00.png
 
-#begin Agnes_Left_Running01_.png
+#begin agnes atlas/Agnes_Left_Running00_.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -56,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running01_.png;Agnes_Left_Running01.png
+/build:agnes atlas/Agnes_Left_Running00_.png
 
-#begin Agnes_Left_Running02.png
+#begin agnes atlas/Agnes_Left_Running01.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -68,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running02.png
+/build:agnes atlas/Agnes_Left_Running01.png
 
-#begin Agnes_Left_Running03.png
+#begin agnes atlas/Agnes_Left_Running01_.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -80,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running03.png
+/build:agnes atlas/Agnes_Left_Running01_.png
 
-#begin Agnes_Left_Running04.png
+#begin agnes atlas/Agnes_Left_Running02.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -92,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running04.png
+/build:agnes atlas/Agnes_Left_Running02.png
 
-#begin Agnes_Left_Running05.png
+#begin agnes atlas/Agnes_Left_Running03.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -104,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running05.png
+/build:agnes atlas/Agnes_Left_Running03.png
 
-#begin Agnes_Left_Running06.png
+#begin agnes atlas/Agnes_Left_Running04.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -116,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running06.png
+/build:agnes atlas/Agnes_Left_Running04.png
 
-#begin Agnes_Left_Running07.png
+#begin agnes atlas/Agnes_Left_Running05.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -128,9 +107,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running07.png
+/build:agnes atlas/Agnes_Left_Running05.png
 
-#begin Agnes_Left_Running08.png
+#begin agnes atlas/Agnes_Left_Running06.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -140,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running08.png
+/build:agnes atlas/Agnes_Left_Running06.png
 
-#begin Agnes_Left_Running09.png
+#begin agnes atlas/Agnes_Left_Running07.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -152,9 +131,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running09.png
+/build:agnes atlas/Agnes_Left_Running07.png
 
-#begin Agnes_Left_Running10.png
+#begin agnes atlas/Agnes_Left_Running08.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -164,9 +143,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running10.png
+/build:agnes atlas/Agnes_Left_Running08.png
 
-#begin Agnes_Left_Running11.png
+#begin agnes atlas/Agnes_Left_Running09.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -176,9 +155,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Left_Running11.png
+/build:agnes atlas/Agnes_Left_Running09.png
 
-#begin Agnes_Right_Running00_.png
+#begin agnes atlas/Agnes_Left_Running10.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -188,9 +167,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running00_.png;Agnes_Right_Running00.png
+/build:agnes atlas/Agnes_Left_Running10.png
 
-#begin Agnes_Right_Running01_.png
+#begin agnes atlas/Agnes_Left_Running11.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -200,9 +179,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running01_.png;Agnes_Right_Running01.png
+/build:agnes atlas/Agnes_Left_Running11.png
 
-#begin Agnes_Right_Running02.png
+#begin agnes atlas/Agnes_Right_Running00.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -212,9 +191,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running02.png
+/build:agnes atlas/Agnes_Right_Running00.png
 
-#begin Agnes_Right_Running03.png
+#begin agnes atlas/Agnes_Right_Running00_.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -224,9 +203,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running03.png
+/build:agnes atlas/Agnes_Right_Running00_.png
 
-#begin Agnes_Right_Running04.png
+#begin agnes atlas/Agnes_Right_Running01.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -236,9 +215,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running04.png
+/build:agnes atlas/Agnes_Right_Running01.png
 
-#begin Agnes_Right_Running05.png
+#begin agnes atlas/Agnes_Right_Running01_.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -248,9 +227,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running05.png
+/build:agnes atlas/Agnes_Right_Running01_.png
 
-#begin Agnes_Right_Running06.png
+#begin agnes atlas/Agnes_Right_Running02.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -260,9 +239,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running06.png
+/build:agnes atlas/Agnes_Right_Running02.png
 
-#begin Agnes_Right_Running07.png
+#begin agnes atlas/Agnes_Right_Running03.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -272,9 +251,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running07.png
+/build:agnes atlas/Agnes_Right_Running03.png
 
-#begin Agnes_Right_Running08.png
+#begin agnes atlas/Agnes_Right_Running04.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -284,9 +263,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running08.png
+/build:agnes atlas/Agnes_Right_Running04.png
 
-#begin Agnes_Right_Running09.png
+#begin agnes atlas/Agnes_Right_Running05.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -296,9 +275,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running09.png
+/build:agnes atlas/Agnes_Right_Running05.png
 
-#begin Agnes_Right_Running10.png
+#begin agnes atlas/Agnes_Right_Running06.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -308,9 +287,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running10.png
+/build:agnes atlas/Agnes_Right_Running06.png
 
-#begin Agnes_Right_Running11.png
+#begin agnes atlas/Agnes_Right_Running07.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -320,9 +299,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Right_Running11.png
+/build:agnes atlas/Agnes_Right_Running07.png
 
-#begin Agnes_Standing_Left.png
+#begin agnes atlas/Agnes_Right_Running08.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -332,9 +311,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Standing_Left.png;MadS1.png
+/build:agnes atlas/Agnes_Right_Running08.png
 
-#begin Agnes_Standing_Right.png
+#begin agnes atlas/Agnes_Right_Running09.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -344,16 +323,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Agnes_Standing_Right.png;MadS2.png
+/build:agnes atlas/Agnes_Right_Running09.png
 
-#begin Arial50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Arial50.spritefont;Taisean50.spritefont
-
-#begin background_Default.png
+#begin agnes atlas/Agnes_Right_Running10.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -363,7 +335,67 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:background_Default.png;background.png
+/build:agnes atlas/Agnes_Right_Running10.png
+
+#begin agnes atlas/Agnes_Right_Running11.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:agnes atlas/Agnes_Right_Running11.png
+
+#begin agnes atlas/standing/Agnes_Standing_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:agnes atlas/standing/Agnes_Standing_Left.png
+
+#begin agnes atlas/standing/Agnes_Standing_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:agnes atlas/standing/Agnes_Standing_Right.png
+
+#begin agnes atlas/standing/MadS1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:agnes atlas/standing/MadS1.png
+
+#begin agnes atlas/standing/MadS2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:agnes atlas/standing/MadS2.png
 
 #begin background_Default_smoothed.png
 /importer:TextureImporter
@@ -473,23 +505,33 @@
 /processorParam:TextureFormat=Color
 /build:dash_icon.png
 
-#begin dying.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:dying.wav
+#begin fonts/aApiNyala200.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/aApiNyala200.spritefont
 
-#begin female_scream.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:female_scream.wav
+#begin fonts/aApiNyala30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/aApiNyala30.spritefont
 
-#begin footsteps_in_snow.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:footsteps_in_snow.wav
+#begin fonts/aApiNyala50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/aApiNyala50.spritefont
+
+#begin fonts/Taisean50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Taisean50.spritefont
 
 #begin gameover.jpg
 /importer:TextureImporter
@@ -501,7 +543,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:gameover.jpg;background2.jpg
+/build:gameover.jpg
 
 #begin healthbar_holder.png
 /importer:TextureImporter
@@ -527,12 +569,6 @@
 /processorParam:TextureFormat=Color
 /build:healthbar1.jpg
 
-#begin howling_wind.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:howling_wind.wav
-
 #begin icon_overlay.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -544,84 +580,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:icon_overlay.png
-
-#begin jump.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:jump.wav
-
-#begin madeline atlast/Agnes_Left_Running00.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/Agnes_Left_Running00.png
-
-#begin madeline atlast/Agnes_Left_Running01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/Agnes_Left_Running01.png
-
-#begin madeline atlast/Agnes_Right_Running00.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/Agnes_Right_Running00.png
-
-#begin madeline atlast/Agnes_Right_Running01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/Agnes_Right_Running01.png
-
-#begin madeline atlast/background_Default_smoothed.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/background_Default_smoothed.png
-
-#begin madeline atlast/standing/MadS2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:madeline atlast/standing/MadS2.png
 
 #begin melee_attack_icon.png
 /importer:TextureImporter
@@ -659,39 +617,69 @@
 /processorParam:TextureFormat=Color
 /build:melee_attack_right.png
 
-#begin stone.wav
+#begin music/The_Game.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:stone.wav
+/build:music/The_Game.wav
 
-#begin sword_hit.wav
+#begin music/The_Lobby_Music.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:sword_hit.wav
+/build:music/The_Lobby_Music.wav
 
-#begin sword_swing.wav
+#begin sound/dying.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:sword_swing.wav
+/build:sound/dying.wav
 
-#begin The_Game.wav
+#begin sound/female_scream.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:The_Game.wav;Main_Theme.wav
+/build:sound/female_scream.wav
 
-#begin The_Lobby_Music.wav
+#begin sound/footsteps_in_snow.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:The_Lobby_Music.wav
+/build:sound/footsteps_in_snow.wav
 
-#begin whoosh.wav
+#begin sound/howling_wind.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:whoosh.wav
+/build:sound/howling_wind.wav
+
+#begin sound/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/jump.wav
+
+#begin sound/stone.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/stone.wav
+
+#begin sound/sword_hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/sword_hit.wav
+
+#begin sound/sword_swing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/sword_swing.wav
+
+#begin sound/whoosh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/whoosh.wav
 
