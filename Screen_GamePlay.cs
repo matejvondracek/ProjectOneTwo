@@ -14,7 +14,7 @@ namespace ProjectOneTwo
     {
         Player1 player1, player2;
         readonly Physics physics;
-        public Texture2D health_bar, health_bar_holder;
+        public Texture2D health_bar, health_bar_holder, icon_overlay, melee_attack_icon, dash_icon;
         Texture2D background;
         SpriteFont spriteFont;
 
@@ -34,6 +34,9 @@ namespace ProjectOneTwo
             health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
             health_bar_holder = Game1.Mycontent.Load<Texture2D>("healthbar_holder");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
+            icon_overlay = Game1.Mycontent.Load<Texture2D>("icon_overlay");
+            melee_attack_icon = Game1.Mycontent.Load<Texture2D>("melee_attack_icon");
+            dash_icon = Game1.Mycontent.Load<Texture2D>("dash_icon");
 
             //game logic
             physics.LoadMap();
@@ -77,14 +80,24 @@ namespace ProjectOneTwo
             physics.Draw(spriteBatch); ///draws characters
 
             //healthbars
-            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(2, 17).ToPoint(), Game1.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(315, 17).ToPoint(), Game1.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(1, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
-            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(314, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(4, 17).ToPoint(), Game1.PixelVector(3, player1.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar, new Rectangle(Game1.PixelVector(313, 17).ToPoint(), Game1.PixelVector(3, player2.life / 2).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(3, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
+            spriteBatch.Draw(health_bar_holder, new Rectangle(Game1.PixelVector(312, 15).ToPoint(), Game1.PixelVector(5, 54).ToPoint()), Color.White);
 
             //life counter
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.PixelVector(2, 70), Color.Red);
-            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.PixelVector(315, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player1.times_dead), Game1.PixelVector(4, 70), Color.Red);
+            spriteBatch.DrawString(spriteFont, Convert.ToString(3 - player2.times_dead), Game1.PixelVector(313, 70), Color.Red);
+
+            //attack loading bar
+            spriteBatch.Draw(melee_attack_icon, new Rectangle(Game1.PixelVector(2, 80).ToPoint(), Game1.PixelVector(7, 7).ToPoint()), Color.White);
+            spriteBatch.Draw(melee_attack_icon, new Rectangle(Game1.PixelVector(310, 80).ToPoint(), Game1.PixelVector(7, 7).ToPoint()), Color.White);
+            spriteBatch.Draw(icon_overlay, new Rectangle(Game1.PixelVector(2, 80).ToPoint(), Game1.PixelVector(7, player1.A_wait * 7).ToPoint()), Color.White);
+            spriteBatch.Draw(icon_overlay, new Rectangle(Game1.PixelVector(310, 80).ToPoint(), Game1.PixelVector(7, player2.A_wait * 7).ToPoint()), Color.White);
+
+            //dash loading bar
+            spriteBatch.Draw(dash_icon, new Rectangle(Game1.PixelVector(2, 90).ToPoint(), Game1.PixelVector(7, Convert.ToInt32(player1.dash_charged) * 7).ToPoint()), Color.White);
+            spriteBatch.Draw(dash_icon, new Rectangle(Game1.PixelVector(310, 90).ToPoint(), Game1.PixelVector(7, Convert.ToInt32(player2.dash_charged) * 7).ToPoint()), Color.White);
         }
 
         public override void ChangeTo()

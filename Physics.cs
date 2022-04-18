@@ -27,7 +27,7 @@ public class Physics
     {
         //3 walls on screen bezels
         AddBarrier(320, 0, 321, 180);
-       // AddBarrier(0, -1, 320, 0);
+        //AddBarrier(0, -1, 320, 0);
         AddBarrier(-1, 0, 0, 180);
 
         //map blocks
@@ -165,7 +165,7 @@ public class Physics
     public ScreenManager.Winner GameRules()
     {
         //checkes whether any player is off screen
-        Rectangle screen = new Rectangle(0, 0, 1920, 1080);
+        Rectangle screen = new Rectangle(0, -500, 1920, 1080 + 500);
         Rectangle exile = new Rectangle(2000, 2000, 1000, 1000);
         foreach (Player1 entity in Entities)
         {

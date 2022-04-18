@@ -21,10 +21,10 @@ namespace ProjectOneTwo
         readonly Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>();
         public int life, times_dead, facing = 1, A_timer, A_image_timer;
         public Rectangle hitbox, drawbox;
-        public bool dead, is_in_jump = false, standing;
-        public float fall = 1f;
+        public bool dead, is_in_jump = false, standing, dash_charged;
+        public float fall = 1f, A_wait;
         float long_jump = 80;
-        bool tries_to_jump = false, A_pressed = false, dash_charged;
+        bool tries_to_jump = false, A_pressed = false;
         readonly bool stunned = false;
         public Attack attack;
         public Dash dash;
@@ -190,15 +190,24 @@ namespace ProjectOneTwo
                     if (facing > 0) A_image = A_image_right;
                     else A_image = A_image_left;
                     attack = new Attack(rectangle, damage, knockback, A_image, imageDuration);
+
+                    //sound effect
                     Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
                     Game1.self.Sounds["sword_swing"].Play();
+
+                    A_wait = 0f;
                 }
                 else
                 {
                     attack = null;
                 }
             }
-            if (A_timer > 0) A_timer -= 1;
+            if (A_timer > 0)
+            {
+                A_timer -= 1;
+                A_wait = A_timer / 120f;
+            }
+                
             if (A_timer == 0) A_pressed = false;
         }
 
