@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System;
 
 namespace ProjectOneTwo
@@ -12,6 +13,8 @@ namespace ProjectOneTwo
         public Texture2D health_bar, health_bar_holder, icon_overlay, melee_attack_icon, dash_icon;
         Texture2D background;
         SpriteFont spriteFont;
+        public static Dictionary<string,Texture2D> dictionary;
+        String Animations;
 
         public Screen_GamePlay()
         {
@@ -25,13 +28,23 @@ namespace ProjectOneTwo
         public override void LoadContent()
         {
             //visuals
-            background = Game1.Mycontent.Load<Texture2D>("background");
+            dictionary = new Dictionary<string, Texture2D>(); 
+            background = Game1.Mycontent.Load<Texture2D>("background_Default_smoothed");
             health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
             health_bar_holder = Game1.Mycontent.Load<Texture2D>("healthbar_holder");
             spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
             icon_overlay = Game1.Mycontent.Load<Texture2D>("icon_overlay");
             melee_attack_icon = Game1.Mycontent.Load<Texture2D>("melee_attack_icon");
             dash_icon = Game1.Mycontent.Load<Texture2D>("dash_icon");
+
+            //animations
+            string[] Animations = {"Agnes_Right_Running00", "Agnes_Right_Running01", "Agnes_Right_Running02", "Agnes_Right_Running03", "Agnes_Right_Running04", "Agnes_Right_Running05", "Agnes_Right_Running06", "Agnes_Right_Running07", "Agnes_Right_Running08", "Agnes_Right_Running09", "Agnes_Right_Running10", "Agnes_Right_Running11"
+                                    , "Agnes_Left_Running00", "Agnes_Left_Running01", "Agnes_Left_Running02", "Agnes_Left_Running03", "Agnes_Left_Running04", "Agnes_Left_Running05", "Agnes_Left_Running06", "Agnes_Left_Running07", "Agnes_Left_Running08", "Agnes_Left_Running09", "Agnes_Left_Running10", "Agnes_Left_Running11" };
+            foreach (string Animation in Animations)
+            {
+                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>(Animation));
+            }
+            
 
             //game logic
             physics.LoadMap();

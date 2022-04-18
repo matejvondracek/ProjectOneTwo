@@ -19,7 +19,7 @@ namespace ProjectOneTwo
         public int life, times_dead, facing = 1, A_timer = 0, A_image_timer, A_timer_length, stun_timer = 0;
         public Rectangle hitbox, drawbox;
         public bool dead, is_in_jump = false, standing, dash_charged, stunned = false;
-        public float fall = 1f, A_wait;
+        public float Animation_Timer = 0, fall = 1f, A_wait;
         float long_jump = 80;
         bool tries_to_jump = false, A_pressed = false, is_in_attack2 = false;
         public Attack attack;
@@ -103,7 +103,11 @@ namespace ProjectOneTwo
                         dash = null;
                     }
 
-                    if (state.IsKeyDown(right)) move += new Vector2(10, 0);
+                    if (state.IsKeyDown(right))
+                    {
+                      move += new Vector2(10, 0);
+                    }
+                        
                     if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
                     if (state.IsKeyDown(jump)) tries_to_jump = true;
 
@@ -227,17 +231,148 @@ namespace ProjectOneTwo
 
         public void ChangeImage()
         {
-            if (state.IsKeyDown(right))
+            if (state.IsKeyDown(right) && !is_in_jump)
             {
-                image = images["MadS2"];
+                switch (Animation_Timer)
+                {
+                    case 0:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running00"];
+                       
+                        break;
+                    case 1:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running01"];
+                        
+                        break;
+                    case 2:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running02"];
+                        
+                        break;
+                    case 3:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running03"];
+                        
+                        break;
+                    case 4:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running04"];
+                        
+                        break;
+                    case 5:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running05"];
+                        
+                        break;
+                    case 6:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running06"];
+                       
+                        break;
+                    case 7:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running07"];
+                       
+                        break;
+                    case 8:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running08"];
+                       
+                        break;
+                    case 9:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running09"];
+                        
+                        break;
+                    case 10:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running10"];
+                        
+                        break;
+                    case 11:
+                        image = Screen_GamePlay.dictionary["Agnes_Right_Running11"];
+                        Animation_Timer = 0;
+                        break;
+                
+
+                }
+                Animation_Timer += 0.25f;
                 facing = 1;
             }
-            if (state.IsKeyDown(left))
+            if (state.IsKeyDown(left) && !is_in_jump)
             {
-                image = images["MadS1"];
+                switch (Animation_Timer)
+                {
+                    case 0:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running00"];
+
+                        break;
+                    case 1:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running01"];
+
+                        break;
+                    case 2:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running02"];
+
+                        break;
+                    case 3:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running03"];
+
+                        break;
+                    case 4:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running04"];
+
+                        break;
+                    case 5:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running05"];
+
+                        break;
+                    case 6:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running06"];
+
+                        break;
+                    case 7:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running07"];
+
+                        break;
+                    case 8:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running08"];
+
+                        break;
+                    case 9:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running09"];
+
+                        break;
+                    case 10:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running10"];
+
+                        break;
+                    case 11:
+                        image = Screen_GamePlay.dictionary["Agnes_Left_Running11"];
+                        Animation_Timer = 0;
+                        break;
+
+
+                }
+                Animation_Timer += 0.25f;
                 facing = -1;
+
+
+            }
+            if (!(state.IsKeyDown(left)) && !(state.IsKeyDown(right)) && !is_in_jump)
+            {
+                switch(facing)
+                {
+                    case -1:
+                        image = images["MadS1"];
+                        break;
+                    case 1:
+                        image = images["MadS2"];
+                        break;
+                }
+            }
+            if (state.IsKeyDown(left) && is_in_jump)
+            {
+                facing = -1;
+                image = Screen_GamePlay.dictionary["Agnes_Left_Running10"];
+                 }
+            if (state.IsKeyDown(right) && is_in_jump)
+            {
+                facing = 1;
+                image = Screen_GamePlay.dictionary["Agnes_Right_Running10"];
             }
         }
+
 
         public void Jump()
         {
