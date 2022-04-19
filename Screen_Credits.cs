@@ -37,7 +37,7 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            font = Game1.Mycontent.Load<SpriteFont>("Taisean50");
+            font = Game1.Mycontent.Load<SpriteFont>("fonts/Taisean50");
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)

@@ -23,10 +23,10 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
-            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_snow_blood");
-            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1");
-            gameOverBackground = Game1.Mycontent.Load<Texture2D>("gameover");
+            buttonFont = Game1.Mycontent.Load<SpriteFont>("fonts/aApiNyala200");
+            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("ui/button1_snow_blood");
+            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("ui/button1");
+            gameOverBackground = Game1.Mycontent.Load<Texture2D>("backgrounds/gameover");
 
             restartButton = new Button(Game1.PixelVector(80, 155), Game1.PixelVector(155, 175), buttonSprites);
             restartButton.AddText("Play again", buttonFont, 30, 10, Color.Black);

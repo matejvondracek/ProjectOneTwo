@@ -28,20 +28,27 @@ namespace ProjectOneTwo
         {
             //visuals
             dictionary = new Dictionary<string, Texture2D>(); 
-            background = Game1.Mycontent.Load<Texture2D>("background_Default_smoothed");
-            health_bar = Game1.Mycontent.Load<Texture2D>("healthbar1");
-            health_bar_holder = Game1.Mycontent.Load<Texture2D>("healthbar_holder");
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
-            icon_overlay = Game1.Mycontent.Load<Texture2D>("icon_overlay");
-            melee_attack_icon = Game1.Mycontent.Load<Texture2D>("melee_attack_icon");
-            dash_icon = Game1.Mycontent.Load<Texture2D>("dash_icon");
+            background = Game1.Mycontent.Load<Texture2D>("backgrounds/background_Default_smoothed");
+            health_bar = Game1.Mycontent.Load<Texture2D>("ui/healthbar1");
+            health_bar_holder = Game1.Mycontent.Load<Texture2D>("ui/healthbar_holder");
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("fonts/aApiNyala30");
+            icon_overlay = Game1.Mycontent.Load<Texture2D>("ui/icon_overlay");
+            melee_attack_icon = Game1.Mycontent.Load<Texture2D>("ui/melee_attack_icon");
+            dash_icon = Game1.Mycontent.Load<Texture2D>("ui/dash_icon");
 
             //animations
-            string[] Animations = {"Agnes_Right_Running00", "Agnes_Right_Running01", "Agnes_Right_Running02", "Agnes_Right_Running03", "Agnes_Right_Running04", "Agnes_Right_Running05", "Agnes_Right_Running06", "Agnes_Right_Running07", "Agnes_Right_Running08", "Agnes_Right_Running09", "Agnes_Right_Running10", "Agnes_Right_Running11"
-                                    , "Agnes_Left_Running00", "Agnes_Left_Running01", "Agnes_Left_Running02", "Agnes_Left_Running03", "Agnes_Left_Running04", "Agnes_Left_Running05", "Agnes_Left_Running06", "Agnes_Left_Running07", "Agnes_Left_Running08", "Agnes_Left_Running09", "Agnes_Left_Running10", "Agnes_Left_Running11" };
-            foreach (string Animation in Animations)
+            string[] RunningAnimations = {"Agnes_Right_Running00", "Agnes_Right_Running01", "Agnes_Right_Running02", "Agnes_Right_Running03", "Agnes_Right_Running04", "Agnes_Right_Running05", "Agnes_Right_Running06", "Agnes_Right_Running07", "Agnes_Right_Running08", "Agnes_Right_Running09", "Agnes_Right_Running10", "Agnes_Right_Running11",
+                "Agnes_Left_Running00", "Agnes_Left_Running01", "Agnes_Left_Running02", "Agnes_Left_Running03", "Agnes_Left_Running04", "Agnes_Left_Running05", "Agnes_Left_Running06", "Agnes_Left_Running07", "Agnes_Left_Running08", "Agnes_Left_Running09", "Agnes_Left_Running10", "Agnes_Left_Running11"};
+            string[] SlashAnimations = {"Agnes_Slash_Right01","Agnes_Slash_Right02","Agnes_Slash_Right03","Agnes_Slash_Right04","Agnes_Slash_Right05","Agnes_Slash_Right06","Agnes_Slash_Right07","Agnes_Slash_Right08",
+                "Agnes_Slash_Left01","Agnes_Slash_Left02","Agnes_Slash_Left03","Agnes_Slash_Left04","Agnes_Slash_Left05","Agnes_Slash_Left06","Agnes_Slash_Left07","Agnes_Slash_Left08"};
+            foreach (string Animation in RunningAnimations)
             {
-                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>(Animation));
+                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>("agnes atlas/running/" + Animation));
+            }
+
+            foreach (string Animation in SlashAnimations)
+            {
+                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>("agnes atlas/slash/" + Animation));
             }
             
 

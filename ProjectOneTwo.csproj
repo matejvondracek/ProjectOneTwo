@@ -10,6 +10,25 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\bin\DesktopGL\aApiNyala200.xnb" />
+    <None Remove="Content\bin\DesktopGL\aApiNyala30.xnb" />
+    <None Remove="Content\bin\DesktopGL\aApiNyala50.xnb" />
+    <None Remove="Content\bin\DesktopGL\Arial50.xnb" />
+    <None Remove="Content\bin\DesktopGL\dying.xnb" />
+    <None Remove="Content\bin\DesktopGL\female_scream.xnb" />
+    <None Remove="Content\bin\DesktopGL\footsteps_in_snow.xnb" />
+    <None Remove="Content\bin\DesktopGL\footsteps_in_swon.xnb" />
+    <None Remove="Content\bin\DesktopGL\howling_wind.xnb" />
+    <None Remove="Content\bin\DesktopGL\jump.xnb" />
+    <None Remove="Content\bin\DesktopGL\MadS1.xnb" />
+    <None Remove="Content\bin\DesktopGL\MadS2.xnb" />
+    <None Remove="Content\bin\DesktopGL\Main_Theme.xnb" />
+    <None Remove="Content\bin\DesktopGL\stone.xnb" />
+    <None Remove="Content\bin\DesktopGL\sword_hit.xnb" />
+    <None Remove="Content\bin\DesktopGL\sword_swing.xnb" />
+    <None Remove="Content\bin\DesktopGL\Taisean50.xnb" />
+    <None Remove="Content\bin\DesktopGL\The_Lobby_Music.xnb" />
+    <None Remove="Content\bin\DesktopGL\whoosh.xnb" />
     <None Remove="Content\obj\DesktopGL\font.mgcontent" />
     <None Remove="Content\obj\DesktopGL\font2.mgcontent" />
     <None Remove="Icon.ico" />

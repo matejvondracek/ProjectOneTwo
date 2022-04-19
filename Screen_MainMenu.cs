@@ -27,13 +27,13 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("button1_snow");
-            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("button1");
-            largeButtonSprites[0] = Game1.Mycontent.Load<Texture2D>("button2_snow");
-            largeButtonSprites[1] = Game1.Mycontent.Load<Texture2D>("button2");
+            buttonSprites[0] = Game1.Mycontent.Load<Texture2D>("ui/button1_snow");
+            buttonSprites[1] = Game1.Mycontent.Load<Texture2D>("ui/button1");
+            largeButtonSprites[0] = Game1.Mycontent.Load<Texture2D>("ui/button2_snow");
+            largeButtonSprites[1] = Game1.Mycontent.Load<Texture2D>("ui/button2");
 
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala30");
-            buttonFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala200");
+            spriteFont = Game1.Mycontent.Load<SpriteFont>("fonts/aApiNyala30");
+            buttonFont = Game1.Mycontent.Load<SpriteFont>("fonts/aApiNyala200");
 
             playButton = new Button(Game1.PixelVector(80, 105), Game1.PixelVector(240, 125), largeButtonSprites);
             playButton.AddText("Play on single device", buttonFont, 30, 10, Color.Black);
@@ -49,7 +49,7 @@ namespace ProjectOneTwo
             buttons.Add(settingsButton);
             buttons.Add(creditsButton);
 
-            background = Game1.Mycontent.Load<Texture2D>("background_Default_smoothed");
+            background = Game1.Mycontent.Load<Texture2D>("backgrounds/background_Default_smoothed");
         }
 
         public override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
