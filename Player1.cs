@@ -233,13 +233,13 @@ namespace ProjectOneTwo
         {
             if (!is_in_jump && (state.IsKeyDown(right) | state.IsKeyDown(left)))
             {
-                if (Animation_Timer % 2 == 0)
+                if (Animation_Timer % 1 == 0)
                 {
                     string file = "Agnes_";
                     if (state.IsKeyDown(right)) file += "Right_";
                     else if (state.IsKeyDown(left)) file += "Left_";
 
-                    if (Animation_Timer < 9)
+                    if (Animation_Timer <= 9)
                     {
                         file += "Running0" + Animation_Timer.ToString();
                     }
