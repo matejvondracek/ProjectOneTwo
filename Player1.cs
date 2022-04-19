@@ -32,11 +32,11 @@ namespace ProjectOneTwo
 
         public void LoadContent()
         {
-            images.Add("MadS1", Game1.Mycontent.Load<Texture2D>("MadS1"));
-            images.Add("MadS2", Game1.Mycontent.Load<Texture2D>("MadS2"));
-            A_image_right = Game1.Mycontent.Load<Texture2D>("melee_attack_right");
-            A_image_left = Game1.Mycontent.Load<Texture2D>("melee_attack_left");
-            image = images["MadS1"];
+            images.Add("Agnes_Standing_Right", Game1.self.Content.Load<Texture2D>("agnes atlas/standing/Agnes_Standing_Right"));
+            images.Add("Agnes_Standing_Left", Game1.self.Content.Load<Texture2D>("agnes atlas/standing/Agnes_Standing_Left"));
+            A_image_right = Game1.self.Content.Load<Texture2D>("melee_attack_right");
+            A_image_left = Game1.self.Content.Load<Texture2D>("melee_attack_left");
+            image = images["Agnes_Standing_Right"];
             hitbox = new Rectangle(0, 0, 13 * 6, 16 * 6);
             drawbox = new Rectangle(0, 0, image.Width * 6, image.Height * 6);
 
@@ -258,10 +258,10 @@ namespace ProjectOneTwo
                 switch(facing)
                 {
                     case -1:
-                        image = images["MadS1"];
+                        image = images["Agnes_Standing_Left"];
                         break;
                     case 1:
-                        image = images["MadS2"];
+                        image = images["Agnes_Standing_Right"];
                         break;
                 }
             }
@@ -325,13 +325,13 @@ namespace ProjectOneTwo
             {
                 pos = new Vector2(100, 600);
                 facing = 1;
-                image = images["MadS2"];
+                image = images["Agnes_Standing_Right"];
             }
             else if (type == 2)
             {
                 pos = new Vector2(1700, 600);
                 facing = -1;
-                image = images["MadS1"];
+                image = images["Agnes_Standing_Left"];
             }
             Update();
         }

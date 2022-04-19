@@ -28,13 +28,13 @@ namespace ProjectOneTwo
         {
             //visuals
             dictionary = new Dictionary<string, Texture2D>(); 
-            background = Game1.Mycontent.Load<Texture2D>("backgrounds/background_Default_smoothed");
-            health_bar = Game1.Mycontent.Load<Texture2D>("ui/healthbar1");
-            health_bar_holder = Game1.Mycontent.Load<Texture2D>("ui/healthbar_holder");
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("fonts/aApiNyala30");
-            icon_overlay = Game1.Mycontent.Load<Texture2D>("ui/icon_overlay");
-            melee_attack_icon = Game1.Mycontent.Load<Texture2D>("ui/melee_attack_icon");
-            dash_icon = Game1.Mycontent.Load<Texture2D>("ui/dash_icon");
+            background = Game1.self.Content.Load<Texture2D>("backgrounds/background_Default_smoothed");
+            health_bar = Game1.self.Content.Load<Texture2D>("ui/healthbar1");
+            health_bar_holder = Game1.self.Content.Load<Texture2D>("ui/healthbar_holder");
+            spriteFont = Game1.self.Content.Load<SpriteFont>("fonts/aApiNyala30");
+            icon_overlay = Game1.self.Content.Load<Texture2D>("ui/icon_overlay");
+            melee_attack_icon = Game1.self.Content.Load<Texture2D>("ui/melee_attack_icon");
+            dash_icon = Game1.self.Content.Load<Texture2D>("ui/dash_icon");
 
             //animations
             string[] RunningAnimations = {"Agnes_Right_Running00", "Agnes_Right_Running01", "Agnes_Right_Running02", "Agnes_Right_Running03", "Agnes_Right_Running04", "Agnes_Right_Running05", "Agnes_Right_Running06", "Agnes_Right_Running07", "Agnes_Right_Running08", "Agnes_Right_Running09", "Agnes_Right_Running10", "Agnes_Right_Running11",
@@ -43,12 +43,12 @@ namespace ProjectOneTwo
                 "Agnes_Slash_Left01","Agnes_Slash_Left02","Agnes_Slash_Left03","Agnes_Slash_Left04","Agnes_Slash_Left05","Agnes_Slash_Left06","Agnes_Slash_Left07","Agnes_Slash_Left08"};
             foreach (string Animation in RunningAnimations)
             {
-                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>("agnes atlas/running/" + Animation));
+                dictionary.Add(Animation, Game1.self.Content.Load<Texture2D>("agnes atlas/running/" + Animation));
             }
 
             foreach (string Animation in SlashAnimations)
             {
-                dictionary.Add(Animation, Game1.Mycontent.Load<Texture2D>("agnes atlas/slash/" + Animation));
+                dictionary.Add(Animation, Game1.self.Content.Load<Texture2D>("agnes atlas/slash/" + Animation));
             }
             
 

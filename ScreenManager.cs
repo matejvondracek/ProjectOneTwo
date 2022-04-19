@@ -59,7 +59,7 @@ namespace ProjectOneTwo
                 screen.LoadContent();
             }
 
-            spriteFont = Game1.Mycontent.Load<SpriteFont>("aApiNyala50");
+            spriteFont = Game1.self.Content.Load<SpriteFont>("aApiNyala50");
 
             Screens[gameState].ChangeTo();
         }

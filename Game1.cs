@@ -14,7 +14,6 @@ namespace ProjectOneTwo
         SpriteBatch spriteBatch;
         RenderTarget2D renderTarget;
         readonly int screenWidth, screenHeight;
-        public static ContentManager Mycontent;
         public ScreenManager screenManager;
         public float screenWidthZoom, screenHeightZoom;
 
@@ -29,7 +28,6 @@ namespace ProjectOneTwo
             self = this; ///allows to call Game1 functions from other classes
 
             Content.RootDirectory = "Content";
-            Mycontent = Content;
 
             graphics = new GraphicsDeviceManager(this);
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
