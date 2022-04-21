@@ -9,6 +9,7 @@ public class Physics
     readonly List<Barrier> Obstacles = new List<Barrier>();
     readonly List<Player1> Entities = new List<Player1>(); 
     readonly List<Attack> Attacks = new List<Attack>();
+    Texture2D test;
 
     Vector2 gravity = new Vector2(0, 5);
 
@@ -32,6 +33,8 @@ public class Physics
         AddBarrier(0, 132, 46, 180);
         AddBarrier(82, 140, 230, 180);
         AddBarrier(274, 136, 320, 180);
+
+        test = Game1.self.Content.Load<Texture2D>("ui/healthbar1");
     }
 
 
@@ -40,6 +43,8 @@ public class Physics
         Entities.Add(entity);
     }
 
+
+    #region updates
     private bool OldAttacks(Attack attack)
     {
         return attack.imageDuration <= 0;
@@ -86,7 +91,7 @@ public class Physics
                         if (attack.gives_stun)
                         {
                             entity.stunned = true;
-                            entity.stun_timer = 30;
+                            entity.stun_timer = 60;
                         }
 
                         //sound effect
@@ -121,6 +126,7 @@ public class Physics
             }          
         }        
     }
+    #endregion
 
     #region collisions
 
@@ -167,11 +173,16 @@ public class Physics
         foreach (Player1 entity in Entities)
         {
             spriteBatch.Draw(entity.image, entity.drawbox, Color.White);
+            //spriteBatch.Draw(test, entity.hitbox, Color.Red);
         }
         foreach (Attack attack in Attacks)
         {
             attack.Draw(spriteBatch);
         }
+        /*foreach (Barrier obstacle in Obstacles)
+        {
+            spriteBatch.Draw(test, obstacle.rect, Color.Green);
+        }*/
     }
 
     public ScreenManager.Winner GameRules()

@@ -105,10 +105,16 @@ namespace ProjectOneTwo
 
                     if (state.IsKeyDown(right))
                     {
-                      move += new Vector2(10, 0);
+                        move += new Vector2(10, 0);
+                        facing = 1;
                     }
                         
-                    if (state.IsKeyDown(left)) move += new Vector2(-10, 0);
+                    if (state.IsKeyDown(left))
+                    {
+                        move += new Vector2(-10, 0);
+                        facing = -1;
+                    }
+                        
                     if (state.IsKeyDown(jump)) tries_to_jump = true;
 
                     if (standing && (state.IsKeyDown(right) | state.IsKeyDown(left)))
@@ -201,7 +207,7 @@ namespace ProjectOneTwo
                     is_in_attack2 = true;
 
                     //attack uses A_timer
-                    A_timer = 480;
+                    A_timer = 240;
                     A_timer_length = A_timer;
                     A_pressed = true;
                 }               
@@ -282,7 +288,13 @@ namespace ProjectOneTwo
         {
             if (standing)
             {
-                if (tries_to_jump)
+                if (tries_to_jump && fall > 1f)
+                {
+                    is_in_jump = false;
+                    fall = 1f; //character can jump continuously
+                    
+                }
+                else if (tries_to_jump)
                 {
                     is_in_jump = true;
                     Game1.self.Sounds["jump"].Volume = 0.7f * Game1.self.effectsVolume;
