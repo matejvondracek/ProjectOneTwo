@@ -34,8 +34,8 @@ namespace ProjectOneTwo
         {
             images.Add("Agnes_Standing_Right", Game1.self.Content.Load<Texture2D>("agnes atlas/standing/Agnes_Standing_Right"));
             images.Add("Agnes_Standing_Left", Game1.self.Content.Load<Texture2D>("agnes atlas/standing/Agnes_Standing_Left"));
-            A_image_right = Game1.self.Content.Load<Texture2D>("melee_attack_right");
-            A_image_left = Game1.self.Content.Load<Texture2D>("melee_attack_left");
+            A_image_right = Game1.self.Content.Load<Texture2D>("effects/melee_attack_right");
+            A_image_left = Game1.self.Content.Load<Texture2D>("effects/melee_attack_left");
             image = images["Agnes_Standing_Right"];
             hitbox = new Rectangle(0, 0, 13 * 6, 16 * 6);
             drawbox = new Rectangle(0, 0, image.Width * 6, image.Height * 6);

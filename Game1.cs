@@ -60,13 +60,17 @@ namespace ProjectOneTwo
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            string[] files = { "Main_Theme", "The_Lobby_Music", "howling_wind", "female_scream", "dying", 
-                "jump", "footsteps_in_snow", "sword_swing", "sword_hit", "whoosh", "stone" };
-
+            string[] files = { "The_Game", "The_Lobby_Music" };
+         
             //loading sound and music
             foreach (string file in files)
             {
-                Sounds.Add(file, Content.Load<SoundEffect>(file).CreateInstance());
+                Sounds.Add(file, Content.Load<SoundEffect>("music/"+file).CreateInstance());
+            }
+            string[] files2 = { "howling_wind", "female_scream", "dying","jump", "footsteps_in_snow", "sword_swing", "sword_hit", "whoosh", "stone" };
+            foreach (string file in files2)
+            {
+                Sounds.Add(file, Content.Load<SoundEffect>("sound/"+file).CreateInstance()) ;
             }
 
             screenManager.LoadContent();

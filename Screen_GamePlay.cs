@@ -126,9 +126,9 @@ namespace ProjectOneTwo
 
             //playing music
 
-            Game1.self.Sounds["Main_Theme"].IsLooped = true;
-            Game1.self.Sounds["Main_Theme"].Volume = 1f * Game1.self.musicVolume;
-            Game1.self.Sounds["Main_Theme"].Play();
+            Game1.self.Sounds["The_Game"].IsLooped = true;
+            Game1.self.Sounds["The_Game"].Volume = 1f * Game1.self.musicVolume;
+            Game1.self.Sounds["The_Game"].Play();
 
             Game1.self.Sounds["howling_wind"].IsLooped = true;
             Game1.self.Sounds["howling_wind"].Volume = 0.1f * Game1.self.effectsVolume;

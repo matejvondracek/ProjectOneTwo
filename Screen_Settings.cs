@@ -27,14 +27,14 @@ namespace ProjectOneTwo
 
         public override void LoadContent()
         {
-            buttonSprites[0] = Game1.self.Content.Load<Texture2D>("button1_snow");
-            buttonSprites[1] = Game1.self.Content.Load<Texture2D>("button1");
+            buttonSprites[0] = Game1.self.Content.Load<Texture2D>("ui/button1_snow");
+            buttonSprites[1] = Game1.self.Content.Load<Texture2D>("ui/button1");
 
-            shortButtonSprites[0] = Game1.self.Content.Load<Texture2D>("button3_snow");
-            shortButtonSprites[1] = Game1.self.Content.Load<Texture2D>("button3");
+            shortButtonSprites[0] = Game1.self.Content.Load<Texture2D>("ui/button3_snow");
+            shortButtonSprites[1] = Game1.self.Content.Load<Texture2D>("ui/button3");
 
-            spriteFont = Game1.self.Content.Load<SpriteFont>("aApiNyala30");
-            buttonFont = Game1.self.Content.Load<SpriteFont>("aApiNyala200");
+            spriteFont = Game1.self.Content.Load<SpriteFont>("fonts/aApiNyala30");
+            buttonFont = Game1.self.Content.Load<SpriteFont>("fonts/aApiNyala200");
 
             backButton = new Button(Game1.PixelVector(10, 150), Game1.PixelVector(85, 170), buttonSprites);
             backButton.AddText("Back", buttonFont, 30, 0, Color.Black);
@@ -68,7 +68,7 @@ namespace ProjectOneTwo
             fpsToggle = new ToggleButton(Game1.PixelVector(10, 120), Game1.PixelVector(45, 140), shortButtonSprites, true);
             fpsToggle.DefineText("FPS on", "FPS off", buttonFont, 5, Color.Black);
 
-            background = Game1.self.Content.Load<Texture2D>("background_Default_smoothed");
+            background = Game1.self.Content.Load<Texture2D>("backgrounds/background_Default_smoothed");
         }
 
         public  override ScreenManager.GameState Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
