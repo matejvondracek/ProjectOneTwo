@@ -42,11 +42,11 @@ namespace ProjectOneTwo
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (imageDuration > 0)
-            {
-                imageDuration -= 1;
+            if ((imageDuration > 0) && (imageDuration < 20))
+            {               
                 spriteBatch.Draw(A_image, rectangle, Color.White);
-            }           
+            }   
+            imageDuration -= 1;        
         }
     }
 }

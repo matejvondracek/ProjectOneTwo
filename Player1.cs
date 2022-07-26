@@ -19,7 +19,7 @@ namespace ProjectOneTwo
         public int life, times_dead, facing = 1, A_timer = 0, A_image_timer, A_timer_length, stun_timer = 0;
         public Rectangle hitbox, drawbox;
         public bool dead, is_in_jump = false, standing, dash_charged, stunned = false;
-        public float Animation_Timer = 0, fall = 1f, A_wait;
+        public float Animation_Timer = 0, A_animation_timer = 1, fall = 1f, A_wait;
         float long_jump = 80;
         bool tries_to_jump = false, A_pressed = false, is_in_attack2 = false;
         public Attack attack;
@@ -162,7 +162,6 @@ namespace ProjectOneTwo
                     Game1.self.Sounds["sword_swing"].Volume = 1f * Game1.self.effectsVolume; ;
                     Game1.self.Sounds["sword_swing"].Play();
 
-
                     A_wait = 0f;
                 }
                 else
@@ -231,13 +230,32 @@ namespace ProjectOneTwo
                 else
                 {
                     is_in_attack2 = false;
+                    attack = null;
                 }
             }
         }
 
         public void ChangeImage()
         {
-            if (!is_in_jump && (state.IsKeyDown(right) | state.IsKeyDown(left)))
+            //character is attacking
+            if ((attack != null) || (A_animation_timer != 1))
+            {
+                if (A_animation_timer % 1 == 0)
+                {
+                    string file = "Agnes_Slash_";
+                    if (facing == -1) file += "Left0";
+                    else file += "Right0";
+
+                    file += A_animation_timer.ToString();
+
+                    image = Screen_GamePlay.dictionary[file];
+                }
+                A_animation_timer += 0.5f;
+                if (A_animation_timer == 9) A_animation_timer = 1;
+            }
+            
+            //character is running
+            else if (!is_in_jump && (state.IsKeyDown(right) | state.IsKeyDown(left)))
             {
                 if (Animation_Timer % 1 == 0)
                 {
@@ -258,8 +276,24 @@ namespace ProjectOneTwo
                 Animation_Timer += 0.25f;
                 if (Animation_Timer == 11) Animation_Timer = 0;
             }
-            
-            if (!(state.IsKeyDown(left)) && !(state.IsKeyDown(right)) && !is_in_jump)
+
+             //character is jumping in a direction
+            else if (is_in_jump && (state.IsKeyDown(left) || state.IsKeyDown(right)))
+            {
+                if (state.IsKeyDown(left))
+                {
+                    facing = -1;
+                    image = Screen_GamePlay.dictionary["Agnes_Left_Running10"];
+                }
+                if (state.IsKeyDown(right))
+                {
+                    facing = 1;
+                    image = Screen_GamePlay.dictionary["Agnes_Right_Running10"];
+                }
+            }
+
+            //character is standing
+            else if (!(state.IsKeyDown(left)) && !(state.IsKeyDown(right)) && !is_in_jump)
             {
                 switch(facing)
                 {
@@ -270,17 +304,7 @@ namespace ProjectOneTwo
                         image = images["Agnes_Standing_Right"];
                         break;
                 }
-            }
-            if (state.IsKeyDown(left) && is_in_jump)
-            {
-                facing = -1;
-                image = Screen_GamePlay.dictionary["Agnes_Left_Running10"];
-                 }
-            if (state.IsKeyDown(right) && is_in_jump)
-            {
-                facing = 1;
-                image = Screen_GamePlay.dictionary["Agnes_Right_Running10"];
-            }
+            }        
         }
 
 

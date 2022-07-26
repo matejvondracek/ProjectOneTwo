@@ -47,7 +47,7 @@ namespace ProjectOneTwo
             //graphics settings
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
-            //graphics.ToggleFullScreen();
+            graphics.ToggleFullScreen();
             graphics.ApplyChanges();
 
             screenManager.Initialize();  
