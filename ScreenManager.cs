@@ -67,6 +67,8 @@ namespace ProjectOneTwo
         public void Update(GameTime gameTime, KeyboardState keyboard, MouseState mouse)
         {
             GameState newState = Screens[gameState].Update(gameTime, keyboard, mouse);
+            if (keyboard.IsKeyDown(Keys.Escape))
+                newState = GameState.MainMenu;
             if ((newState != gameState) && (newState != GameState.Null))
             {
                 gameState = newState;
@@ -74,9 +76,6 @@ namespace ProjectOneTwo
             }
 
             fps.Update(gameTime);
-
-            if (keyboard.IsKeyDown(Keys.Escape))
-                Game1.self.Exit();
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

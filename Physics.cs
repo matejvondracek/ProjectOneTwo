@@ -9,7 +9,6 @@ public class Physics
     readonly List<Barrier> Obstacles = new List<Barrier>();
     readonly List<Player1> Entities = new List<Player1>(); 
     readonly List<Attack> Attacks = new List<Attack>();
-    Texture2D test;
 
     Vector2 gravity = new Vector2(0, 5);
 
@@ -33,8 +32,6 @@ public class Physics
         AddBarrier(0, 132, 46, 180);
         AddBarrier(82, 140, 230, 180);
         AddBarrier(274, 136, 320, 180);
-
-        test = Game1.self.Content.Load<Texture2D>("ui/healthbar1");
     }
 
 

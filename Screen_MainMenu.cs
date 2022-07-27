@@ -111,7 +111,7 @@ namespace ProjectOneTwo
             animationFactor = 1f;
 
             //music
-            if (Game1.self.Sounds.ContainsKey("Main_Theme")) Game1.self.Sounds["Main_Theme"].Stop();
+            if (Game1.self.Sounds.ContainsKey("The_Game")) Game1.self.Sounds["The_Game"].Stop();
 
             Game1.self.Sounds["The_Lobby_Music"].IsLooped = true;
             Game1.self.Sounds["The_Lobby_Music"].Volume = 1f * Game1.self.musicVolume;
